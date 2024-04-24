@@ -9,9 +9,13 @@ import SwiftUI
 
 @main
 struct MicroApp: App {
+//    init() {
+//        FirebaseApp.configure()
+//    }
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            SignIn()
+                .environment(\.layoutDirection, .rightToLeft)
         }
     }
 }
