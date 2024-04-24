@@ -7,16 +7,34 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		F3DAC4452BD143CB00E9EABF /* MicroApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3DAC4442BD143CB00E9EABF /* MicroApp.swift */; };
-		F3DAC4472BD143CB00E9EABF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3DAC4462BD143CB00E9EABF /* ContentView.swift */; };
+		C55387652BD9311C00D46A34 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55387642BD9311C00D46A34 /* ViewModel.swift */; };
+		C55387672BD9313A00D46A34 /* Dawriyah.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55387662BD9313A00D46A34 /* Dawriyah.swift */; };
+		C55387692BD9315500D46A34 /* peopleInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55387682BD9315500D46A34 /* peopleInfo.swift */; };
+		C553876B2BD9315D00D46A34 /* Groups.swift in Sources */ = {isa = PBXBuildFile; fileRef = C553876A2BD9315D00D46A34 /* Groups.swift */; };
+		C553876D2BD9316700D46A34 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = C553876C2BD9316700D46A34 /* Item.swift */; };
+		C553876F2BD931AC00D46A34 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C553876E2BD931AC00D46A34 /* CalendarView.swift */; };
+		C55387712BD931D000D46A34 /* DawriyahDaySheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55387702BD931D000D46A34 /* DawriyahDaySheet.swift */; };
+		C55387732BD931DB00D46A34 /* GroupsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55387722BD931DB00D46A34 /* GroupsView.swift */; };
+		C55387752BD931E700D46A34 /* peopleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55387742BD931E700D46A34 /* peopleView.swift */; };
+		C55387772BD931F200D46A34 /* CreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55387762BD931F200D46A34 /* CreateView.swift */; };
+		F3DAC4452BD143CB00E9EABF /* JamaahApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3DAC4442BD143CB00E9EABF /* JamaahApp.swift */; };
 		F3DAC4492BD143CD00E9EABF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3DAC4482BD143CD00E9EABF /* Assets.xcassets */; };
 		F3DAC44C2BD143CD00E9EABF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3DAC44B2BD143CD00E9EABF /* Preview Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C55387642BD9311C00D46A34 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		C55387662BD9313A00D46A34 /* Dawriyah.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dawriyah.swift; sourceTree = "<group>"; };
+		C55387682BD9315500D46A34 /* peopleInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = peopleInfo.swift; sourceTree = "<group>"; };
+		C553876A2BD9315D00D46A34 /* Groups.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Groups.swift; sourceTree = "<group>"; };
+		C553876C2BD9316700D46A34 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		C553876E2BD931AC00D46A34 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
+		C55387702BD931D000D46A34 /* DawriyahDaySheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DawriyahDaySheet.swift; sourceTree = "<group>"; };
+		C55387722BD931DB00D46A34 /* GroupsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsView.swift; sourceTree = "<group>"; };
+		C55387742BD931E700D46A34 /* peopleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = peopleView.swift; sourceTree = "<group>"; };
+		C55387762BD931F200D46A34 /* CreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateView.swift; sourceTree = "<group>"; };
 		F3DAC4412BD143CB00E9EABF /* Micro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Micro.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		F3DAC4442BD143CB00E9EABF /* MicroApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MicroApp.swift; sourceTree = "<group>"; };
-		F3DAC4462BD143CB00E9EABF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		F3DAC4442BD143CB00E9EABF /* JamaahApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JamaahApp.swift; sourceTree = "<group>"; };
 		F3DAC4482BD143CD00E9EABF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F3DAC44B2BD143CD00E9EABF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -32,6 +50,37 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C55387612BD930CD00D46A34 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				C553876E2BD931AC00D46A34 /* CalendarView.swift */,
+				C55387702BD931D000D46A34 /* DawriyahDaySheet.swift */,
+				C55387722BD931DB00D46A34 /* GroupsView.swift */,
+				C55387742BD931E700D46A34 /* peopleView.swift */,
+				C55387762BD931F200D46A34 /* CreateView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		C55387622BD930DA00D46A34 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				C55387662BD9313A00D46A34 /* Dawriyah.swift */,
+				C55387682BD9315500D46A34 /* peopleInfo.swift */,
+				C553876A2BD9315D00D46A34 /* Groups.swift */,
+				C553876C2BD9316700D46A34 /* Item.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		C55387632BD930EA00D46A34 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				C55387642BD9311C00D46A34 /* ViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		F3DAC4382BD143CB00E9EABF = {
 			isa = PBXGroup;
 			children = (
@@ -51,8 +100,10 @@
 		F3DAC4432BD143CB00E9EABF /* Micro */ = {
 			isa = PBXGroup;
 			children = (
-				F3DAC4442BD143CB00E9EABF /* MicroApp.swift */,
-				F3DAC4462BD143CB00E9EABF /* ContentView.swift */,
+				F3DAC4442BD143CB00E9EABF /* JamaahApp.swift */,
+				C55387632BD930EA00D46A34 /* ViewModel */,
+				C55387622BD930DA00D46A34 /* Models */,
+				C55387612BD930CD00D46A34 /* Views */,
 				F3DAC4482BD143CD00E9EABF /* Assets.xcassets */,
 				F3DAC44A2BD143CD00E9EABF /* Preview Content */,
 			);
@@ -137,8 +188,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F3DAC4472BD143CB00E9EABF /* ContentView.swift in Sources */,
-				F3DAC4452BD143CB00E9EABF /* MicroApp.swift in Sources */,
+				C55387692BD9315500D46A34 /* peopleInfo.swift in Sources */,
+				C553876B2BD9315D00D46A34 /* Groups.swift in Sources */,
+				C55387672BD9313A00D46A34 /* Dawriyah.swift in Sources */,
+				C55387652BD9311C00D46A34 /* ViewModel.swift in Sources */,
+				C553876F2BD931AC00D46A34 /* CalendarView.swift in Sources */,
+				F3DAC4452BD143CB00E9EABF /* JamaahApp.swift in Sources */,
+				C55387772BD931F200D46A34 /* CreateView.swift in Sources */,
+				C55387712BD931D000D46A34 /* DawriyahDaySheet.swift in Sources */,
+				C553876D2BD9316700D46A34 /* Item.swift in Sources */,
+				C55387752BD931E700D46A34 /* peopleView.swift in Sources */,
+				C55387732BD931DB00D46A34 /* GroupsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
