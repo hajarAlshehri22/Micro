@@ -6,14 +6,16 @@
 //
 
 import SwiftUI
+import FirebaseCore
 
 @main
 struct MicroApp: App {
-//    init() {
-//        FirebaseApp.configure()
-//    }
+    init() {
+            FirebaseApp.configure()
+        }
     var body: some Scene {
         WindowGroup {
+            
             PickGatheringDay_Sheet()
                 .environment(\.layoutDirection, .rightToLeft)
         }
