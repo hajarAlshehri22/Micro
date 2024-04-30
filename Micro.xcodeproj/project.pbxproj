@@ -7,6 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B2A80192BE11DC1002C6F23 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2A80182BE11DC1002C6F23 /* ViewModel.swift */; };
+		0B2A801B2BE11DCC002C6F23 /* peopleInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2A801A2BE11DCC002C6F23 /* peopleInfo.swift */; };
+		0B2A801D2BE11DD9002C6F23 /* Groups.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2A801C2BE11DD9002C6F23 /* Groups.swift */; };
+		0B2A801F2BE11DE2002C6F23 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2A801E2BE11DE2002C6F23 /* Item.swift */; };
+		0B2A80212BE11E0D002C6F23 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2A80202BE11E0D002C6F23 /* CalendarView.swift */; };
+		0B2A80232BE11E1A002C6F23 /* HangDaySheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2A80222BE11E1A002C6F23 /* HangDaySheet.swift */; };
+		0B2A80252BE11E1F002C6F23 /* GroupsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2A80242BE11E1F002C6F23 /* GroupsView.swift */; };
+		0B2A80272BE11E24002C6F23 /* peopleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2A80262BE11E24002C6F23 /* peopleView.swift */; };
+		0B2A80292BE11E2A002C6F23 /* CreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2A80282BE11E2A002C6F23 /* CreateView.swift */; };
+		0B2A802B2BE11E30002C6F23 /* InfroHang.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2A802A2BE11E30002C6F23 /* InfroHang.swift */; };
+		0B2A802D2BE11EDA002C6F23 /* Dawriyah.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2A802C2BE11EDA002C6F23 /* Dawriyah.swift */; };
+		0B2A802F2BE12D52002C6F23 /* BusyMembers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2A802E2BE12D52002C6F23 /* BusyMembers.swift */; };
 		290671072BD933CA005AA839 /* SignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290671062BD933CA005AA839 /* SignIn.swift */; };
 		290671092BD9341A005AA839 /* CardsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290671082BD9341A005AA839 /* CardsPage.swift */; };
 		2906710B2BD93448005AA839 /* Entertainment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2906710A2BD93448005AA839 /* Entertainment.swift */; };
@@ -24,6 +36,18 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0B2A80182BE11DC1002C6F23 /* ViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewModel.swift; path = ../../../Downloads/Micro/Micro/ViewModel/ViewModel.swift; sourceTree = "<group>"; };
+		0B2A801A2BE11DCC002C6F23 /* peopleInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = peopleInfo.swift; path = ../../../Downloads/Micro/Micro/Models/peopleInfo.swift; sourceTree = "<group>"; };
+		0B2A801C2BE11DD9002C6F23 /* Groups.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Groups.swift; path = ../../../Downloads/Micro/Micro/Models/Groups.swift; sourceTree = "<group>"; };
+		0B2A801E2BE11DE2002C6F23 /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Item.swift; path = ../../../Downloads/Micro/Micro/Models/Item.swift; sourceTree = "<group>"; };
+		0B2A80202BE11E0D002C6F23 /* CalendarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CalendarView.swift; path = ../../../Downloads/Micro/Micro/Views/CalendarView.swift; sourceTree = "<group>"; };
+		0B2A80222BE11E1A002C6F23 /* HangDaySheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HangDaySheet.swift; path = ../../../Downloads/Micro/Micro/Views/HangDaySheet.swift; sourceTree = "<group>"; };
+		0B2A80242BE11E1F002C6F23 /* GroupsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GroupsView.swift; path = ../../../Downloads/Micro/Micro/Views/GroupsView.swift; sourceTree = "<group>"; };
+		0B2A80262BE11E24002C6F23 /* peopleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = peopleView.swift; path = ../../../Downloads/Micro/Micro/Views/peopleView.swift; sourceTree = "<group>"; };
+		0B2A80282BE11E2A002C6F23 /* CreateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CreateView.swift; path = ../../../Downloads/Micro/Micro/Views/CreateView.swift; sourceTree = "<group>"; };
+		0B2A802A2BE11E30002C6F23 /* InfroHang.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InfroHang.swift; path = ../../../Downloads/Micro/Micro/Views/InfroHang.swift; sourceTree = "<group>"; };
+		0B2A802C2BE11EDA002C6F23 /* Dawriyah.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Dawriyah.swift; path = ../../../Downloads/Micro/Micro/Models/Dawriyah.swift; sourceTree = "<group>"; };
+		0B2A802E2BE12D52002C6F23 /* BusyMembers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusyMembers.swift; sourceTree = "<group>"; };
 		290671062BD933CA005AA839 /* SignIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SignIn.swift; path = ../SignIn.swift; sourceTree = "<group>"; };
 		290671082BD9341A005AA839 /* CardsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsPage.swift; sourceTree = "<group>"; };
 		2906710A2BD93448005AA839 /* Entertainment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entertainment.swift; sourceTree = "<group>"; };
@@ -82,10 +106,22 @@
 				2906710C2BD9348E005AA839 /* SplashScreen.swift */,
 				2906710A2BD93448005AA839 /* Entertainment.swift */,
 				290671082BD9341A005AA839 /* CardsPage.swift */,
-				290671192BD9375F005AA839 /* GoogleService-Info.plist */,
 				290671062BD933CA005AA839 /* SignIn.swift */,
 				F3DAC4442BD143CB00E9EABF /* MicroApp.swift */,
+				0B2A80182BE11DC1002C6F23 /* ViewModel.swift */,
+				0B2A801A2BE11DCC002C6F23 /* peopleInfo.swift */,
+				0B2A801C2BE11DD9002C6F23 /* Groups.swift */,
+				0B2A801E2BE11DE2002C6F23 /* Item.swift */,
+				0B2A80202BE11E0D002C6F23 /* CalendarView.swift */,
+				0B2A80222BE11E1A002C6F23 /* HangDaySheet.swift */,
+				0B2A80242BE11E1F002C6F23 /* GroupsView.swift */,
+				0B2A80262BE11E24002C6F23 /* peopleView.swift */,
+				0B2A80282BE11E2A002C6F23 /* CreateView.swift */,
+				0B2A802C2BE11EDA002C6F23 /* Dawriyah.swift */,
+				0B2A802E2BE12D52002C6F23 /* BusyMembers.swift */,
+				0B2A802A2BE11E30002C6F23 /* InfroHang.swift */,
 				F3DAC4482BD143CD00E9EABF /* Assets.xcassets */,
+				290671192BD9375F005AA839 /* GoogleService-Info.plist */,
 				F3DAC44A2BD143CD00E9EABF /* Preview Content */,
 			);
 			path = Micro;
@@ -181,11 +217,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B2A80212BE11E0D002C6F23 /* CalendarView.swift in Sources */,
 				2906710D2BD9348E005AA839 /* SplashScreen.swift in Sources */,
+				0B2A802D2BE11EDA002C6F23 /* Dawriyah.swift in Sources */,
+				0B2A801F2BE11DE2002C6F23 /* Item.swift in Sources */,
 				2906710B2BD93448005AA839 /* Entertainment.swift in Sources */,
+				0B2A80292BE11E2A002C6F23 /* CreateView.swift in Sources */,
+				0B2A802F2BE12D52002C6F23 /* BusyMembers.swift in Sources */,
 				F3DAC4452BD143CB00E9EABF /* MicroApp.swift in Sources */,
+				0B2A801B2BE11DCC002C6F23 /* peopleInfo.swift in Sources */,
+				0B2A80272BE11E24002C6F23 /* peopleView.swift in Sources */,
+				0B2A802B2BE11E30002C6F23 /* InfroHang.swift in Sources */,
+				0B2A80252BE11E1F002C6F23 /* GroupsView.swift in Sources */,
 				290671092BD9341A005AA839 /* CardsPage.swift in Sources */,
+				0B2A80192BE11DC1002C6F23 /* ViewModel.swift in Sources */,
+				0B2A80232BE11E1A002C6F23 /* HangDaySheet.swift in Sources */,
 				290671072BD933CA005AA839 /* SignIn.swift in Sources */,
+				0B2A801D2BE11DD9002C6F23 /* Groups.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -319,7 +367,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Micro/Preview Content\"";
-				DEVELOPMENT_TEAM = WD88Q977CN;
+				DEVELOPMENT_TEAM = SQ6F9W6U42;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -348,7 +396,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Micro/Preview Content\"";
-				DEVELOPMENT_TEAM = WD88Q977CN;
+				DEVELOPMENT_TEAM = SQ6F9W6U42;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
