@@ -14,7 +14,7 @@ struct MicroApp: App {
 //    }
     var body: some Scene {
         WindowGroup {
-            SignIn()
+            PickGatheringDay_Sheet()
                 .environment(\.layoutDirection, .rightToLeft)
         }
     }

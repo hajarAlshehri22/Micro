@@ -21,6 +21,7 @@
 		F3DAC4452BD143CB00E9EABF /* MicroApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3DAC4442BD143CB00E9EABF /* MicroApp.swift */; };
 		F3DAC4492BD143CD00E9EABF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3DAC4482BD143CD00E9EABF /* Assets.xcassets */; };
 		F3DAC44C2BD143CD00E9EABF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3DAC44B2BD143CD00E9EABF /* Preview Assets.xcassets */; };
+		F3F78B362BDE258500135E1F /* gathering_Sheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F78B352BDE258500135E1F /* gathering_Sheet.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +34,7 @@
 		F3DAC4442BD143CB00E9EABF /* MicroApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MicroApp.swift; sourceTree = "<group>"; };
 		F3DAC4482BD143CD00E9EABF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F3DAC44B2BD143CD00E9EABF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		F3F78B352BDE258500135E1F /* gathering_Sheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = gathering_Sheet.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +86,7 @@
 				290671082BD9341A005AA839 /* CardsPage.swift */,
 				290671192BD9375F005AA839 /* GoogleService-Info.plist */,
 				290671062BD933CA005AA839 /* SignIn.swift */,
+				F3F78B352BDE258500135E1F /* gathering_Sheet.swift */,
 				F3DAC4442BD143CB00E9EABF /* MicroApp.swift */,
 				F3DAC4482BD143CD00E9EABF /* Assets.xcassets */,
 				F3DAC44A2BD143CD00E9EABF /* Preview Content */,
@@ -186,6 +189,7 @@
 				F3DAC4452BD143CB00E9EABF /* MicroApp.swift in Sources */,
 				290671092BD9341A005AA839 /* CardsPage.swift in Sources */,
 				290671072BD933CA005AA839 /* SignIn.swift in Sources */,
+				F3F78B362BDE258500135E1F /* gathering_Sheet.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -319,7 +323,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Micro/Preview Content\"";
-				DEVELOPMENT_TEAM = WD88Q977CN;
+				DEVELOPMENT_TEAM = 557855FSBN;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -348,7 +352,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Micro/Preview Content\"";
-				DEVELOPMENT_TEAM = WD88Q977CN;
+				DEVELOPMENT_TEAM = 557855FSBN;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
