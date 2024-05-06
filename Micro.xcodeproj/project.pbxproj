@@ -17,6 +17,8 @@
 		290671162BD935B3005AA839 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 290671152BD935B3005AA839 /* FirebaseAnalyticsWithoutAdIdSupport */; };
 		290671182BD935B3005AA839 /* FirebaseAppCheck in Frameworks */ = {isa = PBXBuildFile; productRef = 290671172BD935B3005AA839 /* FirebaseAppCheck */; };
 		2906711D2BD9398D005AA839 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 2906711C2BD9398D005AA839 /* FirebaseAuth */; };
+		F38B8FDE2BE791D20082A14C /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38B8FDD2BE791D20082A14C /* UserInfo.swift */; };
+		F38B8FE02BE8FBFD0082A14C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F38B8FDF2BE8FBFD0082A14C /* GoogleService-Info.plist */; };
 		F3DAC4452BD143CB00E9EABF /* MicroApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3DAC4442BD143CB00E9EABF /* MicroApp.swift */; };
 		F3DAC4492BD143CD00E9EABF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3DAC4482BD143CD00E9EABF /* Assets.xcassets */; };
 		F3DAC44C2BD143CD00E9EABF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3DAC44B2BD143CD00E9EABF /* Preview Assets.xcassets */; };
@@ -28,12 +30,14 @@
 		290671082BD9341A005AA839 /* CardsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsPage.swift; sourceTree = "<group>"; };
 		2906710A2BD93448005AA839 /* Entertainment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entertainment.swift; sourceTree = "<group>"; };
 		2906710C2BD9348E005AA839 /* SplashScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreen.swift; sourceTree = "<group>"; };
+		F38B8FDD2BE791D20082A14C /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
+		F38B8FDF2BE8FBFD0082A14C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F3DAC4412BD143CB00E9EABF /* Micro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Micro.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3DAC4442BD143CB00E9EABF /* MicroApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MicroApp.swift; sourceTree = "<group>"; };
 		F3DAC4482BD143CD00E9EABF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F3DAC44B2BD143CD00E9EABF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		F3F78B352BDE258500135E1F /* gathering_Sheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = gathering_Sheet.swift; sourceTree = "<group>"; };
-		F3F78B3A2BE11FFF00135E1F /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "Model/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		F3F78B3B2BE2CFF700135E1F /* Micro.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Micro.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,9 +84,10 @@
 		F3DAC4432BD143CB00E9EABF /* Micro */ = {
 			isa = PBXGroup;
 			children = (
+				F3F78B3B2BE2CFF700135E1F /* Micro.entitlements */,
+				F38B8FDF2BE8FBFD0082A14C /* GoogleService-Info.plist */,
 				F3F78B382BE11E9D00135E1F /* view */,
 				F3F78B372BE11E8F00135E1F /* Model */,
-				F3F78B3A2BE11FFF00135E1F /* GoogleService-Info.plist */,
 				F3F78B392BE11EAE00135E1F /* ViewModel */,
 				F3DAC4442BD143CB00E9EABF /* MicroApp.swift */,
 				F3DAC4482BD143CD00E9EABF /* Assets.xcassets */,
@@ -114,6 +119,7 @@
 				290671082BD9341A005AA839 /* CardsPage.swift */,
 				290671062BD933CA005AA839 /* SignIn.swift */,
 				F3F78B352BDE258500135E1F /* gathering_Sheet.swift */,
+				F38B8FDD2BE791D20082A14C /* UserInfo.swift */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -196,6 +202,7 @@
 			files = (
 				F3DAC44C2BD143CD00E9EABF /* Preview Assets.xcassets in Resources */,
 				F3DAC4492BD143CD00E9EABF /* Assets.xcassets in Resources */,
+				F38B8FE02BE8FBFD0082A14C /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -211,6 +218,7 @@
 				F3DAC4452BD143CB00E9EABF /* MicroApp.swift in Sources */,
 				290671092BD9341A005AA839 /* CardsPage.swift in Sources */,
 				290671072BD933CA005AA839 /* SignIn.swift in Sources */,
+				F38B8FDE2BE791D20082A14C /* UserInfo.swift in Sources */,
 				F3F78B362BDE258500135E1F /* gathering_Sheet.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -342,6 +350,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Micro/Micro.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Micro/Preview Content\"";
@@ -371,6 +380,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Micro/Micro.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Micro/Preview Content\"";
