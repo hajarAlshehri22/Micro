@@ -6,12 +6,13 @@
 //
 
 import SwiftUI
+import Firebase
+import FirebaseFirestore
 
 @main
 struct MicroApp: App {
-//    init() {
-//        FirebaseApp.configure()
-//    }
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+    
     var body: some Scene {
         WindowGroup {
             SignIn()
@@ -19,3 +20,14 @@ struct MicroApp: App {
         }
     }
 }
+
+class AppDelegate: NSObject, UIApplicationDelegate {
+    var db: Firestore! // Declare Firestore instance
+    
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
+        FirebaseApp.configure()
+        db = Firestore.firestore() // Initialize Firestore
+        return true
+    }
+}
+

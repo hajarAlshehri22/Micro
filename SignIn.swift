@@ -3,7 +3,8 @@
 //  Micro
 //
 //  Created by Shahad Alzowaid on 15/10/1445 AH.
-//
+
+
 
 import SwiftUI
 import AuthenticationServices
@@ -19,29 +20,29 @@ struct SignIn: View {
                 Image("Splash") // Background image
                 
                 VStack {
-                    Image("Jammah")
-                        .resizable()
-                        .frame(width: 270, height: 100).padding(.top, 200)
+           Image("Jammah")
+            .resizable()
+            .frame(width: 270, height: 100).padding(.top, 200)
                         
                     Image("Slogan")
                         .resizable()
                         .frame(width: 350, height: 80).padding(.bottom, 40)
-                    Text("خطط لجمعاتك وخلها أمتع .. مع جَمعة ").padding(.bottom, 190)
+            Text("خطط لجمعاتك وخلها أمتع .. مع جَمعة ").padding(.bottom, 190)
                     
                     // Sign In with Apple Button
-                    SignInWithAppleButton(.signIn) { request in
+        SignInWithAppleButton(.signIn) { request in
                         // Configure the request
-                        request.requestedScopes = [.fullName, .email]
+        request.requestedScopes = [.fullName, .email]
                     } onCompletion: { result in
-                        switch result {
-                        case .success(let auth):
-                            // Handle authorization success
-                            if let credential = auth.credential as? ASAuthorizationAppleIDCredential {
-                                handleAppleSignIn(credential: credential)
+            switch result {
+            case .success(let auth):
+        // Handle authorization success
+            if let credential = auth.credential as? ASAuthorizationAppleIDCredential {
+            handleAppleSignIn(credential: credential)
                             }
-                        case .failure(let error):
+        case .failure(let error):
                             // Handle error
-                            print("Authentication error: \(error.localizedDescription)")
+        print("Authentication error: \(error.localizedDescription)")
                         }
                     }
                     .frame(width: 280, height: 50)
@@ -74,8 +75,8 @@ struct SignIn: View {
             return
         }
         let firebaseCredential = OAuthProvider.credential(withProviderID: "apple.com",
-                                                          idToken: idTokenString,
-                                                          rawNonce: nil) // Specify the rawNonce if you are using it
+                                                idToken: idTokenString,
+                                                rawNonce: nil) // Specify the rawNonce if you are using it
         
         Auth.auth().signIn(with: firebaseCredential) { (authResult, error) in
             if let error = error {

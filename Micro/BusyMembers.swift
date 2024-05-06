@@ -18,7 +18,7 @@ struct BusyMembers: View {
             
     VStack{
         Rectangle()
-        .foregroundColor(.gray)
+        .foregroundColor(.purple)
                     .frame(width:350,height: 1)
                     .padding()
                 
@@ -31,7 +31,7 @@ struct BusyMembers: View {
                 
                 Spacer()
 
-                               // Display busy members
+            // Display busy members
         ForEach(busyMembers, id: \.name) { person in
                     HStack(alignment: .top) {
                          
@@ -69,7 +69,7 @@ struct BusyMembers: View {
             Image(systemName: "plus.circle")
             .font(.largeTitle)
             .foregroundColor(Color("LightPurple"))
-            .padding(.top,85)
+            .padding(.top,90)
                 }
 
                 

@@ -6,3 +6,10 @@
 //
 
 import Foundation
+import Firebase
+
+struct EventDetails: Identifiable, Codable{
+    var id: String
+    var name: String
+    var Location: String
+}
