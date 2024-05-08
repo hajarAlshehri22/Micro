@@ -58,14 +58,14 @@ struct UserInfo: View {
                             VStack {
                                 HStack {
                                     // Each button now toggles the selected image state when clicked
-                                    imageButton(id: 1, imageName: "image1")
-                                    imageButton(id: 2, imageName: "image2")
-                                    imageButton(id: 3, imageName: "image3")
+                                    imageButton(id: 1, imageName: "memoji1")
+                                    imageButton(id: 2, imageName: "memoji2")
+                                    imageButton(id: 3, imageName: "memoji3")
                                 }
                                 HStack {
-                                    imageButton(id: 4, imageName: "image4")
-                                    imageButton(id: 5, imageName: "image5")
-                                    imageButton(id: 6, imageName: "image6")
+                                    imageButton(id: 4, imageName: "memoji4")
+                                    imageButton(id: 5, imageName: "memoji5")
+                                    imageButton(id: 6, imageName: "memoji6")
                                     
                                     
                                 }
@@ -79,8 +79,7 @@ struct UserInfo: View {
                         
                         
                     }
-                    
-                    
+
                     
                 }
                 .padding(.bottom)
@@ -88,7 +87,7 @@ struct UserInfo: View {
                     
                 }
                 .frame(width: 189, height: 48)
-                .background(Color("AccentColor")) // Using custom accent color
+                .background(Color("SecB"))
                 .foregroundColor(.white)
                 .cornerRadius(24)
             }

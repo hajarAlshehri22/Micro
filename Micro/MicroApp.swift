@@ -17,7 +17,7 @@ struct MicroApp: App {
     var body: some Scene {
         WindowGroup {
             
-            UserInfo()
+            CreateView()
                 .environment(\.layoutDirection, .rightToLeft)
         }
         
@@ -25,12 +25,4 @@ struct MicroApp: App {
     
 }
 
-class AppDelegate: NSObject, UIApplicationDelegate {
-    var db: Firestore! // Declare Firestore instance
-    
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
-        FirebaseApp.configure()
-        db = Firestore.firestore() // Initialize Firestore
-        return true
-    }
-}
+
