@@ -11,7 +11,7 @@ struct UserInfo: View {
     @State private var name: String = ""
     @State private var selectedImage: Int?
     var body: some View {
-       
+        
         ZStack {
             Image("Splash")
             VStack {
@@ -54,45 +54,62 @@ struct UserInfo: View {
                                 .frame(width: 280, height: 180)
                                 .shadow(radius: 10) // Adding a shadow for better visibility
                                 .cornerRadius(20)
-                          
+                            
                             VStack {
-                                           HStack {
-                                               // Each button now toggles the selected image state when clicked
-                                               imageButton(id: 1, imageName: "image1")
-                                               imageButton(id: 2, imageName: "image2")
-                                               imageButton(id: 3, imageName: "image3")
-                                           }
-                                           HStack {
-                                               imageButton(id: 4, imageName: "image4")
-                                               imageButton(id: 5, imageName: "image5")
-                                               imageButton(id: 6, imageName: "image6")
-                                           }
-                                       }
+                                HStack {
+                                    // Each button now toggles the selected image state when clicked
+                                    imageButton(id: 1, imageName: "image1")
+                                    imageButton(id: 2, imageName: "image2")
+                                    imageButton(id: 3, imageName: "image3")
+                                }
+                                HStack {
+                                    imageButton(id: 4, imageName: "image4")
+                                    imageButton(id: 5, imageName: "image5")
+                                    imageButton(id: 6, imageName: "image6")
+                                    
+                                    
+                                }
+                                
+                            }
+                            
+                            
                         }
+                        
+                        
+                        
+                        
                     }
                     
                     
                     
                 }
+                .padding(.bottom)
+                Button("التالي") {
+                    
+                }
+                .frame(width: 189, height: 48)
+                .background(Color("AccentColor")) // Using custom accent color
+                .foregroundColor(.white)
+                .cornerRadius(24)
             }
         }
     }
     func imageButton(id: Int, imageName: String) -> some View {
-            Button(action: {
-                // Toggle selected image
-                self.selectedImage = id
-            }) {
-                Image(imageName)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 80, height: 80)
-                    .clipShape(Circle())
-                    .overlay(
-                        Circle()
-                            .stroke(Color("AccentColor"), lineWidth: selectedImage == id ? 4 : 0)
-                    )
-            }
-        }}
+        Button(action: {
+            // Toggle selected image
+            self.selectedImage = id
+        }) {
+            Image(imageName)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 80, height: 80)
+                .clipShape(Circle())
+                .overlay(
+                    Circle()
+                        .stroke(Color("AccentColor"), lineWidth: selectedImage == id ? 4 : 0)
+                )
+        }
+    }}
 
 
 

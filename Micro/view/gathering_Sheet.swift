@@ -161,8 +161,6 @@ class GatheringViewController: UIViewController, MKMapViewDelegate, UISearchBarD
         ])
     }
 
-   
-
 
     func setupURLLabel() {
         urlLabel.numberOfLines = 0
@@ -215,4 +213,6 @@ class GatheringViewController: UIViewController, MKMapViewDelegate, UISearchBarD
             self.locationLabel.text = "Selected Location: \(locationInfo)"
         }
     }
+    
+    
 }
