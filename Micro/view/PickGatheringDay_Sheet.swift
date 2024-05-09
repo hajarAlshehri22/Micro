@@ -11,13 +11,14 @@ import MapKit
 struct PickGatheringDay_Sheet: View {
     @State private var gatheringName: String = ""
     @State private var selectedDate: Date = Date()
+    @State private var showingConfirmationAlert = false
     @State private var region = MKCoordinateRegion(
         center: CLLocationCoordinate2D(latitude: 34.0522, longitude: -118.2437),
         span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
     )
     @State private var locationURL: String?
     @State private var searchText: String = ""
-
+    
     var body: some View {
         NavigationView {
             Form {
@@ -29,32 +30,51 @@ struct PickGatheringDay_Sheet: View {
                 }
                 Section(header: Text("مكان الجَمعة :")) {
                     TextField("ابحث عن مكان لجمعتكم ..", text: $searchText, onCommit: performSearch)
-                
-             
+                    
+                    
                     ZStack(alignment: .center) {
                         Map(coordinateRegion: $region, interactionModes: .all)
                             .frame(height: 300)
                         Image(systemName: "mappin.and.ellipse")
                             .foregroundColor(.red)
                             .offset(y: -6) // You may need to adjust this value to better align the pin
-                            
-
+                        
+                        
                     }
                     
                     
                     
-                        Button("تأكيد المكان") {
-                            generateLocationURL()
+                    Button("تأكيد المكان") {
+                        generateLocationURL()
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { // Ensure URL generation completes.
+                            if let url = locationURL {
+                                print("Attempting to save: Name: \(gatheringName), Date: \(selectedDate), URL: \(url)")
+                                FirestoreManager.shared.saveEvent(name: gatheringName, date: selectedDate, locationURL: url) { error in
+                                    if let error = error {
+                                        print("Error saving event: \(error.localizedDescription)")
+                                    } else {
+                                        showingConfirmationAlert = true
+                                        print("Event saved successfully.")
+                                    }
+                                }
+                            } else {
+                                print("Location URL is nil, cannot save event.")
+                            }
                         }
-                        .frame(width: 189, height: 48)
-                        .background(Color("AccentColor")) // Using custom accent color
-                        .foregroundColor(.white)
-                        .cornerRadius(24)
-                        .padding(.horizontal) // Centers the button horizontally within the section
-                        .padding(.leading,50)
-                        
+                    }
+                    .frame(width: 189, height: 48)
+                    .background(Color("AccentColor"))
+                    .foregroundColor(.white)
+                    .cornerRadius(24)
+                    .padding(.horizontal) // Centers the button horizontally within the section
+                    .padding(.leading,50)
+                    .alert(isPresented: $showingConfirmationAlert) {
+                        Alert(title: Text("Success"), message: Text("Your event has been saved."), dismissButton: .default(Text("OK")))
+                    }
 
-
+                    
+                    
+                    
                     
                 }
                 
@@ -62,7 +82,7 @@ struct PickGatheringDay_Sheet: View {
                     Section {
                         Text("الموقع : ")
                         Link(url, destination: URL(string: url)!)
-                       
+                        
                     }
                     
                 }
@@ -71,7 +91,7 @@ struct PickGatheringDay_Sheet: View {
             .navigationBarTitle("إضافة جمعة", displayMode: .inline)
         }
     }
-
+    
     func performSearch() {
         let searchRequest = MKLocalSearch.Request()
         searchRequest.naturalLanguageQuery = searchText
@@ -83,10 +103,12 @@ struct PickGatheringDay_Sheet: View {
             
         }
     }
-
+    
     func generateLocationURL() {
         let coordinate = region.center
         locationURL = "https://www.google.com/maps/search/?api=1&query=\(coordinate.latitude),\(coordinate.longitude)"
+        
+        
     }
 }
 

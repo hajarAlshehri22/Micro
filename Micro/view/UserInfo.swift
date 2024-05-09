@@ -10,6 +10,8 @@ import SwiftUI
 struct UserInfo: View {
     @State private var name: String = ""
     @State private var selectedImage: Int?
+    @State private var NavigateToCalendar = false  // State to control navigation
+    
     var body: some View {
         
         ZStack {
@@ -79,17 +81,23 @@ struct UserInfo: View {
                         
                         
                     }
-
+                    
                     
                 }
                 .padding(.bottom)
                 Button("التالي") {
-                    
+                    NavigateToCalendar = true
                 }
                 .frame(width: 189, height: 48)
                 .background(Color("SecB"))
                 .foregroundColor(.white)
                 .cornerRadius(24)
+                .disabled(name.isEmpty || selectedImage == nil)  // Disable the button if the name is empty or no image has been selected
+                // Navigation link controlled by `NavigateToCalendar`
+                NavigationLink(destination: calenderView(), isActive: $NavigateToCalendar) {
+                    EmptyView()
+                }
+                .hidden()
             }
         }
     }

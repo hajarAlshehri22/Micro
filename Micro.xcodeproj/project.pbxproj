@@ -27,6 +27,7 @@
 		F38B8FED2BEBAF1D0082A14C /* peopleInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38B8FEB2BEBAF1D0082A14C /* peopleInfo.swift */; };
 		F38B8FF22BEBAFF30082A14C /* CreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38B8FEF2BEBAFF20082A14C /* CreateView.swift */; };
 		F38B8FF32BEBAFF30082A14C /* peopleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38B8FF02BEBAFF30082A14C /* peopleView.swift */; };
+		F38B8FF52BECC7230082A14C /* FirestoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38B8FF42BECC7230082A14C /* FirestoreManager.swift */; };
 		F3DAC4452BD143CB00E9EABF /* MicroApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3DAC4442BD143CB00E9EABF /* MicroApp.swift */; };
 		F3DAC4492BD143CD00E9EABF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3DAC4482BD143CD00E9EABF /* Assets.xcassets */; };
 		F3DAC44C2BD143CD00E9EABF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3DAC44B2BD143CD00E9EABF /* Preview Assets.xcassets */; };
@@ -47,6 +48,7 @@
 		F38B8FEB2BEBAF1D0082A14C /* peopleInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = peopleInfo.swift; sourceTree = "<group>"; };
 		F38B8FEF2BEBAFF20082A14C /* CreateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateView.swift; sourceTree = "<group>"; };
 		F38B8FF02BEBAFF30082A14C /* peopleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = peopleView.swift; sourceTree = "<group>"; };
+		F38B8FF42BECC7230082A14C /* FirestoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreManager.swift; sourceTree = "<group>"; };
 		F3DAC4442BD143CB00E9EABF /* MicroApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MicroApp.swift; sourceTree = "<group>"; };
 		F3DAC4482BD143CD00E9EABF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F3DAC44B2BD143CD00E9EABF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -141,6 +143,7 @@
 			isa = PBXGroup;
 			children = (
 				F38B8FE12BE90BFD0082A14C /* Event.swift */,
+				F38B8FF42BECC7230082A14C /* FirestoreManager.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -230,6 +233,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F38B8FE22BE90BFD0082A14C /* Event.swift in Sources */,
+				F38B8FF52BECC7230082A14C /* FirestoreManager.swift in Sources */,
 				2906710D2BD9348E005AA839 /* SplashScreen.swift in Sources */,
 				2906710B2BD93448005AA839 /* Entertainment.swift in Sources */,
 				F38B8FEC2BEBAF1D0082A14C /* Groups.swift in Sources */,
