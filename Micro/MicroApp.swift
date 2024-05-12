@@ -17,7 +17,7 @@ struct MicroApp: App {
     var body: some Scene {
         WindowGroup {
             
-            SplashScreen()
+            calenderView()
                 .environment(\.layoutDirection, .rightToLeft)
         }
         
