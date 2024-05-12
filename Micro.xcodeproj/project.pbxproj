@@ -37,6 +37,7 @@
 		F38B90032BF0E4C50082A14C /* theBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38B90002BF0E4C50082A14C /* theBar.swift */; };
 		F38B90042BF0E4C50082A14C /* tabItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38B90012BF0E4C50082A14C /* tabItems.swift */; };
 		F38B90052BF0E4C50082A14C /* theTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38B90022BF0E4C50082A14C /* theTabBar.swift */; };
+		F38B90072BF0E7410082A14C /* BusyMembers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38B90062BF0E7410082A14C /* BusyMembers.swift */; };
 		F3DAC4452BD143CB00E9EABF /* MicroApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3DAC4442BD143CB00E9EABF /* MicroApp.swift */; };
 		F3DAC4492BD143CD00E9EABF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3DAC4482BD143CD00E9EABF /* Assets.xcassets */; };
 		F3DAC44C2BD143CD00E9EABF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3DAC44B2BD143CD00E9EABF /* Preview Assets.xcassets */; };
@@ -62,6 +63,7 @@
 		F38B90002BF0E4C50082A14C /* theBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = theBar.swift; sourceTree = "<group>"; };
 		F38B90012BF0E4C50082A14C /* tabItems.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = tabItems.swift; sourceTree = "<group>"; };
 		F38B90022BF0E4C50082A14C /* theTabBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = theTabBar.swift; sourceTree = "<group>"; };
+		F38B90062BF0E7410082A14C /* BusyMembers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusyMembers.swift; sourceTree = "<group>"; };
 		F3DAC4442BD143CB00E9EABF /* MicroApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MicroApp.swift; sourceTree = "<group>"; };
 		F3DAC4482BD143CD00E9EABF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F3DAC44B2BD143CD00E9EABF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -115,8 +117,6 @@
 				F38B8FDF2BE8FBFD0082A14C /* GoogleService-Info.plist */,
 				F3F78B382BE11E9D00135E1F /* view */,
 				F3F78B372BE11E8F00135E1F /* Model */,
-				F38B8FEA2BEBAF1D0082A14C /* Groups.swift */,
-				F38B8FEB2BEBAF1D0082A14C /* peopleInfo.swift */,
 				F3F78B392BE11EAE00135E1F /* ViewModel */,
 				F3DAC4442BD143CB00E9EABF /* MicroApp.swift */,
 				F3DAC4482BD143CD00E9EABF /* Assets.xcassets */,
@@ -136,6 +136,8 @@
 		F3F78B372BE11E8F00135E1F /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				F38B8FEA2BEBAF1D0082A14C /* Groups.swift */,
+				F38B8FEB2BEBAF1D0082A14C /* peopleInfo.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -146,6 +148,7 @@
 				2906710C2BD9348E005AA839 /* SplashScreen.swift */,
 				2906710A2BD93448005AA839 /* Entertainment.swift */,
 				290671082BD9341A005AA839 /* CardsPage.swift */,
+				F38B90062BF0E7410082A14C /* BusyMembers.swift */,
 				290671062BD933CA005AA839 /* SignIn.swift */,
 				F3F78B352BDE258500135E1F /* PickGatheringDay_Sheet.swift */,
 				F38B8FDD2BE791D20082A14C /* UserInfo.swift */,
@@ -259,6 +262,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F38B8FE22BE90BFD0082A14C /* Event.swift in Sources */,
+				F38B90072BF0E7410082A14C /* BusyMembers.swift in Sources */,
 				F38B8FF52BECC7230082A14C /* FirestoreManager.swift in Sources */,
 				2906710D2BD9348E005AA839 /* SplashScreen.swift in Sources */,
 				2906710B2BD93448005AA839 /* Entertainment.swift in Sources */,
