@@ -14,19 +14,15 @@ struct ContentView: View {
         NavigationView {
             List {
                 Section(header: Text("الإعدادات")) {
-                    NavigationLink(destination: Text("Settings Detail View")) {
-                        HStack {
-                            Image(systemName: "person.fill")
-                                .foregroundColor(.gray)
-                            Text("حسابي")
-                        }
+                    // Directly using HStack for "حسابي" without NavigationLink
+                    HStack {
+                        Image(systemName: "person.fill")
+                            .foregroundColor(.gray)
+                        Text("حسابي")
                     }
 
                     NavigationLink(destination: Text("Messages Detail View")) {
-                        
-                            
-                            Text("معلومات الحساب")
-                        
+                        Text("معلومات الحساب")
                     }
                 }
 
