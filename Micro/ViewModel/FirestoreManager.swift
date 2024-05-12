@@ -25,5 +25,5 @@ class FirestoreManager {
             completion(error)
         }
     }
-
+    
 }

@@ -20,7 +20,6 @@
 		2996E84C2BEFE3B300BB4C12 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2996E84B2BEFE3B300BB4C12 /* Account.swift */; };
 		F38B8FDE2BE791D20082A14C /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38B8FDD2BE791D20082A14C /* UserInfo.swift */; };
 		F38B8FE02BE8FBFD0082A14C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F38B8FDF2BE8FBFD0082A14C /* GoogleService-Info.plist */; };
-		F38B8FE22BE90BFD0082A14C /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38B8FE12BE90BFD0082A14C /* Event.swift */; };
 		F38B8FE42BE90C4F0082A14C /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = F38B8FE32BE90C4F0082A14C /* FirebaseFirestoreSwift */; };
 		F38B8FE62BE90C540082A14C /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = F38B8FE52BE90C540082A14C /* FirebaseFirestore */; };
 		F38B8FE82BEBA43E0082A14C /* calenderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38B8FE72BEBA43E0082A14C /* calenderView.swift */; };
@@ -38,6 +37,7 @@
 		F38B90042BF0E4C50082A14C /* tabItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38B90012BF0E4C50082A14C /* tabItems.swift */; };
 		F38B90052BF0E4C50082A14C /* theTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38B90022BF0E4C50082A14C /* theTabBar.swift */; };
 		F38B90072BF0E7410082A14C /* BusyMembers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38B90062BF0E7410082A14C /* BusyMembers.swift */; };
+		F38B90092BF0EF850082A14C /* GroupsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38B90082BF0EF850082A14C /* GroupsView.swift */; };
 		F3DAC4452BD143CB00E9EABF /* MicroApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3DAC4442BD143CB00E9EABF /* MicroApp.swift */; };
 		F3DAC4492BD143CD00E9EABF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3DAC4482BD143CD00E9EABF /* Assets.xcassets */; };
 		F3DAC44C2BD143CD00E9EABF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3DAC44B2BD143CD00E9EABF /* Preview Assets.xcassets */; };
@@ -52,7 +52,6 @@
 		2996E84B2BEFE3B300BB4C12 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		F38B8FDD2BE791D20082A14C /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		F38B8FDF2BE8FBFD0082A14C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
-		F38B8FE12BE90BFD0082A14C /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		F38B8FE72BEBA43E0082A14C /* calenderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = calenderView.swift; sourceTree = "<group>"; };
 		F38B8FE92BEBAF000082A14C /* Micro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = Micro.app; path = "/Users/hajaralshehri/Desktop/Micro/build/Debug-iphoneos/Micro.app"; sourceTree = "<absolute>"; };
 		F38B8FEA2BEBAF1D0082A14C /* Groups.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Groups.swift; sourceTree = "<group>"; };
@@ -64,6 +63,7 @@
 		F38B90012BF0E4C50082A14C /* tabItems.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = tabItems.swift; sourceTree = "<group>"; };
 		F38B90022BF0E4C50082A14C /* theTabBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = theTabBar.swift; sourceTree = "<group>"; };
 		F38B90062BF0E7410082A14C /* BusyMembers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusyMembers.swift; sourceTree = "<group>"; };
+		F38B90082BF0EF850082A14C /* GroupsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsView.swift; sourceTree = "<group>"; };
 		F3DAC4442BD143CB00E9EABF /* MicroApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MicroApp.swift; sourceTree = "<group>"; };
 		F3DAC4482BD143CD00E9EABF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F3DAC44B2BD143CD00E9EABF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -157,6 +157,7 @@
 				F38B90022BF0E4C50082A14C /* theTabBar.swift */,
 				F38B8FEF2BEBAFF20082A14C /* CreateView.swift */,
 				F38B8FF02BEBAFF30082A14C /* peopleView.swift */,
+				F38B90082BF0EF850082A14C /* GroupsView.swift */,
 				2996E84B2BEFE3B300BB4C12 /* Account.swift */,
 				F38B8FE72BEBA43E0082A14C /* calenderView.swift */,
 			);
@@ -166,7 +167,6 @@
 		F3F78B392BE11EAE00135E1F /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				F38B8FE12BE90BFD0082A14C /* Event.swift */,
 				F38B8FF42BECC7230082A14C /* FirestoreManager.swift */,
 			);
 			path = ViewModel;
@@ -261,7 +261,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F38B8FE22BE90BFD0082A14C /* Event.swift in Sources */,
 				F38B90072BF0E7410082A14C /* BusyMembers.swift in Sources */,
 				F38B8FF52BECC7230082A14C /* FirestoreManager.swift in Sources */,
 				2906710D2BD9348E005AA839 /* SplashScreen.swift in Sources */,
@@ -275,6 +274,7 @@
 				F38B8FF22BEBAFF30082A14C /* CreateView.swift in Sources */,
 				F38B8FDE2BE791D20082A14C /* UserInfo.swift in Sources */,
 				F3F78B362BDE258500135E1F /* PickGatheringDay_Sheet.swift in Sources */,
+				F38B90092BF0EF850082A14C /* GroupsView.swift in Sources */,
 				F38B90042BF0E4C50082A14C /* tabItems.swift in Sources */,
 				F38B8FE82BEBA43E0082A14C /* calenderView.swift in Sources */,
 				F38B90032BF0E4C50082A14C /* theBar.swift in Sources */,

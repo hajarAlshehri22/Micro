@@ -43,7 +43,7 @@ struct peopleView: View {
                         // Action when the text is clicked
                     }) {
                         VStack(alignment: .trailing, spacing: 0) {
-                            Text(LocalizedStringKey("اضافة عن طريق الايميل"))
+                            Text(LocalizedStringKey("اضافة عن طريق رقم الجوال"))
                                 .font(.system(size: 14))
                                 .foregroundColor(Color("AccentColor"))
                             
