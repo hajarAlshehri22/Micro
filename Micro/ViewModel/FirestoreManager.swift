@@ -18,7 +18,9 @@ class FirestoreManager {
         let eventData: [String: Any] = [
             "name": name,
             "EvenDate": Timestamp(date: date),
-            "location": locationURL
+            "location": locationURL,
+            "groupID": String(),
+            
         ]
         
         db.collection("Event").addDocument(data: eventData) { error in
@@ -26,4 +28,72 @@ class FirestoreManager {
         }
     }
     
-}
+    func saveUserData(userId: String, name: String, username: String, selectedImage: Int, completion: @escaping (Error?) -> Void) {
+        let db = Firestore.firestore()
+        let memojiName = "memoji\(selectedImage)"
+        let userDict: [String: Any] = [
+            "UserID": userId,
+            "groupID": [String](),
+            "FullName": name,
+            "Memoji": memojiName,
+            "BusyDay": [Timestamp](),
+            "UserName": username
+        ]
+        
+        db.collection("User").document(userId).setData(userDict) { error in
+            if let error = error {
+                completion(error)
+            } else {
+                // If user data saved successfully, save username as a separate document
+                db.collection("usernames").document(username.lowercased()).setData(["UserID": userId]) { error in
+                    completion(error)
+                }
+            }
+        }
+    }
+            
+        
+    // Function to check username uniqueness
+      func checkUsernameUnique(username: String, completion: @escaping (Bool) -> Void) {
+          let docRef = db.collection("usernames").document(username.lowercased())
+
+          docRef.getDocument { document, error in
+              if let document = document, document.exists {
+                  completion(false)  // Username is not unique
+              } else {
+                  completion(true)   // Username is unique
+              }
+          }
+      }
+    
+    
+    
+    func createUserData(userId: String, completion: @escaping (Error?) -> Void) {
+        let newUserDict: [String: Any] = [
+            "UserID": userId,
+            "created_at": FieldValue.serverTimestamp(),
+            // Initialize other fields as needed
+        ]
+        db.collection("User").document(userId).setData(newUserDict, completion: completion)
+    }
+
+    func updateUserData(userId: String, completion: @escaping (Error?) -> Void) {
+        let updateData: [String: Any] = [
+            "last_logged_in": FieldValue.serverTimestamp()
+            // Update other fields as needed
+        ]
+        db.collection("User").document(userId).updateData(updateData, completion: completion)
+    }
+
+    
+    }
+
+
+
+//db.collection("your_collection").addDocument(data: yourData) { error in
+//    if let error = error {
+//        print("Error adding document: \(error)")
+//    } else {
+//        print("Document added with ID: \(ref.documentID)")
+//    }
+//}

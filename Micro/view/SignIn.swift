@@ -92,11 +92,33 @@ struct SignIn: View {
                 print("Firebase sign in error: \(error.localizedDescription)")
                 return
             }
-            navigateToUserInfo = true  // Trigger navigation to UserInfo
+            // Check if the user is new or existing
+            if let isNewUser = authResult?.additionalUserInfo?.isNewUser {
+                if isNewUser {
+                    // New user: create new document
+                    FirestoreManager.shared.createUserData(userId: authResult!.user.uid) { error in
+                        if let error = error {
+                            print("Error creating user document: \(error.localizedDescription)")
+                        } else {
+                            print("New user document created")
+                        }
+                    }
+                } else {
+                    // Existing user: update existing document
+                    FirestoreManager.shared.updateUserData(userId: authResult!.user.uid) { error in
+                        if let error = error {
+                            print("Error updating user document: \(error.localizedDescription)")
+                        } else {
+                            print("User document updated")
+                        }
+                    }
+                }
+                navigateToUserInfo = true  // Trigger navigation to UserInfo
+            }
         }
     }
+    
 }
-
 
 
 struct SignIn_Previews: PreviewProvider {

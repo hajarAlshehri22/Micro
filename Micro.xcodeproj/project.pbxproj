@@ -50,10 +50,10 @@
 		2906710A2BD93448005AA839 /* Entertainment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entertainment.swift; sourceTree = "<group>"; };
 		2906710C2BD9348E005AA839 /* SplashScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreen.swift; sourceTree = "<group>"; };
 		2996E84B2BEFE3B300BB4C12 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
+		F360D7982BF10CB70069E665 /* Micro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Micro.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F38B8FDD2BE791D20082A14C /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		F38B8FDF2BE8FBFD0082A14C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F38B8FE72BEBA43E0082A14C /* calenderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = calenderView.swift; sourceTree = "<group>"; };
-		F38B8FE92BEBAF000082A14C /* Micro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = Micro.app; path = "/Users/hajaralshehri/Desktop/Micro/build/Debug-iphoneos/Micro.app"; sourceTree = "<absolute>"; };
 		F38B8FEA2BEBAF1D0082A14C /* Groups.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Groups.swift; sourceTree = "<group>"; };
 		F38B8FEB2BEBAF1D0082A14C /* peopleInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = peopleInfo.swift; sourceTree = "<group>"; };
 		F38B8FEF2BEBAFF20082A14C /* CreateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateView.swift; sourceTree = "<group>"; };
@@ -107,6 +107,7 @@
 			children = (
 				F3DAC4432BD143CB00E9EABF /* Micro */,
 				2906711B2BD9398D005AA839 /* Frameworks */,
+				F360D7982BF10CB70069E665 /* Micro.app */,
 			);
 			sourceTree = "<group>";
 		};
@@ -204,7 +205,7 @@
 				F38B8FFE2BF0E4900082A14C /* FirebaseAppCheck */,
 			);
 			productName = Micro;
-			productReference = F38B8FE92BEBAF000082A14C /* Micro.app */;
+			productReference = F360D7982BF10CB70069E665 /* Micro.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
