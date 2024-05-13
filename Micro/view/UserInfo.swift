@@ -45,7 +45,7 @@ struct UserInfo: View {
                         
                             .cornerRadius(15).padding(.bottom)
                         
-                        Text("اسم المستخدم:").padding(.trailing, 170)
+                        Text("اسم المستخدم:").padding(.trailing, 165)
                         TextField("أدخل اسم المستخدم", text: $name)
                             .font(.system(size: 14))
                             .padding(.horizontal)
