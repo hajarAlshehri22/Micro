@@ -1,127 +1,95 @@
+
 import SwiftUI
+import Firebase
 
 struct peopleView: View {
-    
-    @State private var isAddingPeople = true
-    @State private var peoples:[peopleInfo] = []
-    @State var peopleDic: [peopleInfo:Bool] = [:]
-    
-    let people:[peopleInfo] = [
-        peopleInfo(emoji: 1, name: "Renad"),
-        peopleInfo(emoji: 4, name: "Basemah"),
-        peopleInfo(emoji: 2, name: "Hamad"),
-        peopleInfo(emoji: 3, name: "Taif"),
-        peopleInfo(emoji: 1, name: "Sarah"),
-        peopleInfo(emoji: 5, name: "Khalid"),
-        peopleInfo(emoji: 3, name: "Danah"),
-    ]
-    
+    @State private var isLoading = true
+    @State private var peoples: [peopleInfo] = []
     @State private var searchText = ""
     
-    
     var body: some View {
-//        NavigationView {
-            
-            VStack() { // Add spacing between elements
-                HStack(spacing: 10) {
-                    RoundedRectangle(cornerRadius: 100)
-                        .fill(Color("AccentColor"))
-                        .frame(width: 165, height: 2)
-                    RoundedRectangle(cornerRadius: 25)
-                        .fill(Color("AccentColor"))
-                        .frame(width: 165, height: 2)
-                }.padding(.bottom,15)
-                
+        VStack {
+            HStack(spacing: 10) {
+                RoundedRectangle(cornerRadius: 100)
+                    .fill(Color("AccentColor"))
+                    .frame(width: 165, height: 2)
+                RoundedRectangle(cornerRadius: 25)
+                    .fill(Color("AccentColor"))
+                    .frame(width: 165, height: 2)
+            }.padding(.bottom, 15)
+
+            SearchBar(text: $searchText)
+                .padding(.bottom, 25)
+
+            if isLoading {
+                ProgressView("Loading...")
+            } else {
+                peopleList
+            }
+
+            Divider().frame(width: 330, height: 2)
+
+            NavigationLink(destination: calenderView()) {
+                Text("تم!")
+                    .padding()
+                    .frame(width: 229, height: 53)
+                    .background(Color("AccentColor"))
+                    .foregroundColor(.white)
+                    .cornerRadius(24)
+                    .bold()
+                    .font(.headline)
+            }
+        }
+        .padding(.horizontal, 20)
+        .onAppear {
+            fetchPeople()
+        }
+        .navigationBarTitle(Text("جمّعهم"), displayMode: .large)
+    }
+    
+    var peopleList: some View {
+        List(filteredPeople) { person in
+            HStack {
+                Image("memoji\(person.emoji)")
+                    .resizable()
+                    .frame(width: 40, height: 40)
+                Text(person.name)
                 Spacer()
-                SearchBar(text: $searchText)
-                    .padding(.bottom,25)
-                Spacer()
-                
-                HStack {
-                    Spacer()
-                    Button(action: {
-                        // Action when the text is clicked
-                    }) {
-                        VStack(alignment: .trailing, spacing: 0) {
-                            Text(LocalizedStringKey("اضافة عن طريق رقم الجوال"))
-                                .font(.system(size: 14))
-                                .foregroundColor(Color("AccentColor"))
-                            
-                            Rectangle()
-                                .frame(width: 127,height: 1)
-                                .foregroundColor(Color("AccentColor")) // Line color
-                        }.padding(.horizontal, 20) // Add horizontal padding
-                    }
-                }
-                
-                Spacer()
-                
-                Divider().frame(width:330,height: 2)
-                
-                Spacer()
-                
-                // List of People
-                List(filteredPeople) { peopleInfo in
-                    HStack {
-                        Image("memoji\(peopleInfo.emoji)")
-                            .resizable().frame(width: 40,height: 40)
-                        Text(peopleInfo.name)
-                        Spacer()
-                        
-                        Button(action: {
-                            // Toggle the boolean value for the selected person
-                            peopleDic[peopleInfo, default: false].toggle()
-                        }) {
-                            if !(peopleDic[peopleInfo] ?? false) {
-                                Image(systemName: "plus.circle.fill")
-                                    .resizable().frame(width: 20,height: 20)
-                                    .foregroundColor(Color("Plus"))
-                                    .font(.title)
-                                    .cornerRadius(15)
-                            } else {
-                                Image(systemName: "checkmark.circle.fill")
-                                    .resizable().frame(width: 20,height: 20)
-                                    .foregroundColor(.yellow)
-                                    .opacity(0.8)
-                                    .font(.title)
-                                    .cornerRadius(15)
-                            }
-                        }
-                        .padding(.trailing, 10) // Add trailing padding
-                    }
-                }
-                .listStyle(PlainListStyle()) // Set list style to plain
-                .background(Color.white) // Set background color of the List to white
-                
-                
-                Spacer()
-                
-                NavigationLink(destination: calenderView()) {
-                    Text(LocalizedStringKey("تم!"))
-                        .padding()
-                        .frame(width: 229, height: 53)
-                        .background(Color("AccentColor"))
-                        .foregroundColor(.white)
-                        .cornerRadius(24)
-                        .bold()
-                        .font(.headline)
+                Button(action: {
+                    // Handle button action here
+                }) {
+                    Image(systemName: "plus.circle.fill")
+                        .resizable()
+                        .frame(width: 20, height: 20)
+                        .foregroundColor(Color.blue)
                 }
             }
-            .padding(.horizontal, 20)// Add horizontal padding to the VStack
-            .navigationBarTitle(Text(LocalizedStringKey("جمّعهم")), displayMode: .large)
-           
-//        }
-//        Spacer()
+        }
+        .listStyle(PlainListStyle())
     }
     
     var filteredPeople: [peopleInfo] {
         if searchText.isEmpty {
-            return people
+            return peoples
         } else {
-            return people.filter { $0.name.localizedCaseInsensitiveContains(searchText) }
+            return peoples.filter { $0.name.localizedCaseInsensitiveContains(searchText) }
+        }
+    }
+    
+    private func fetchPeople() {
+        FirestoreManager.shared.fetchUsernames { result in
+            switch result {
+            case .success(let people):
+                self.peoples = people
+                self.isLoading = false
+            case .failure(let error):
+                print("Error fetching people: \(error.localizedDescription)")
+            }
         }
     }
 }
+
+
 
 struct SearchBar: View {
     @Binding var text: String

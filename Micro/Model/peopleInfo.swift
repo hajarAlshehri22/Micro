@@ -8,8 +8,9 @@
 import Foundation
 import SwiftUI
 
-struct peopleInfo : Identifiable, Hashable {
-    let id: UUID = UUID()
-    let emoji: Int
-    let name: String
+struct peopleInfo: Identifiable {
+    var id: String  // Firebase document ID
+    var emoji: Int  // Emoji representing the user (you'll need to define how this is assigned)
+    var name: String
 }
+

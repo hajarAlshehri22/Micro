@@ -65,9 +65,9 @@ struct BusyMembers: View {
                 }
     }.navigationTitle("المشغولين ").toolbar {
                 Button(action:{
-        let currentUser = peopleInfo(emoji: 2, name: "You") // Replace with the actual user data
-                     busyMembers.append(currentUser)
-                    isButtonClicked = true
+//                    let currentUser = peopleInfo(id: String, emoji: 2, name: "You") // Replace with the actual user data
+//                     busyMembers.append(currentUser)
+//                    isButtonClicked = true
                 }) {
             Image(systemName: "plus.circle")
             .font(.largeTitle)

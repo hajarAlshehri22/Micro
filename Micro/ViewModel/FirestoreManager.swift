@@ -86,6 +86,30 @@ class FirestoreManager {
     }
 
     
+    func fetchUsernames(completion: @escaping (Result<[peopleInfo], Error>) -> Void) {
+        db.collection("User").getDocuments { snapshot, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            
+            guard let documents = snapshot?.documents else {
+                completion(.success([]))  // Return empty if no documents
+                return
+            }
+            
+            let peoples = documents.map { doc -> peopleInfo in
+                let data = doc.data()
+                let name = data["UserName"] as? String ?? "No Name"
+                let emoji = data["Memoji"] as? Int ?? 1  // Default emoji if not found
+                return peopleInfo(id: doc.documentID, emoji: emoji, name: name)
+            }
+            
+            completion(.success(peoples))
+        }
+    }
+
+    
     }
 
 

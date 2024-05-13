@@ -12,13 +12,7 @@ struct GroupsView: View {
     @State private var isShowingProfileSheet = false
     
     let groupName:[String]=["Family", "Friends", "University"]
-    let peoples:[ peopleInfo] = [
-        peopleInfo(emoji: 1, name: "Fahad"),
-        peopleInfo(emoji: 2, name: "Shahad"),
-        peopleInfo(emoji: 3, name: "Sarah"),
-        peopleInfo(emoji: 5, name: "Mohammed"),
-        peopleInfo(emoji: 6, name: "Others")
-    ]
+    let peoples:[ peopleInfo] = []
     
     var body: some View {
         NavigationStack{
