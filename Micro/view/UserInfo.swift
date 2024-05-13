@@ -21,7 +21,7 @@ struct UserInfo: View {
                 ZStack {
                     Rectangle()
                         .fill(Color.white)
-                        .frame(width: 325, height: 490)
+                        .frame(width: 325, height: 525)
                         .shadow(radius: 10) // Adding a shadow for better visibility
                         .cornerRadius(20) // Adding rounded corners
                     VStack() {
@@ -30,11 +30,11 @@ struct UserInfo: View {
                             .foregroundColor(Color("AccentColor"))
                             .padding()
                         
-                        Divider().frame(width: 280).padding(.bottom,25)
+                        Divider().frame(width: 280).padding(.top)
                         
                         Text("الإسم:")
+                        .padding(.trailing, 220)
                         
-                            .padding(.trailing, 220)
                         
                         // TextField to enter the name
                         TextField("أدخل اسمك هنا", text: $name)
@@ -43,8 +43,14 @@ struct UserInfo: View {
                             .frame(width: 280, height: 41) // Ensure the text field does not exceed the rectangle width
                             .background(Color.gray.opacity(0.2))
                         
-                            .cornerRadius(15).padding(.bottom, 40)
+                            .cornerRadius(15).padding(.bottom)
                         
+                        Text("اسم المستخدم:").padding(.trailing, 170)
+                        TextField("أدخل اسم المستخدم", text: $name)
+                            .font(.system(size: 14))
+                            .padding(.horizontal)
+                            .frame(width: 280, height: 41) // Ensure the text field does not exceed the rectangle width
+                            .background(Color.gray.opacity(0.2)).cornerRadius(15).padding(.bottom)
                         
                         Text("اختر شخصيتك:")
                             .padding(.trailing, 160)
