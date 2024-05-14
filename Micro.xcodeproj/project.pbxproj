@@ -17,6 +17,7 @@
 		290671162BD935B3005AA839 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 290671152BD935B3005AA839 /* FirebaseAnalyticsWithoutAdIdSupport */; };
 		290671182BD935B3005AA839 /* FirebaseAppCheck in Frameworks */ = {isa = PBXBuildFile; productRef = 290671172BD935B3005AA839 /* FirebaseAppCheck */; };
 		2906711D2BD9398D005AA839 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 2906711C2BD9398D005AA839 /* FirebaseAuth */; };
+		2930726F2BF40602000B1E3B /* Jsound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2930726E2BF40602000B1E3B /* Jsound.mp3 */; };
 		2996E84C2BEFE3B300BB4C12 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2996E84B2BEFE3B300BB4C12 /* Account.swift */; };
 		F38B8FDE2BE791D20082A14C /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38B8FDD2BE791D20082A14C /* UserInfo.swift */; };
 		F38B8FE02BE8FBFD0082A14C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F38B8FDF2BE8FBFD0082A14C /* GoogleService-Info.plist */; };
@@ -49,6 +50,7 @@
 		290671082BD9341A005AA839 /* CardsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsPage.swift; sourceTree = "<group>"; };
 		2906710A2BD93448005AA839 /* Entertainment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entertainment.swift; sourceTree = "<group>"; };
 		2906710C2BD9348E005AA839 /* SplashScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreen.swift; sourceTree = "<group>"; };
+		2930726E2BF40602000B1E3B /* Jsound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Jsound.mp3; sourceTree = "<group>"; };
 		2996E84B2BEFE3B300BB4C12 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		F360D7982BF10CB70069E665 /* Micro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Micro.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F38B8FDD2BE791D20082A14C /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
@@ -102,6 +104,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		2930726A2BF40344000B1E3B /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				2930726E2BF40602000B1E3B /* Jsound.mp3 */,
+			);
+			path = Sounds;
+			sourceTree = "<group>";
+		};
 		F3DAC4382BD143CB00E9EABF = {
 			isa = PBXGroup;
 			children = (
@@ -147,6 +157,7 @@
 			isa = PBXGroup;
 			children = (
 				2906710C2BD9348E005AA839 /* SplashScreen.swift */,
+				2930726A2BF40344000B1E3B /* Sounds */,
 				2906710A2BD93448005AA839 /* Entertainment.swift */,
 				290671082BD9341A005AA839 /* CardsPage.swift */,
 				F38B90062BF0E7410082A14C /* BusyMembers.swift */,
@@ -252,6 +263,7 @@
 				F3DAC44C2BD143CD00E9EABF /* Preview Assets.xcassets in Resources */,
 				F3DAC4492BD143CD00E9EABF /* Assets.xcassets in Resources */,
 				F38B8FE02BE8FBFD0082A14C /* GoogleService-Info.plist in Resources */,
+				2930726F2BF40602000B1E3B /* Jsound.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -24,16 +24,17 @@ struct ContentView: View {
                     
                     NavigationLink(destination:
                                     VStack{
-                        Image("memoji6").padding()
+                        Image("memoji6").padding(.top,70)
+                            .padding()
                         Divider()
                         
                         Text("الاسم:").font(.title3).padding(.trailing,274).padding(.top)
-                        Rectangle() // The rectangle under "الاسم"
+                        Rectangle()
                             .fill(Color.gray.opacity(0.2))
                             .frame(width: 330, height: 40).cornerRadius(14)
                         
                         Text("اسم المستخدم:").font(.title3).padding(.trailing,200)
-                        Rectangle() // The rectangle under "الاسم"
+                        Rectangle()
                             .fill(Color.gray.opacity(0.2))
                             .frame(width: 330, height: 40).cornerRadius(14)
                         

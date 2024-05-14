@@ -46,7 +46,7 @@ struct CardsPage: View {
                 ToolbarItem(placement: .principal) {
                     Image("Majles")
                         .resizable()
-                        .frame(width:250,height: 70).padding(.top, 30)
+                        .frame(width:250,height: 70).padding(.top, -70)
                     
                 }
             }
