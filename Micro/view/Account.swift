@@ -6,9 +6,11 @@
 //
 
 import SwiftUI
+import UIKit  // Needed for UIPasteboard
 
 struct ContentView: View {
     @State private var showingAlert = false
+        @State private var showingEmailAlert = false
     
     var body: some View {
         NavigationView {
@@ -58,22 +60,20 @@ struct ContentView: View {
                     }
                     
                     Button("تواصل معنا") {
-                        self.showingAlert = true
+                        self.showingEmailAlert = true
                     }
                 }
             }
             
             .navigationBarTitle(Text("الإعدادات"))
-           
-            .alert(isPresented: $showingAlert) {
-                Alert(
-                    title: Text("تأكيد الاتصال"),
-                    message: Text("هل تريد تأكيد الاتصال على: 0563830022؟"),
-                    primaryButton: .default(Text("اتصل")) {
-                        // Code to initiate the call
-                    },
-                    secondaryButton: .cancel(Text("الغاء"))
-                )
+            .alert(isPresented: $showingEmailAlert) {
+                Alert(title: Text("تواصل معنا"),
+                      message: Text("JammahApp@gmail.com"),
+                      primaryButton: .default(Text("نسخ")) {
+                    UIPasteboard.general.string = "JammahApp@gmail.com"
+                },
+                      secondaryButton: .cancel(Text("إلغاء")))
+                
             }
        }
     }
