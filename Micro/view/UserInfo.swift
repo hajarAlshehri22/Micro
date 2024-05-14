@@ -5,97 +5,113 @@
     //  Created by Hajar Alshehri on 26/10/1445 AH.
     //
 
-    import SwiftUI
-    import Firebase
+import SwiftUI
+import Firebase
 
+struct UserInfo: View {
+    @State private var name: String = ""
+    @State private var username: String = ""
+    @State private var selectedImage: Int?
+    @State private var NavigateToGroup = false
+    @State private var usernameError: String? // For displaying username errors if it is taken
+    @State private var isCheckingUsername = false // To handle enabling/disabling the submit button
+    
+    var body: some View {
+         ZStack {
+             Image("Splash")
+                 .resizable()
+                 .scaledToFill()
+                 .edgesIgnoringSafeArea(.all) // Make sure the background fills the entire screen
 
-    struct UserInfo: View {
-        @State private var name: String = ""
-        @State private var username: String = ""
-        @State private var selectedImage: Int?
-        @State private var NavigateToCalendar = false
+             ScrollView { // Encapsulate all content in a ScrollView
+                 VStack {
+                     Image("Jammah").resizable().frame(width: 270, height: 115).padding(.top, 20)
+                     userForm()
+                     if let usernameError = usernameError {
+                         Text(usernameError) // Show error message if username is taken
+                             .foregroundColor(.red)
+                             .padding()
+                     }
+                     submitButton()
+                     Spacer(minLength: 20) // Provide some space at the bottom
+                 }
+                 }
 
-        var body: some View {
-            ZStack {
-                Image("Splash")
-                VStack {
-                    Image("Jammah").resizable().frame(width: 270, height: 115).padding()
-                    userForm()
-                    submitButton()
-                }
-            }
-        }
+                 // Navigation Link for navigation
+                 NavigationLink(destination: GroupsView(), isActive: $NavigateToGroup) {
+                     EmptyView()
+                 }
+             }
+         }
 
-        // User form input fields and selection grid
-        private func userForm() -> some View {
-            ZStack {
-                Rectangle().fill(Color.white)
-                    .frame(width: 325, height: 580)
-                    .shadow(radius: 10)
-                    .cornerRadius(20)
-                VStack {
-                    Text("معلوماتي")
-                        .bold()
-                        .foregroundColor(Color("AccentColor"))
-                        .padding()
+     private func userForm() -> some View {
+         ZStack {
+             Rectangle().fill(Color.white)
+                 .frame(width: 325, height: 580)
+                 .shadow(radius: 10)
+                 .cornerRadius(20)
+             VStack {
+                 Text("معلوماتي")
+                     .bold()
+                     .foregroundColor(Color("AccentColor"))
+                     .padding()
 
-                    Divider().frame(width: 280).padding(.bottom, 25)
+                 Divider().frame(width: 280).padding(.bottom, 25)
 
-                    userInfoField(label: "الإسم:", placeholder: "أدخل اسمك هنا", text: $name)
-                    userInfoField(label: "اسم المستخدم:", placeholder: "أدخل اسم المستخدم هنا", text: $username)
+                 userInfoField(label: "الإسم:", placeholder: "أدخل اسمك هنا", text: $name)
+                 userInfoField(label: "اسم المستخدم:", placeholder: "أدخل اسم المستخدم هنا", text: $username)
 
-                    Text("اختر شخصيتك:")
-                        .padding(.trailing, 160)
-                        .foregroundColor(Color("AccentColor"))
-                        .font(.system(size: 15))
-                        .bold()
+                 Text("اختر شخصيتك:")
+                     .padding(.trailing, 160)
+                     .foregroundColor(Color("AccentColor"))
+                     .font(.system(size: 15))
+                     .bold()
 
-                    avatarSelectionGrid()
-                }
-            }
-        }
+                 avatarSelectionGrid()
+             }
+         }
+     }
 
-        // Submit button with action to save user data
-        private func submitButton() -> some View {
-            Button("التالي") {
-                guard let userId = Auth.auth().currentUser?.uid, let imageId = selectedImage, !username.isEmpty else {
-                    print("Ensure all fields are filled and a user is logged in.")
-                    return
-                }
-                FirestoreManager.shared.checkUsernameUnique(username: username) { isUnique in
-                    if isUnique {
-                        FirestoreManager.shared.saveUserData(userId: userId, name: name, username: username, selectedImage: imageId) { error in
-                            if error == nil {
-                                NavigateToCalendar = true
-                            } else {
-                                print("Error saving user data: \(error!.localizedDescription)")
-                            }
+    private func submitButton() -> some View {
+        Button("التالي") {
+            isCheckingUsername = true
+            FirestoreManager.shared.checkUsernameUnique(username: username) { isUnique in
+                if isUnique {
+                    FirestoreManager.shared.saveUserData(userId: Auth.auth().currentUser?.uid ?? "", name: name, username: username, selectedImage: selectedImage ?? 1) { error in
+                        if let error = error {
+                            print("Error saving user data: \(error.localizedDescription)")
+                            usernameError = "Failed to save user data. Please try again."
+                            isCheckingUsername = false
+                        } else {
+                            print("Data saved successfully, navigating to Calendar.")
+                            NavigateToGroup = true  // Ensure this line is executed
+                            isCheckingUsername = false
                         }
-                    } else {
-                        print("Username is already taken. Please choose another.")
+
                     }
+                } else {
+                    usernameError = "This username is already taken. Please choose another."
+                    isCheckingUsername = false
                 }
             }
-            .frame(width: 189, height: 48)
-            .background(Color("SecB"))
-            .foregroundColor(.white)
-            .cornerRadius(24)
-            .disabled(name.isEmpty || username.isEmpty || selectedImage == nil)
         }
+        .frame(width: 189, height: 48)
+        .background(Color("SecB"))
+        .foregroundColor(.white)
+        .cornerRadius(24)
+        .disabled(name.isEmpty || username.isEmpty || selectedImage == nil || isCheckingUsername)
+    }
 
-
-
-
-
-        // User input field component with improved alignment
+    
+        
         private func userInfoField(label: String, placeholder: String, text: Binding<String>) -> some View {
             VStack(alignment: .trailing) {
                 Text(label)
                     .foregroundColor(Color("AccentColor"))
                     .font(.system(size: 18))
-                    .padding(.horizontal, 20) // Adjust horizontal padding to align text
-                    .frame(width: 280, alignment: .leading) // Ensures the label is left-aligned
-
+                    .padding(.horizontal, 20)
+                    .frame(width: 280, alignment: .leading)
+                
                 TextField(placeholder, text: text)
                     .font(.system(size: 14))
                     .padding(.horizontal, 20)
@@ -105,9 +121,9 @@
                     .padding(.bottom, 20)
                     .padding(.leading, 20)
             }
-            .frame(width: 325, alignment: .leading) // Ensures everything in the VStack is left-aligned
+            .frame(width: 325, alignment: .leading)
         }
-        // Grid for selecting an avatar image
+        
         private func avatarSelectionGrid() -> some View {
             ZStack {
                 Rectangle()
@@ -127,8 +143,7 @@
                 }
             }
         }
-
-        // Button for image selection
+        
         private func imageButton(id: Int, imageName: String) -> some View {
             Button(action: {
                 self.selectedImage = id
@@ -143,7 +158,9 @@
                     )
             }
         }
+   
     }
+    
 
 
 

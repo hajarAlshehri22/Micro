@@ -11,10 +11,8 @@ import Firebase
 import FirebaseAuth
 
 struct SignIn: View {
-    @State private var isAuthenticated = false
-    @State private var isGuest = false
     @State private var navigateToUserInfo = false  // State to control navigation to UserInfo
-    @State private var navigateToCalendar = false  // State to control navigation to CalendarView
+    @State private var navigateToGroup = false  // State to control navigation to CalendarView
     
     var body: some View {
         NavigationView {
@@ -31,32 +29,20 @@ struct SignIn: View {
                         .frame(width: 350, height: 80).padding(.bottom, 40)
                     Text("خطط لجمعاتك وخلها أمتع .. مع جَمعة ").padding(.bottom, 190)
                     
-                    // Sign In with Apple Button
-                    SignInWithAppleButton(.signIn) { request in
+                    SignInWithAppleButton(.signIn, onRequest: { request in
                         request.requestedScopes = [.fullName, .email]
-                    } onCompletion: { result in
-                        switch result {
-                        case .success(let auth):
-                            if let credential = auth.credential as? ASAuthorizationAppleIDCredential {
-                                handleAppleSignIn(credential: credential)
-                            }
-                        case .failure(let error):
-                            print("Authentication error: \(error.localizedDescription)")
-                        }
-                    }
+                    }, onCompletion: handleAppleSignIn)
                     .frame(width: 280, height: 50)
                     .cornerRadius(24)
                     .signInWithAppleButtonStyle(.black)
                     
-                    // Navigation link to UserInfo
-                    NavigationLink(destination: UserInfo(), isActive: $navigateToUserInfo) {
+                    NavigationLink(destination: UserInfo(), isActive: $navigateToGroup) {
                         EmptyView()
                     }
                     .hidden()
                     
-                    // Button to browse as a guest
                     Button("تصفح كزائر") {
-                        navigateToCalendar = true  // Set to true to navigate to CalendarView
+                        navigateToGroup = true  // Set to true to navigate to CalendarView
                     }
                     .frame(width: 280, height: 50)
                     .background(Color("SecB"))
@@ -64,8 +50,7 @@ struct SignIn: View {
                     .cornerRadius(24)
                     .padding()
                     
-                    // Navigation link to CalendarView
-                    NavigationLink(destination: calenderView(), isActive: $navigateToCalendar) {
+                    NavigationLink(destination: GroupsView(), isActive: $navigateToGroup) {
                         EmptyView()
                     }
                     .hidden()
@@ -74,13 +59,21 @@ struct SignIn: View {
         }
     }
     
-    private func handleAppleSignIn(credential: ASAuthorizationAppleIDCredential) {
-        guard let appleIDToken = credential.identityToken else {
-            print("Unable to fetch identity token")
-            return
+    private func handleAppleSignIn(result: Result<ASAuthorization, Error>) {
+        switch result {
+        case .success(let auth):
+            if let credential = auth.credential as? ASAuthorizationAppleIDCredential {
+                handleAppleIDCredential(credential)
+            }
+        case .failure(let error):
+            print("Authentication error: \(error.localizedDescription)")
         }
-        guard let idTokenString = String(data: appleIDToken, encoding: .utf8) else {
-            print("Unable to serialize token string from data: \(appleIDToken.debugDescription)")
+    }
+    
+    private func handleAppleIDCredential(_ credential: ASAuthorizationAppleIDCredential) {
+        guard let appleIDToken = credential.identityToken,
+              let idTokenString = String(data: appleIDToken, encoding: .utf8) else {
+            print("Unable to fetch identity token")
             return
         }
         let firebaseCredential = OAuthProvider.credential(withProviderID: "apple.com",
@@ -92,37 +85,27 @@ struct SignIn: View {
                 print("Firebase sign in error: \(error.localizedDescription)")
                 return
             }
-            // Check if the user is new or existing
-            if let isNewUser = authResult?.additionalUserInfo?.isNewUser {
+            guard let userId = authResult?.user.uid, let email = authResult?.user.email else {
+                print("No email found or unable to fetch identity token")
+                return
+            }
+
+            FirestoreManager.shared.determineUserFlow(userId: userId) { isNewUser in
                 if isNewUser {
-                    // New user: create new document
-                    FirestoreManager.shared.createUserData(userId: authResult!.user.uid) { error in
-                        if let error = error {
-                            print("Error creating user document: \(error.localizedDescription)")
-                        } else {
-                            print("New user document created")
-                        }
-                    }
+                    self.navigateToUserInfo = true  // Navigate to UserInfo to complete profile
                 } else {
-                    // Existing user: update existing document
-                    FirestoreManager.shared.updateUserData(userId: authResult!.user.uid) { error in
-                        if let error = error {
-                            print("Error updating user document: \(error.localizedDescription)")
-                        } else {
-                            print("User document updated")
-                        }
-                    }
+                    self.navigateToGroup = true  // Profile is complete, navigate to Calendar
                 }
-                navigateToUserInfo = true  // Trigger navigation to UserInfo
             }
         }
+
     }
     
 }
-
 
 struct SignIn_Previews: PreviewProvider {
     static var previews: some View {
         SignIn()
     }
 }
+
