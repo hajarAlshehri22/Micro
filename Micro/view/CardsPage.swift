@@ -41,14 +41,14 @@ struct CardsPage: View {
                 .background(Color("SecB"))
                 .foregroundColor(.white)
                 .cornerRadius(24)
-                .padding(.top, 70)
+                .padding(.top, 20)
             }
             .toolbar {
                 ToolbarItem(placement: .principal) {
                     Image("Majles")
                         .resizable()
                         .frame(width: 250, height: 70)
-                        .padding(.top, -70)
+                        .padding(.top, -60)
                 }
             }
             .navigationBarTitleDisplayMode(.inline)
