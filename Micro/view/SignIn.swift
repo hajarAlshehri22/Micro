@@ -5,6 +5,20 @@
 //  Created by Shahad Alzowaid on 15/10/1445 AH.
 //
 
+//
+//  SignIn.swift
+//  Micro
+//
+//  Created by Shahad Alzowaid on 15/10/1445 AH.
+//
+
+//
+//  SignIn.swift
+//  Micro
+//
+//  Created by Shahad Alzowaid on 15/10/1445 AH.
+//
+
 import SwiftUI
 import AuthenticationServices
 import Firebase
@@ -12,7 +26,7 @@ import FirebaseAuth
 
 struct SignIn: View {
     @State private var navigateToUserInfo = false  // State to control navigation to UserInfo
-    @State private var navigateToGroup = false  // State to control navigation to CalendarView
+    @State private var navigateToCalendar = false  // State to control navigation to CalendarView
     
     var body: some View {
         NavigationView {
@@ -36,13 +50,13 @@ struct SignIn: View {
                     .cornerRadius(24)
                     .signInWithAppleButtonStyle(.black)
                     
-                    NavigationLink(destination: UserInfo(), isActive: $navigateToGroup) {
+                    NavigationLink(destination: UserInfo(), isActive: $navigateToUserInfo) {
                         EmptyView()
                     }
                     .hidden()
                     
                     Button("تصفح كزائر") {
-                        navigateToGroup = true  // Set to true to navigate to CalendarView
+                        navigateToCalendar = true  // Set to true to navigate to CalendarView
                     }
                     .frame(width: 280, height: 50)
                     .background(Color("SecB"))
@@ -50,7 +64,7 @@ struct SignIn: View {
                     .cornerRadius(24)
                     .padding()
                     
-                    NavigationLink(destination: GroupsView(), isActive: $navigateToGroup) {
+                    NavigationLink(destination: calenderView(), isActive: $navigateToCalendar) {
                         EmptyView()
                     }
                     .hidden()
@@ -85,20 +99,16 @@ struct SignIn: View {
                 print("Firebase sign in error: \(error.localizedDescription)")
                 return
             }
-            guard let userId = authResult?.user.uid, let email = authResult?.user.email else {
-                print("No email found or unable to fetch identity token")
-                return
-            }
-
+            guard let userId = authResult?.user.uid else { return }
+            
             FirestoreManager.shared.determineUserFlow(userId: userId) { isNewUser in
                 if isNewUser {
                     self.navigateToUserInfo = true  // Navigate to UserInfo to complete profile
                 } else {
-                    self.navigateToGroup = true  // Profile is complete, navigate to Calendar
+                    self.navigateToCalendar = true  // Profile is complete, navigate to Calendar
                 }
             }
         }
-
     }
     
 }
@@ -108,4 +118,3 @@ struct SignIn_Previews: PreviewProvider {
         SignIn()
     }
 }
-
