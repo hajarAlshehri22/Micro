@@ -11,28 +11,27 @@ struct GroupsView: View {
     
     @State private var isShowingProfileSheet = false
     
-    let groupName:[String]=["Family", "Friends", "University"]
+    let groupName:[String]=[]
     let peoples:[ peopleInfo] = []
+//    let memoji:[Memoji]
     
     var body: some View {
         NavigationStack{
             
-            VStack {
-                           HStack {
-                               Text("Dawriyah Groups")
-                                   //.font(.largeTitle)
-                                   .foregroundColor(Color.black).fontWeight(.regular).font(.system(size: 34))
-                                   .offset(y: 6)
-                                   .offset(x: 20)
+ VStack {
+        HStack {
+            Text("Dawriyah Groups")
+        //.font(.largeTitle)
+        .foregroundColor(Color.black).fontWeight(.regular).font(.system(size: 34))
+            .offset(y: 6)
+            .offset(x: 20)
                             
                                   
-
-                               Spacer()
-
+            Spacer()
                              
-                           }
-                           .padding()
-                           .background(Color("backg"))
+                }
+                .padding()
+                .background(Color("backg"))
                        }
                        .navigationBarHidden(true)
             
@@ -57,30 +56,33 @@ struct GroupsView: View {
                     
                     HStack{Spacer()}
                     
-                    ForEach(groupName, id: \.self) { group in
+        ForEach(groupName, id: \.self) { group in
                         
-                        NavigationLink {
-                            calenderView()
-                        } label: {
-                            ZStack{
-                                RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/).frame(width: 322, height: 101).foregroundColor(Color("LightGrayy")).opacity(0.40)
-                                VStack(alignment: .leading, spacing: 20){
-                                    Text(group).padding(.leading, 60.0) .foregroundColor(Color.black).fontWeight(.regular).font(.system(size: 20)).offset(y: 25)
+        NavigationLink {
+        calenderView()
+            } label: {
+        ZStack{
+          RoundedRectangle(cornerRadius: 25.0).frame(width: 322, height: 101).foregroundColor(Color.gray.opacity(0.2)).opacity(0.40)
+            
+            
+    VStack(alignment: .leading, spacing: 20){
+                Text(group).padding(.leading, 60.0) .foregroundColor(Color.black).fontWeight(.regular).font(.system(size: 20)).offset(y: 25)
                                     
-                                        Divider()
-                                        .padding(.horizontal, 50)
-                                        .padding(.top, 12)
+            Divider()
+                .padding(.horizontal, 50)
+                .padding(.top, 12)
                                 
-                                    HStack(spacing:-25){
-                                        ForEach(peoples) { person in
-                                            Image("memoji\(person.emoji)")}
-                                        .offset(y: -25) // Adjust the value to move the images up
-                                        .scaleEffect(0.7) // Adjust the value to make the images smaller
-                                        .offset(x: 41)
-                                        Image(systemName: "chevron.right").padding(.leading,175)  .offset(y:-19).foregroundColor(Color("LightPurple"))
+                HStack(spacing:-25){
+                    ForEach(peoples) { person in
+        Image("memoji\(person.emoji)")}
+                    
+            .frame(width: 38, height: 38)
+            .offset(y: -25) // Adjust the value to move the images up
+            .scaleEffect(0.3) // Adjust the value to make the images smaller
+            .offset(x: 41)
+      Image(systemName: "chevron.right").padding(.leading,175)  .offset(y:-19).foregroundColor(Color("LightPurble"))
                                     }
-                                    .padding(.leading, 4.0)
-                                 
+                .padding(.leading, 4.0)
                                     
                                 }
                             }
@@ -91,9 +93,9 @@ struct GroupsView: View {
                     
                     ZStack{
                         
-                        RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/).frame(width: 322, height: 101).foregroundColor(Color("LightGrayy")).opacity(0.40)
-                        NavigationLink(destination: calenderView()){
-                            Image(systemName: "plus.circle").font(.system(size: 40)).foregroundColor(Color("LightPurple")).opacity(0.40)}
+            RoundedRectangle(cornerRadius: 25.0).frame(width: 322, height: 101).foregroundColor(Color.gray.opacity(0.2))
+            NavigationLink(destination: CreateView()){
+                Image(systemName: "plus.circle").font(.system(size: 40)).foregroundColor(Color("LightPurble")).opacity(0.40)}
                         
                     }
                     .padding(.top, 20)
@@ -120,10 +122,13 @@ struct GroupsView: View {
             }
             
         }
-        .accentColor(Color("LightPurple"))
+        .accentColor(Color("LightPurble"))
         
     }
 }
+
+
+
 #Preview {
     GroupsView()
 }

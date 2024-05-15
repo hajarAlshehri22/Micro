@@ -40,7 +40,9 @@ struct CreateView: View {
                     Spacer()
                     
                     NavigationLink(destination: peopleView()) {
-                        Text(LocalizedStringKey("اجمع")).padding().frame(width: 189, height: 48).background(Color("")).foregroundColor(.white).cornerRadius(24).bold().font(.headline)
+                        Text(("اجمع")).padding().frame(width: 189, height: 48).background(Color("AccentColor")).foregroundColor(.white).cornerRadius(24).bold().font(.headline)
+                        
+                        
                     }
                     
            
@@ -56,6 +58,6 @@ struct CreateView: View {
 struct CreateView_Previews: PreviewProvider {
     static var previews: some View {
         CreateView()
-            .environment(\.locale, .init(identifier: "ar")) // Preview in Arabic
+            .environment(\.locale, .init(identifier: "ar"))
     }
 }

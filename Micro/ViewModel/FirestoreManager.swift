@@ -138,7 +138,7 @@ class FirestoreManager {
         let db = Firestore.firestore()
         let groupDict: [String: Any] = [
             "name": name,
-            "Memoji": members
+            "emoji": members
         ]
         
         db.collection("Group").document().setData(groupDict) { error in
