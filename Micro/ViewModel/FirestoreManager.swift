@@ -133,6 +133,23 @@ class FirestoreManager {
             completion(.success(peoples))
         }
     }
+    
+    func saveGroupData(name: String, members: [String], completion: @escaping (Error?) -> Void) {
+        let db = Firestore.firestore()
+        let groupDict: [String: Any] = [
+            "name": name,
+            "Memoji": members
+        ]
+        
+        db.collection("Group").document().setData(groupDict) { error in
+            if let error = error {
+                completion(error)
+            } else {
+                print("Group has been added successfuly !")
+                // If user data saved successfully, save username as a separate document
+            }
+        }
+    }
 
     
     }
