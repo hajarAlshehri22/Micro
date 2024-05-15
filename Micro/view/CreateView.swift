@@ -39,10 +39,8 @@ struct CreateView: View {
                     
                     Spacer()
                     
-                    NavigationLink(destination: peopleView()) {
+                    NavigationLink(destination: peopleView(groupName: groupName)) {
                         Text(("اجمع")).padding().frame(width: 189, height: 48).background(Color("AccentColor")).foregroundColor(.white).cornerRadius(24).bold().font(.headline)
-                        
-                        
                     }
                     
            

@@ -2,13 +2,15 @@ import SwiftUI
 
 struct peopleView: View {
     
-    @State private var isAddingPeople = true
-    @State private var peoples: [peopleInfo] = []
-    @State var peopleDic: [peopleInfo: Bool] = [:]
-    @State private var isLoading = true
-    let people: [peopleInfo] = []
-    
-    @State private var searchText = ""
+        let groupName: String
+        @State private var isAddingPeople = true
+        @State private var peoples: [peopleInfo] = []
+        @State var peopleDic: [peopleInfo: Bool] = [:]
+        @State private var isLoading = true
+        let people: [peopleInfo] = []
+
+        @State private var searchText = ""
+
     
     var body: some View {
         VStack {
@@ -84,8 +86,9 @@ struct peopleView: View {
             Spacer()
             
             Button {
-                let members = ["User"]
-                FirestoreManager.shared.saveGroupData(name: "name", members: members) { _ in
+                let selectedMembers = peopleDic.filter { $0.value }.map { $0.key }
+                FirestoreManager.shared.saveGroupData(name: groupName, members: selectedMembers) { _ in
+                    // Handle completion
                 }
             } label: {
                 Text(LocalizedStringKey("تم!"))
@@ -97,6 +100,7 @@ struct peopleView: View {
                     .bold()
                     .font(.headline)
             }
+
             
         }
         .padding(.horizontal, 20)
@@ -154,6 +158,6 @@ struct SearchBar: View {
 
 struct peopleView_Previews: PreviewProvider {
     static var previews: some View {
-        peopleView()
+        peopleView(groupName: " ")
     }
 }

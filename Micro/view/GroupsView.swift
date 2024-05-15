@@ -59,7 +59,7 @@ struct GroupsView: View {
         ForEach(groupName, id: \.self) { group in
                         
         NavigationLink {
-        calenderView()
+            calendarView()
             } label: {
         ZStack{
           RoundedRectangle(cornerRadius: 25.0).frame(width: 322, height: 101).foregroundColor(Color.gray.opacity(0.2)).opacity(0.40)

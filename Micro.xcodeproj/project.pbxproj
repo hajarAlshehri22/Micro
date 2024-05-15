@@ -19,6 +19,8 @@
 		2906711D2BD9398D005AA839 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 2906711C2BD9398D005AA839 /* FirebaseAuth */; };
 		2930726F2BF40602000B1E3B /* Jsound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2930726E2BF40602000B1E3B /* Jsound.mp3 */; };
 		2996E84C2BEFE3B300BB4C12 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2996E84B2BEFE3B300BB4C12 /* Account.swift */; };
+		F34C6ECD2BF4F4FB00CFC6F9 /* Jamaah.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34C6ECC2BF4F4FB00CFC6F9 /* Jamaah.swift */; };
+		F34C6ECF2BF4F53E00CFC6F9 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34C6ECE2BF4F53E00CFC6F9 /* ViewModel.swift */; };
 		F38B8FDE2BE791D20082A14C /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38B8FDD2BE791D20082A14C /* UserInfo.swift */; };
 		F38B8FE02BE8FBFD0082A14C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F38B8FDF2BE8FBFD0082A14C /* GoogleService-Info.plist */; };
 		F38B8FE42BE90C4F0082A14C /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = F38B8FE32BE90C4F0082A14C /* FirebaseFirestoreSwift */; };
@@ -52,6 +54,8 @@
 		2906710C2BD9348E005AA839 /* SplashScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreen.swift; sourceTree = "<group>"; };
 		2930726E2BF40602000B1E3B /* Jsound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Jsound.mp3; sourceTree = "<group>"; };
 		2996E84B2BEFE3B300BB4C12 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
+		F34C6ECC2BF4F4FB00CFC6F9 /* Jamaah.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Jamaah.swift; sourceTree = "<group>"; };
+		F34C6ECE2BF4F53E00CFC6F9 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		F360D7982BF10CB70069E665 /* Micro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Micro.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F38B8FDD2BE791D20082A14C /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		F38B8FDF2BE8FBFD0082A14C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -148,6 +152,7 @@
 			isa = PBXGroup;
 			children = (
 				F38B8FEA2BEBAF1D0082A14C /* Groups.swift */,
+				F34C6ECC2BF4F4FB00CFC6F9 /* Jamaah.swift */,
 				F38B8FEB2BEBAF1D0082A14C /* peopleInfo.swift */,
 			);
 			path = Model;
@@ -180,6 +185,7 @@
 			isa = PBXGroup;
 			children = (
 				F38B8FF42BECC7230082A14C /* FirestoreManager.swift */,
+				F34C6ECE2BF4F53E00CFC6F9 /* ViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -279,6 +285,7 @@
 				2906710D2BD9348E005AA839 /* SplashScreen.swift in Sources */,
 				2906710B2BD93448005AA839 /* Entertainment.swift in Sources */,
 				F38B8FEC2BEBAF1D0082A14C /* Groups.swift in Sources */,
+				F34C6ECD2BF4F4FB00CFC6F9 /* Jamaah.swift in Sources */,
 				2996E84C2BEFE3B300BB4C12 /* Account.swift in Sources */,
 				F3DAC4452BD143CB00E9EABF /* MicroApp.swift in Sources */,
 				F38B90052BF0E4C50082A14C /* theTabBar.swift in Sources */,
@@ -286,6 +293,7 @@
 				290671072BD933CA005AA839 /* SignIn.swift in Sources */,
 				F38B8FF22BEBAFF30082A14C /* CreateView.swift in Sources */,
 				F38B8FDE2BE791D20082A14C /* UserInfo.swift in Sources */,
+				F34C6ECF2BF4F53E00CFC6F9 /* ViewModel.swift in Sources */,
 				F3F78B362BDE258500135E1F /* PickGatheringDay_Sheet.swift in Sources */,
 				F38B90092BF0EF850082A14C /* GroupsView.swift in Sources */,
 				F38B90042BF0E4C50082A14C /* tabItems.swift in Sources */,

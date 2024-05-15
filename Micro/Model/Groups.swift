@@ -7,8 +7,10 @@
 
 import Foundation
 import SwiftUI
+import Firebase
+import FirebaseFirestore
 
-struct Groups: Identifiable{
+struct Groups: Identifiable, Hashable{
     let id: UUID = UUID()
     let name: String
     let busyDays = [Date()]

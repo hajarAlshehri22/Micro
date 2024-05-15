@@ -64,7 +64,7 @@ struct SignIn: View {
                     .cornerRadius(24)
                     .padding()
                     
-                    NavigationLink(destination: calenderView(), isActive: $navigateToCalendar) {
+                    NavigationLink(destination: calendarView(), isActive: $navigateToCalendar) {
                         EmptyView()
                     }
                     .hidden()

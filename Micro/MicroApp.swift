@@ -11,6 +11,7 @@ import FirebaseFirestore
 
 @main
 struct MicroApp: App {
+    @StateObject  var vm = ViewModel()
     init() {
             FirebaseApp.configure()
         }
