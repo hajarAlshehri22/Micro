@@ -10,126 +10,104 @@ struct peopleView: View {
         let people: [peopleInfo] = []
 
         @State private var searchText = ""
+    @State private var showGroupsView = false // State to control navigation
 
-    
-    var body: some View {
-        VStack {
-            HStack(spacing: 10) {
-                RoundedRectangle(cornerRadius: 100)
-                    .fill(Color("AccentColor"))
-                    .frame(width: 165, height: 2)
-                RoundedRectangle(cornerRadius: 25)
-                    .fill(Color("AccentColor"))
-                    .frame(width: 165, height: 2)
-            }.padding(.bottom, 15)
-            
-            Spacer()
-            SearchBar(text: $searchText)
-                .padding(.bottom, 25)
-            Spacer()
-            
-            HStack {
-                Spacer()
-                Button(action: {
-                    // Action when the text is clicked
-                }) {
-                    VStack(alignment: .trailing, spacing: 0) {
-                        Text(LocalizedStringKey("اضافة عن طريق رقم الجوال"))
-                            .font(.system(size: 14))
-                            .foregroundColor(Color("AccentColor"))
-                        
-                        Rectangle()
-                            .frame(width: 127, height: 1)
-                            .foregroundColor(Color("AccentColor"))
-                    }.padding(.horizontal, 20)
-                }
-            }
-            
-            Spacer()
-            Divider().frame(width: 330, height: 2)
-            
-            if isLoading {
-                ProgressView("Loading...")
-            } else {
-                List(filteredPeople) { peopleInfo in
-                    HStack {
-                        Image("memoji\(peopleInfo.emoji)")
-                            .resizable().frame(width: 40, height: 40)
-                        Text(peopleInfo.name)
-                        Spacer()
-                        
-                        Button(action: {
-                            peopleDic[peopleInfo, default: false].toggle()
-                        }) {
-                            if !(peopleDic[peopleInfo] ?? false) {
-                                Image(systemName: "plus.circle.fill")
-                                    .resizable().frame(width: 20, height: 20)
-                                    .foregroundColor(Color("Plus"))
-                                    .font(.title)
-                                    .cornerRadius(15)
-                            } else {
-                                Image(systemName: "checkmark.circle.fill")
-                                    .resizable().frame(width: 20, height: 20)
-                                    .foregroundColor(.yellow)
-                                    .opacity(0.8)
-                                    .font(.title)
-                                    .cornerRadius(15)
-                            }
-                        }
-                        .padding(.trailing, 10)
-                    }
-                }
-                .listStyle(PlainListStyle())
-                .background(Color.white)
-            }
-            
-            Spacer()
-            
-            Button {
-                let selectedMembers = peopleDic.filter { $0.value }.map { $0.key }
-                FirestoreManager.shared.saveGroupData(name: groupName, members: selectedMembers) { _ in
-                    // Handle completion
-                }
-            } label: {
-                Text(LocalizedStringKey("تم!"))
-                    .padding()
-                    .frame(width: 229, height: 53)
-                    .background(Color("AccentColor"))
-                    .foregroundColor(.white)
-                    .cornerRadius(24)
-                    .bold()
-                    .font(.headline)
-            }
-
-            
-        }
-        .padding(.horizontal, 20)
-        .onAppear {
-            fetchPeople()
-        }
-        .navigationBarTitle(Text(LocalizedStringKey("جمّعهم")), displayMode: .large)
-    }
-    
     var filteredPeople: [peopleInfo] {
-        if searchText.isEmpty {
-            return peoples
-        } else {
-            return peoples.filter { $0.name.localizedCaseInsensitiveContains(searchText) }
+            if searchText.isEmpty {
+                return peoples
+            } else {
+                return peoples.filter { $0.name.localizedCaseInsensitiveContains(searchText) }
+            }
         }
-    }
-    
-    private func fetchPeople() {
-        FirestoreManager.shared.fetchUsernames { result in
-            switch result {
-            case .success(let people):
-                self.peoples = people
-                self.isLoading = false
-            case .failure(let error):
-                print("Error fetching people: \(error.localizedDescription)")
+
+        var body: some View {
+            VStack {
+                if showGroupsView {
+                    GroupsView()
+                } else {
+                    HStack(spacing: 10) {
+                        RoundedRectangle(cornerRadius: 100)
+                            .fill(Color("AccentColor"))
+                            .frame(width: 165, height: 2)
+                        RoundedRectangle(cornerRadius: 25)
+                            .fill(Color("AccentColor"))
+                            .frame(width: 165, height: 2)
+                    }.padding(.bottom, 15)
+
+                    Spacer()
+                    SearchBar(text: $searchText)
+                    .padding(.bottom, 25)
+                    Spacer()
+
+                    List(filteredPeople, id: \.id) { peopleInfo in
+                        HStack {
+                            Image("memoji\(peopleInfo.emoji)")
+                                .resizable().frame(width: 40, height: 40)
+                            Text(peopleInfo.name)
+                            Spacer()
+
+                            Button(action: {
+                                peopleDic[peopleInfo, default: false].toggle()
+                            }) {
+                                if !(peopleDic[peopleInfo] ?? false) {
+                                    Image(systemName: "plus.circle.fill")
+                                        .resizable().frame(width: 20, height: 20)
+                                        .foregroundColor(Color("Plus"))
+                                        .font(.title)
+                                        .cornerRadius(15)
+                                } else {
+                                    Image(systemName: "checkmark.circle.fill")
+                                        .resizable().frame(width: 20, height: 20)
+                                        .foregroundColor(.yellow)
+                                        .opacity(0.8)
+                                        .font(.title)
+                                        .cornerRadius(15)
+                                }
+                            }
+                            .padding(.trailing, 10)
+                        }
+                    }
+                    .listStyle(PlainListStyle())
+                    .background(Color.white)
+                }
+
+                Button {
+                    let selectedMembers = peopleDic.filter { $0.value }.map { $0.key }
+                    FirestoreManager.shared.saveGroupData(name: groupName, members: selectedMembers) { error in
+                        if error == nil {
+                            showGroupsView = true
+                        }
+                    }
+                } label: {
+                    Text(LocalizedStringKey("تم!"))
+                        .padding()
+                        .frame(width: 229, height: 53)
+                        .background(Color("AccentColor"))
+                        .foregroundColor(.white)
+                        .cornerRadius(24)
+                        .bold()
+                        .font(.headline)
+                }
+            }
+            .padding(.horizontal, 20)
+            .onAppear {
+                fetchPeople()
+            }
+            .navigationBarTitle(Text(LocalizedStringKey("جمّعهم")), displayMode: .large)
+        }
+
+        private func fetchPeople() {
+            FirestoreManager.shared.fetchUsernames { result in
+                switch result {
+                case .success(let people):
+                    self.peoples = people
+                    self.isLoading = false
+                case .failure(let error):
+                    print("Error fetching people: \(error.localizedDescription)")
+                }
             }
         }
     }
-}
 
 struct SearchBar: View {
     @Binding var text: String

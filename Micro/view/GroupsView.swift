@@ -6,124 +6,134 @@
 //
 
 import SwiftUI
+import FirebaseAuth
+import Firebase
+// View Model that handles fetching groups from Firestore
+class GroupViewModel: ObservableObject {
+    @Published var groups: [Group] = []
+    
+    init() {
+        fetchGroups()
+    }
+    
+    private func fetchGroups() {
+        guard let userID = Auth.auth().currentUser?.uid else {
+            print("No user ID found")
+            return
+        }
+        
+        Firestore.firestore().collection("Group")
+            .whereField("memberIDs", arrayContains: userID)
+            .addSnapshotListener { querySnapshot, error in
+                if let error = error {
+                    print("Error fetching groups: \(error.localizedDescription)")
+                    return
+                }
+                
+                guard let documents = querySnapshot?.documents else {
+                    print("No groups found")
+                    return
+                }
+                
+                self.groups = documents.compactMap { document -> Group? in
+                    let data = document.data()
+                    let id = document.documentID
+                    let name = data["name"] as? String ?? ""
+                    let membersData = data["members"] as? [[String: Any]] ?? []
+                    let members = membersData.map { peopleInfo(id: $0["id"] as? String ?? "", emoji: $0["emoji"] as? Int ?? 0, name: name) }
+                    return Group(id: id, name: name, members: members)
+                }
+                
+                print("Groups fetched: \(self.groups.count)")
+            }
+    }
+}
 
+// SwiftUI View that displays groups
 struct GroupsView: View {
-    
-    @State private var isShowingProfileSheet = false
-    
-    let groupName:[String]=[]
-    let peoples:[ peopleInfo] = []
-//    let memoji:[Memoji]
-    
+    @StateObject private var viewModel = GroupViewModel() // Using StateObject for view model initialization
+
     var body: some View {
-        NavigationStack{
-            
- VStack {
-        HStack {
-            Text("Dawriyah Groups")
-        //.font(.largeTitle)
-        .foregroundColor(Color.black).fontWeight(.regular).font(.system(size: 34))
-            .offset(y: 6)
-            .offset(x: 20)
-                            
-                                  
-            Spacer()
-                             
+        NavigationStack {
+            VStack {
+                HStack {
+                    Text("Dawriyah Groups")
+                        .foregroundColor(Color.black)
+                        .fontWeight(.regular)
+                        .font(.system(size: 34))
+                        .offset(y: 6)
+                        .offset(x: 20)
+                    Spacer()
                 }
                 .padding()
                 .background(Color("backg"))
-                       }
-                       .navigationBarHidden(true)
-            
-            Rectangle()
-                .frame(height: 1) // Adjust the height to make it thicker
-                .foregroundColor(Color.gray) // Set the color
-                .padding(.horizontal, 40)
-                .opacity(0.5)
-            
-            VStack{
+                .navigationBarHidden(true)
                 
-                /* Button(action:{
-                 isShowingProfileSheet.toggle()
-                 }) {
-                 Image(systemName: "person.circle").font(.largeTitle).foregroundColor(Color("Color2")).padding(.top, -76.0).padding(.leading, 290.0)}
-                 
-                 .sheet(isPresented: $isShowingProfileSheet) {
-                 ProfileSheet()
-                 }*/
+                Rectangle()
+                    .frame(height: 1)
+                    .foregroundColor(Color.gray)
+                    .padding(.horizontal, 40)
+                    .opacity(0.5)
                 
-                ScrollView{
+                ScrollView {
+                    HStack { Spacer() }
                     
-                    HStack{Spacer()}
-                    
-        ForEach(groupName, id: \.self) { group in
-                        
-        NavigationLink {
-            calendarView()
-            } label: {
-        ZStack{
-          RoundedRectangle(cornerRadius: 25.0).frame(width: 322, height: 101).foregroundColor(Color.gray.opacity(0.2)).opacity(0.40)
-            
-            
-    VStack(alignment: .leading, spacing: 20){
-                Text(group).padding(.leading, 60.0) .foregroundColor(Color.black).fontWeight(.regular).font(.system(size: 20)).offset(y: 25)
-                                    
-            Divider()
-                .padding(.horizontal, 50)
-                .padding(.top, 12)
-                                
-                HStack(spacing:-25){
-                    ForEach(peoples) { person in
-        Image("memoji\(person.emoji)")}
-                    
-            .frame(width: 38, height: 38)
-            .offset(y: -25) // Adjust the value to move the images up
-            .scaleEffect(0.3) // Adjust the value to make the images smaller
-            .offset(x: 41)
-      Image(systemName: "chevron.right").padding(.leading,175)  .offset(y:-19).foregroundColor(Color("LightPurble"))
-                                    }
-                .padding(.leading, 4.0)
-                                    
-                                }
-                            }
+                    ForEach(viewModel.groups, id: \.id) { group in
+                        NavigationLink(destination: calendarView()) {
+                            GroupRow(group: group)
                         }
-
-
                     }
                     
-                    ZStack{
-                        
-            RoundedRectangle(cornerRadius: 25.0).frame(width: 322, height: 101).foregroundColor(Color.gray.opacity(0.2))
-            NavigationLink(destination: CreateView()){
-                Image(systemName: "plus.circle").font(.system(size: 40)).foregroundColor(Color("LightPurble")).opacity(0.40)}
-                        
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 25.0).frame(width: 322, height: 101).foregroundColor(Color.gray.opacity(0.2))
+                        NavigationLink(destination: CreateView()) {
+                            Image(systemName: "plus.circle").font(.system(size: 40)).foregroundColor(Color("LightPurble")).opacity(0.40)
+                        }
                     }
                     .padding(.top, 20)
                     
                     Spacer()
-                }.padding(.top, 10.0)
-                
+                }
+                .padding(.top, 10.0)
+                .background(Color("backg").ignoresSafeArea())
             }
-//            .navigationTitle("Dawriyah Groups")
-//                .toolbar {
-//                Button(action:{
-//                    isShowingProfileSheet.toggle()
-//                }) {
-//                    Image(systemName: "person.circle")
-//                        .font(.largeTitle)
-//                        .foregroundColor(Color("Color2"))
-//                }
-//                .sheet(isPresented: $isShowingProfileSheet) {
-//                    ProfileSheet()}
-//            }
-            
-            
-            .background{Color("backg").ignoresSafeArea()
-            }
-            
+            .accentColor(Color("LightPurble"))
         }
-        .accentColor(Color("LightPurble"))
-        
+    }
+}
+
+// Component for displaying each group as a row
+struct GroupRow: View {
+    var group: Group
+    
+    var body: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 25.0)
+                .foregroundColor(Color.white)
+                .shadow(radius: 2, x: 0, y: 2)
+                .frame(height: 60)
+            
+            HStack {
+                ForEach(group.members.prefix(4), id: \.id) { person in // Showing up to 4 emojis
+                    Image("memoji\(person.emoji)")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 38, height: 38)
+                        .clipShape(Circle())
+                        .overlay(Circle().stroke(Color.white, lineWidth: 2))
+                }
+                
+                Spacer()
+                
+                Text(group.name)
+                    .font(.headline)
+                    .padding(.trailing, 20)
+                
+                Image(systemName: "chevron.right")
+                    .foregroundColor(Color.gray)
+            }
+            .padding(.horizontal)
+        }
     }
 }
 

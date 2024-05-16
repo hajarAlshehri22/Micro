@@ -51,15 +51,15 @@ class FirestoreManager {
             }
         }
     }
-
-
-
+    
+    
+    
     //this function save user data , name memoji username and check if it is unique
     func saveUserData(userId: String, name: String, username: String, selectedImage: Int, completion: @escaping (Error?) -> Void) {
         let db = Firestore.firestore()
         let memojiName = "memoji\(selectedImage)"
         let userRef = db.collection("User").document(userId)
-
+        
         // First, check if the username is unique
         db.collection("User").whereField("UserName", isEqualTo: username).getDocuments { snapshot, error in
             if let error = error {
@@ -67,7 +67,7 @@ class FirestoreManager {
                 completion(error)
                 return
             }
-
+            
             // Ensure the username is not taken by someone else
             if let docs = snapshot?.documents, !docs.isEmpty, docs.filter({ $0.documentID != userId }).count > 0 {
                 // Username is taken by another user
@@ -82,20 +82,20 @@ class FirestoreManager {
                     "BusyDay": [Timestamp](),
                     "UserName": username
                 ]
-
+                
                 userRef.setData(userDict) { error in
                     completion(error)
                 }
             }
         }
     }
-
-            
-        
+    
+    
+    
     // Function to check username uniqueness only
     func checkUsernameUnique(username: String, completion: @escaping (Bool) -> Void) {
         let usersRef = db.collection("User")
-
+        
         usersRef.whereField("UserName", isEqualTo: username).getDocuments { (snapshot, error) in
             if let error = error {
                 print("Error checking username: \(error)")
@@ -107,7 +107,7 @@ class FirestoreManager {
             }
         }
     }
-
+    
     
     
     //this function fetch username 
@@ -133,27 +133,58 @@ class FirestoreManager {
             completion(.success(peoples))
         }
     }
-   // this saves to the people
+    
+    
     func saveGroupData(name: String, members: [peopleInfo], completion: @escaping (Error?) -> Void) {
         let db = Firestore.firestore()
-        let memberIDs = members.map { $0.name }  // Assuming `id` is the Firestore document ID for each member
+        let memberIDs = members.map { $0.id } // Assuming `id` is the correct unique identifier for members.
+        
+        // Create a new document reference with an auto-generated ID
+        let newGroupRef = db.collection("Group").document()
+        
+        // Prepare group data dictionary
         let groupDict: [String: Any] = [
+            "groupID": newGroupRef.documentID,  // Using the auto-generated document ID as the groupID
             "name": name,
             "memberIDs": memberIDs
         ]
         
-        db.collection("Group").document().setData(groupDict) { error in
+        // Set the data for the new group
+        newGroupRef.setData(groupDict) { error in
             if let error = error {
+                print("Error saving group: \(error.localizedDescription)")
                 completion(error)
             } else {
-                print("Group has been added successfully!")
+                print("Group saved successfully with Group ID: \(newGroupRef.documentID), memberIDs: \(memberIDs)")
+                completion(nil)
             }
         }
     }
+    
+    
+    func fetchGroups(completion: @escaping (Result<[Group], Error>) -> Void) {
+        guard let userID = Auth.auth().currentUser?.uid else {
+            completion(.failure(NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "User ID not found"])))
+            return
+        }
 
+        db.collection("Group").whereField("memberIDs", arrayContains: userID)
+            .getDocuments { querySnapshot, error in
+                if let error = error {
+                    completion(.failure(error))
+                    return
+                }
+
+                let groups = querySnapshot?.documents.compactMap { document -> Group? in
+                    try? document.data(as: Group.self)
+                } ?? []
+
+                completion(.success(groups))
+            }
+    }
 
     
-    }
+}
 
 
 
