@@ -6,12 +6,15 @@
 //
 import SwiftUI
 import UIKit
+import FirebaseAuth
 
 struct ContentView: View {
     @State private var showingAlert = false
     @State private var showingEmailAlert = false
-    @ObservedObject var userModel = UserModel()
-
+    @State private var name: String = ""
+    @State private var username: String = ""
+    @State private var memoji: String = "memoji1" // Default image
+    
     var body: some View {
         NavigationView {
             List {
@@ -22,14 +25,18 @@ struct ContentView: View {
                         Text("حسابي")
                     }
                     
-                    NavigationLink(destination: accountInfoView)
-                    {
+                    NavigationLink(destination: AccountInfoView(name: $name, username: $username, memoji: $memoji)) {
                         Text("معلومات الحساب")
                     }
                 }
                 
                 Section(header: Text("المزيد")) {
-                    NavigationLink(destination: privacyPolicyView) {
+                    NavigationLink(destination:
+                        ScrollView {
+                            Text("سياسة الخصوصية:").font(.title).padding(.trailing,170)
+                            Divider()
+                            Text("عندما تستخدم جَمعة ، فأنت تثق بنا في بياناتك الشخصية. نحن ملتزمون بالحفاظ على هذه الثقة. توضح سياسة الخصوصية بموجبها قواعد جَمعة فيما يتعلق بجمع البيانات الشخصية واستخدامها والإفصاح عنها عند استخدام تطبيقنا.").padding()
+                        }) {
                         HStack {
                             Image(systemName: "lock.fill")
                                 .foregroundColor(.gray)
@@ -53,49 +60,48 @@ struct ContentView: View {
             }
         }
         .onAppear {
-            // Fetch user data when the view appears
-            userModel.fetchUserData(userId: "your_user_id") // Replace with actual user ID
+            fetchUserData()
         }
     }
+    
+    private func fetchUserData() {
+        guard let userId = Auth.auth().currentUser?.uid else { return }
+        
+        FirestoreManager.shared.fetchUserData(userId: userId) { result in
+            switch result {
+            case .success(let userData):
+                name = userData.name
+                username = userData.username
+                memoji = userData.memoji
+            case .failure(let error):
+                print("Failed to fetch user data: \(error.localizedDescription)")
+            }
+        }
+    }
+}
 
-    var accountInfoView: some View {
+struct AccountInfoView: View {
+    @Binding var name: String
+    @Binding var username: String
+    @Binding var memoji: String
+    
+    var body: some View {
         VStack {
-            Image(userModel.memojiName)
-                .padding(.top, 70)
+            Image(memoji).padding(.top, 70)
                 .padding()
             Divider()
             
-            Text("الاسم: \(userModel.name)")
-                .font(.title3)
-                .padding(.trailing, 274)
-                .padding(.top)
-            
+            Text("الاسم: \(name)").font(.title3).padding(.trailing, 274).padding(.top)
             Rectangle()
                 .fill(Color.gray.opacity(0.2))
-                .frame(width: 330, height: 40)
-                .cornerRadius(14)
+                .frame(width: 330, height: 40).cornerRadius(14)
             
-            Text("اسم المستخدم: \(userModel.username)")
-                .font(.title3)
-                .padding(.trailing, 200)
-            
+            Text("اسم المستخدم: \(username)").font(.title3).padding(.trailing, 200)
             Rectangle()
                 .fill(Color.gray.opacity(0.2))
-                .frame(width: 330, height: 40)
-                .cornerRadius(14)
+                .frame(width: 330, height: 40).cornerRadius(14)
         }
         .padding(.bottom, 450)
-    }
-
-    var privacyPolicyView: some View {
-        ScrollView {
-            Text("سياسة الخصوصية:")
-                .font(.title)
-                .padding(.trailing, 170)
-            Divider()
-            Text("عندما تستخدم جَمعة ، فأنت تثق بنا في بياناتك الشخصية. نحن ملتزمون بالحفاظ على هذه الثقة. توضح سياسة الخصوصية بموجبها قواعد جَمعة فيما يتعلق بجمع البيانات الشخصية واستخدامها والإفصاح عنها عند استخدام تطبيقنا.")
-                .padding()
-        }
     }
 }
 

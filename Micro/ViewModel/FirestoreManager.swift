@@ -90,7 +90,21 @@ class FirestoreManager {
         }
     }
     
-    
+    func fetchUserData(userId: String, completion: @escaping (Result<(name: String, username: String, memoji: String), Error>) -> Void) {
+        let userRef = db.collection("User").document(userId)
+        
+        userRef.getDocument { document, error in
+            if let document = document, document.exists {
+                let data = document.data()
+                let name = data?["FullName"] as? String ?? ""
+                let username = data?["UserName"] as? String ?? ""
+                let memoji = data?["Memoji"] as? String ?? ""
+                completion(.success((name, username, memoji)))
+            } else {
+                completion(.failure(error ?? NSError(domain: "", code: 404, userInfo: [NSLocalizedDescriptionKey: "User not found"])))
+            }
+        }
+    }
     
     // Function to check username uniqueness only
     func checkUsernameUnique(username: String, completion: @escaping (Bool) -> Void) {
@@ -161,7 +175,7 @@ class FirestoreManager {
     }
 
     
-    @Published var name: String = ""
+        @Published var name: String = ""
         @Published var username: String = ""
         @Published var memojiName: String = ""
 
@@ -186,29 +200,7 @@ class FirestoreManager {
     
     }
 
-class UserModel: ObservableObject {
-    @Published var name: String = ""
-    @Published var username: String = ""
-    @Published var memojiName: String = ""
 
-    func fetchUserData(userId: String) {
-        FirestoreManager.shared.determineUserFlow(userId: userId) { isNewUser in
-            if !isNewUser {
-                let userDocRef = Firestore.firestore().collection("User").document(userId)
-                userDocRef.getDocument { (document, error) in
-                    if let document = document, document.exists {
-                        let data = document.data()
-                        self.name = data?["FullName"] as? String ?? ""
-                        self.username = data?["UserName"] as? String ?? ""
-                        self.memojiName = data?["Memoji"] as? String ?? ""
-                    } else {
-                        print("User document does not exist")
-                    }
-                }
-            }
-        }
-    }
-}
 
 
 //db.collection("your_collection").addDocument(data: yourData) { error in
