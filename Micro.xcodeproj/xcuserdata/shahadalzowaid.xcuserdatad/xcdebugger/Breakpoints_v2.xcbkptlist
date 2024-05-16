@@ -3,4 +3,84 @@
    uuid = "3F0C5B06-A515-4D11-AE5B-7FDEA77B81BA"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "9A637707-01BA-4256-BF32-00A0A0D7524E"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Micro/ViewModel/FirestoreManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "13"
+            endingLineNumber = "13"
+            landmarkName = "FirestoreManager"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  uuid = "9A637707-01BA-4256-BF32-00A0A0D7524E - 718d5fd71241aae6"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Micro.FirestoreManager.__allocating_init() -&gt; Micro.FirestoreManager"
+                  moduleName = "Micro"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shahadalzowaid/Desktop/Jammah/Micro/ViewModel/FirestoreManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "32">
+               </Location>
+               <Location
+                  uuid = "9A637707-01BA-4256-BF32-00A0A0D7524E - 27aa023ad0443ca1"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Micro.FirestoreManager.deinit"
+                  moduleName = "Micro"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shahadalzowaid/Desktop/Jammah/Micro/ViewModel/FirestoreManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "20">
+               </Location>
+               <Location
+                  uuid = "9A637707-01BA-4256-BF32-00A0A0D7524E - 8579de8c15ddbf8e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Micro.FirestoreManager.__deallocating_deinit"
+                  moduleName = "Micro"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shahadalzowaid/Desktop/Jammah/Micro/ViewModel/FirestoreManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "16">
+               </Location>
+               <Location
+                  uuid = "9A637707-01BA-4256-BF32-00A0A0D7524E - 10d7d57713ac5e91"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Micro.FirestoreManager.init() -&gt; Micro.FirestoreManager"
+                  moduleName = "Micro"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shahadalzowaid/Desktop/Jammah/Micro/ViewModel/FirestoreManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "15"
+                  endingLineNumber = "15"
+                  offsetFromSymbolStart = "28">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

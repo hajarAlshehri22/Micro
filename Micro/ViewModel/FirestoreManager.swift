@@ -151,10 +151,55 @@ class FirestoreManager {
         }
     }
 
+    
+    @Published var name: String = ""
+        @Published var username: String = ""
+        @Published var memojiName: String = ""
+
+        func fetchUserData(userId: String) {
+            FirestoreManager.shared.determineUserFlow(userId: userId) { isNewUser in
+                if !isNewUser {
+                    let userDocRef = Firestore.firestore().collection("User").document(userId)
+                    userDocRef.getDocument { (document, error) in
+                        if let document = document, document.exists {
+                            let data = document.data()
+                            self.name = data?["FullName"] as? String ?? ""
+                            self.username = data?["UserName"] as? String ?? ""
+                            self.memojiName = data?["Memoji"] as? String ?? ""
+                        } else {
+                            print("User document does not exist")
+                        }
+                    }
+                }
+            }
+        }
 
     
     }
 
+class UserModel: ObservableObject {
+    @Published var name: String = ""
+    @Published var username: String = ""
+    @Published var memojiName: String = ""
+
+    func fetchUserData(userId: String) {
+        FirestoreManager.shared.determineUserFlow(userId: userId) { isNewUser in
+            if !isNewUser {
+                let userDocRef = Firestore.firestore().collection("User").document(userId)
+                userDocRef.getDocument { (document, error) in
+                    if let document = document, document.exists {
+                        let data = document.data()
+                        self.name = data?["FullName"] as? String ?? ""
+                        self.username = data?["UserName"] as? String ?? ""
+                        self.memojiName = data?["Memoji"] as? String ?? ""
+                    } else {
+                        print("User document does not exist")
+                    }
+                }
+            }
+        }
+    }
+}
 
 
 //db.collection("your_collection").addDocument(data: yourData) { error in
