@@ -18,28 +18,35 @@ struct calendarView: View {
     @State private var busyMembers: [peopleInfo] = []
     @State private var busyDays: Set<Date> = []
     @State private var someDateDate: Date = Date()
-    
-    var body: some View {
-        NavigationView {
-            VStack {
-                HStack {
-                    Text("Family")
-                        .foregroundColor(Color.black).fontWeight(.bold).font(.system(size: 34))
-                        .offset(y: 6)
-                        .offset(x: 10)
-                    
-                    
+    @State private var groupName: String?
+    @StateObject private var viewModel = GroupViewModel()
+       
+       var body: some View {
+           NavigationView {
+               VStack {
+                   HStack {
+                       if let groupName = viewModel.groups.first?.name {
+                           Text(groupName)
+                               .foregroundColor(Color.black)
+                               .fontWeight(.bold)
+                               .font(.system(size: 34))
+                               .offset(y: 6)
+                               .offset(x: 10)
+                       } else {
+                           Text("No group found")
+                               .foregroundColor(Color.black)
+                               .fontWeight(.bold)
+                               .font(.system(size: 34))
+                               .offset(y: 6)
+                               .offset(x: 10)
+                       }
 
                     Spacer()
 
                 }
                 .padding([.top, .leading, .trailing]) // Add padding to the HStack
 
-                Rectangle()
-                    .frame(height: 1) // Adjust the height to make it thicker
-                    .foregroundColor(Color.gray) // Set the color
-                    .padding(.horizontal, 10)
-                    .opacity(0.5)
+                   Divider()
 
                 
                 ZStack{
@@ -50,7 +57,7 @@ struct calendarView: View {
                         .frame(width: 350, height: 50)
                         .cornerRadius(18)
                         .offset(x: 5, y: 15)
-                        .padding()
+                        .padding(.bottom, 20)
                     
                     
                     
@@ -68,35 +75,27 @@ struct calendarView: View {
                     } label: {
                         Image(systemName: "ellipsis").foregroundColor(Color.gray)
                     }
-                    .offset(x: 140, y: 15)
-                    
-                    
+                    .offset(x: 140, y: 5)
+                    .sheet(isPresented: $showSheet) {
+                        CreateView()
+                              }
                     
                     Text("|")
-                        .offset(x: 120, y: 8)
+                        .offset(x: 120, y: -5)
                         .foregroundColor(.gray)
                     Text("|")
                         .offset(x: 120, y: 10)
                         .foregroundColor(.gray)
                     Text("|")
-                        .offset(x: 120, y: 20)
+                        .offset(x: 120, y: 10)
                         .foregroundColor(.gray)
+                    
                     
                 }
                 
                 
-                Rectangle()
-                    .frame(height: 1) // Adjust the height to make it thicker
-                    .foregroundColor(Color.gray) // Set the color
-                    .padding(.horizontal, 40)
-                    .opacity(0.5)
-                    .offset(y: 10)
+                   Divider()
                 
-                
-                Text("Highlight your busy days !")
-                    .font(.title2)
-                    .padding(.vertical, 30)
-                    .offset(x:-50, y: -15)
                 
                 Spacer()
             }.toolbar {
@@ -136,17 +135,28 @@ struct CalendarPage: View {
                 Spacer()
                 calendarView()
                 HStack {
-                    Button("<") {
+                    Button(action: {
                         currentDate = Calendar.current.date(byAdding: .month, value: -1, to: currentDate) ?? currentDate
-                    }.font(.title).padding(.leading)
+                    }) {
+                        Image(systemName: "chevron.left")
+                            .font(.title)
+                    }.padding(.leading)
+                    
                     Spacer()
+                    
                     Text("\(currentDate, formatter: DateFormatter.monthYear)")
                         .font(.title2)
+                    
                     Spacer()
-                    Button(">") {
+                    
+                    Button(action: {
                         currentDate = Calendar.current.date(byAdding: .month, value: 1, to: currentDate) ?? currentDate
-                    }.font(.title).padding(.trailing)
+                    }) {
+                        Image(systemName: "chevron.right")
+                            .font(.title)
+                    }.padding(.trailing)
                 }
+
                 .padding()
                 .offset(y: -50)
                 
@@ -172,6 +182,26 @@ struct CalendarPage: View {
                         people: people
                     )
                 }
+                
+                Divider()
+                HStack {
+                                ZStack {
+                                    Circle()
+                                        .foregroundColor(Color.gray)
+                                        .frame(width: 16, height: 16)
+                                        .offset(x:55)
+                                    Text("يوم مشغول")
+                                }
+                                .padding(.trailing,50)
+                                
+                                ZStack {
+                                    Circle()
+                                        .foregroundColor(Color("AccentColor"))
+                                        .frame(width: 16, height: 16)
+                                        .offset(x:55)
+                                    Text("يوم الجَمعة")
+                                }
+                }.padding(.bottom, 25)
                 
                 Spacer()
             }
@@ -203,7 +233,7 @@ struct Calendar1View: View {
             }
             
             // Calendar days
-            LazyVGrid(columns: Array(repeating: GridItem(), count: 7)) {
+            LazyVGrid(columns: Array(repeating: GridItem(), count: 6)) {
                 ForEach(monthDays(), id: \.self) { day in
                     DayView(
                         date: day,
@@ -218,6 +248,8 @@ struct Calendar1View: View {
                         selectedDate = day
                         onDayTapped(day)
                  }
+                    
+                    
                 }
             }
         }
@@ -264,25 +296,17 @@ struct DayView: View {
                 }
                 .clipShape(Circle())
                 .offset(y: -45)
-            
-            Circle()
-                .foregroundColor(isBusy ? Color.gray : Color.black)
-                .frame(width: 6, height: 6)
-                .padding(.top, -4)
-                .opacity(isBusy ? 1.0 : 0.0)
 
         }
+        
     }
 }
-
-
 
 //BusyDaySheet
 struct BusyDaySheet: View {
     var isBusy: Bool
     var onMarkBusy: () -> Void
     var people: [peopleInfo]
-    
     @State private var showUserInfo: Bool = false // Add a state variable
     
     var body: some View {

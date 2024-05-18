@@ -57,7 +57,7 @@ struct GroupsView: View {
         NavigationStack {
             VStack {
                 HStack {
-                    Text("Dawriyah Groups")
+                    Text("Jammah Groups")
                         .foregroundColor(Color.black)
                         .fontWeight(.regular)
                         .font(.system(size: 34))
