@@ -17,6 +17,7 @@ struct TabBar: View {
     @State private var iconSize: CGFloat = 25 // Adjust the size of the icons here
     @State private var selectedView: AnyView = AnyView(Entertainment())
 
+    @EnvironmentObject var vm: ViewModel
     var body: some View {
         ZStack {
             Color.white.edgesIgnoringSafeArea(.all)
@@ -24,38 +25,40 @@ struct TabBar: View {
                 selectedView // This displays the selected view
                     .transition(.slide) // Add a transition if desired
                 Spacer()
-                ZStack {
-                    Bar(tab: CGFloat(tabItems.selectedTabIndex))
-                        .foregroundColor(color)
-                        .frame(width: UIScreen.main.bounds.width, height: 88)
-                    HStack(spacing: (UIScreen.main.bounds.width - (CGFloat(tabItems.items.count + 1) * self.circleSize)) / (CGFloat(tabItems.items.count) + 1)) {
-                        ForEach(Array(tabItems.items.enumerated()), id: \.element.id) { index, item in
-                            ZStack {
-                                Circle()
-                                    .frame(width: self.circleSize, height: self.circleSize)
-                                    .foregroundColor(color)
-                                    .onTapGesture {
-                                        self.tabItems.select(index)
-                                        self.updateView(for: index) // Update the view based on the selected tab
+                if vm.shouldShowTabView{
+                    ZStack {
+                        Bar(tab: CGFloat(tabItems.selectedTabIndex))
+                            .foregroundColor(color)
+                            .frame(width: UIScreen.main.bounds.width, height: 88)
+                        HStack(spacing: (UIScreen.main.bounds.width - (CGFloat(tabItems.items.count + 1) * self.circleSize)) / (CGFloat(tabItems.items.count) + 1)) {
+                            ForEach(Array(tabItems.items.enumerated()), id: \.element.id) { index, item in
+                                ZStack {
+                                    Circle()
+                                        .frame(width: self.circleSize, height: self.circleSize)
+                                        .foregroundColor(color)
+                                        .onTapGesture {
+                                            self.tabItems.select(index)
+                                            self.updateView(for: index) // Update the view based on the selected tab
+                                        }
+                                    // Check if the imageName matches custom assets to use a different initializer
+                                    if item.imageName == "jeem2" {
+                                        Image(item.imageName)
+                                            .resizable()
+                                            .foregroundColor(Color(self.darkBackground))
+                                            .frame(width: self.iconSize, height: self.iconSize)
+                                            .opacity(item.opacity)
+                                    } else {
+                                        Image(systemName: item.imageName)
+                                            .resizable()
+                                            .foregroundColor(Color(self.darkBackground))
+                                            .frame(width: self.iconSize, height: self.iconSize)
+                                            .opacity(item.opacity)
                                     }
-                                // Check if the imageName matches custom assets to use a different initializer
-                                if item.imageName == "jeem2" {
-                                    Image(item.imageName)
-                                        .resizable()
-                                        .foregroundColor(Color(self.darkBackground))
-                                        .frame(width: self.iconSize, height: self.iconSize)
-                                        .opacity(item.opacity)
-                                } else {
-                                    Image(systemName: item.imageName)
-                                        .resizable()
-                                        .foregroundColor(Color(self.darkBackground))
-                                        .frame(width: self.iconSize, height: self.iconSize)
-                                        .opacity(item.opacity)
                                 }
+                                .offset(y: item.offset)
                             }
-                            .offset(y: item.offset)
                         }
-                    }
+                    }//tab bar
                 }
             }
             .edgesIgnoringSafeArea(.all)
@@ -80,6 +83,7 @@ struct TabBar: View {
 struct TabBar_Previews: PreviewProvider {
     static var previews: some View {
         TabBar().environmentObject(TabItems.shared)
+            .environmentObject(ViewModel())
     }
 }
 

@@ -84,6 +84,7 @@ struct AccountInfoView: View {
     @Binding var name: String
     @Binding var username: String
     @Binding var memoji: String
+    @EnvironmentObject var vm: ViewModel
     
     var body: some View {
         VStack {
@@ -102,6 +103,10 @@ struct AccountInfoView: View {
                 .frame(width: 330, height: 40).cornerRadius(14)
         }
         .padding(.bottom, 450)
+        .onAppear{
+            vm.shouldShowTabView = false
+//            print( vm.shouldShowTabView)
+        }
     }
 }
 

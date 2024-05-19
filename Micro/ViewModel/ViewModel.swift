@@ -9,6 +9,8 @@ import SwiftUI
 
 final class ViewModel: ObservableObject{
     @Published var jamaah : [Jamaah] = []
+    @Published var shouldShowTabView: Bool = true
+    
 }
 
 final class PeopleViewModel: ObservableObject {

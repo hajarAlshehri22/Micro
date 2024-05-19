@@ -79,6 +79,36 @@
                   endingLineNumber = "15"
                   offsetFromSymbolStart = "28">
                </Location>
+               <Location
+                  uuid = "9A637707-01BA-4256-BF32-00A0A0D7524E - 718d5fd71241aae6"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Micro.FirestoreManager.__allocating_init() -&gt; Micro.FirestoreManager"
+                  moduleName = "Micro"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shahadalzowaid/Desktop/Jammah/Micro/ViewModel/FirestoreManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "16">
+               </Location>
+               <Location
+                  uuid = "9A637707-01BA-4256-BF32-00A0A0D7524E - 10d7d57713ac5e91"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Micro.FirestoreManager.init() -&gt; Micro.FirestoreManager"
+                  moduleName = "Micro"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shahadalzowaid/Desktop/Jammah/Micro/ViewModel/FirestoreManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "15"
+                  endingLineNumber = "15"
+                  offsetFromSymbolStart = "88">
+               </Location>
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
