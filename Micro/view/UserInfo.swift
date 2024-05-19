@@ -38,10 +38,9 @@ struct UserInfo: View {
                  }
 
                  // Navigation Link for navigation
-             NavigationLink(destination: GroupsView(), isActive: $NavigateToGroup) {
+             NavigationLink(destination: GroupsView().navigationBarBackButtonHidden(true), isActive: $NavigateToGroup) {
                      EmptyView()
                  }
-             .navigationBarBackButtonHidden(true)
              }
          }
 
