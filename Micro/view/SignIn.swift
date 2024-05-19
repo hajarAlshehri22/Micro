@@ -38,7 +38,7 @@ struct SignIn: View {
                     .cornerRadius(24)
                     .signInWithAppleButtonStyle(.black)
                     
-                    NavigationLink(destination: UserInfo(), isActive: $navigateToUserInfo) {
+                    NavigationLink(destination: UserInfo().navigationBarBackButtonHidden(true), isActive: $navigateToUserInfo) {
                         EmptyView()
                     }
                     .hidden()
@@ -52,10 +52,11 @@ struct SignIn: View {
                     .cornerRadius(24)
                     .padding()
                     
-                    NavigationLink(destination: GroupsView(), isActive: $navigateToCalendar) {
+                    NavigationLink(destination: TabBar().navigationBarBackButtonHidden(true), isActive: $navigateToCalendar) {
                         EmptyView()
                     }
                     .hidden()
+                    
                 }
             }
         }

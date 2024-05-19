@@ -41,6 +41,7 @@ struct UserInfo: View {
              NavigationLink(destination: GroupsView(), isActive: $NavigateToGroup) {
                      EmptyView()
                  }
+             .navigationBarBackButtonHidden(true)
              }
          }
 

@@ -62,6 +62,7 @@ struct GroupsView: View {
                 HStack {
                     Text("مجموعاتي")
                         .foregroundColor(Color.black)
+                        .bold()
                         .fontWeight(.regular)
                         .font(.system(size: 34))
                         .offset(y: 6)
