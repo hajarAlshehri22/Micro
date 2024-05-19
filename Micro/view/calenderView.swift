@@ -20,7 +20,7 @@ struct calendarView: View {
     @State private var someDateDate: Date = Date()
     @State private var groupName: String?
     @StateObject private var viewModel = GroupViewModel()
-       
+    @StateObject private var vm = PeopleViewModel()
        var body: some View {
            NavigationView {
                VStack {
@@ -61,12 +61,13 @@ struct calendarView: View {
                     
                     
                     
-                    HStack(spacing: -25){
-                        ForEach(people) { person in
-                            Image("memoji\(person.emoji)")
-                                .offset(x:-90,y:20)
-                                .scaleEffect(0.7)
-                        }
+                    HStack(spacing: -25) {
+                            ForEach(vm.peopleInfo) { person in
+                                              Image("memoji\(person.emoji)")
+                                                  .offset(x: -90, y: 20)
+                                                  .scaleEffect(0.7)
+                                          }
+                                      
                         
                     }
                     
@@ -114,6 +115,7 @@ struct calendarView: View {
         }.accentColor(Color("AccentColor"))
     }
 }
+
 //calendar
 struct CalendarPage: View {
     @State private var selectedDate: Date?
@@ -285,7 +287,7 @@ struct DayView: View {
         
               VStack {
                   Text("\(date.day)")
-                      .foregroundColor(isBusy ? .gray : (isSelected ? .white : .primary))
+                      .foregroundColor(isBusy ? .gray : (isSelected ? .black : .primary))
                       .padding(8)
                 .background {
                     if allDates.contains { $0 == date.startOfDay } {

@@ -10,3 +10,8 @@ import SwiftUI
 final class ViewModel: ObservableObject{
     @Published var jamaah : [Jamaah] = []
 }
+
+final class PeopleViewModel: ObservableObject {
+    @Published var peopleInfo: [peopleInfo] = []
+}
+
