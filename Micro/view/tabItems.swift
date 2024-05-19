@@ -31,7 +31,7 @@ class TabItems: ObservableObject {
     
     @Published var items: [TabItem] = [
         TabItem(imageName: "dice", offset: -40),
-        TabItem(imageName: "house.fill"),
+        TabItem(imageName: "jeem2"),
         TabItem(imageName: "person")
     ]
 
