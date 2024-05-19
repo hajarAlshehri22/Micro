@@ -103,7 +103,7 @@ struct GroupsView: View {
 //                .background(Color("backg").ignoresSafeArea())
             }
             .onAppear{
-                            vm.shouldShowTabView = false
+                            vm.shouldShowTabView = true
                 //            print( vm.shouldShowTabView)
                         }
             .accentColor(Color("LightPurble"))
