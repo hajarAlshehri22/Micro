@@ -62,8 +62,8 @@ struct calendarView: View {
                     
                     
                     HStack(spacing: -25) {
-                            ForEach(vm.peopleInfo) { person in
-                                              Image("memoji\(person.emoji)")
+                        ForEach(vm.peopleInfo) { peopleInfo in
+                                              Image("memoji\(peopleInfo.emoji)")
                                                   .offset(x: -90, y: 20)
                                                   .scaleEffect(0.7)
                                           }
