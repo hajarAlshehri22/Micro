@@ -11,11 +11,6 @@ import Firebase
 
 final class ViewModel: ObservableObject{
     @Published var jamaah : [Jamaah] = []
-    @Published var shouldShowTabView: Bool = true
-    
-}
-
-final class PeopleViewModel: ObservableObject {
     @Published var peopleInfo: [peopleInfo] = []
     @Published var busyDays: [Date] = []
     @Published var currentDate: Date = Date()
@@ -24,40 +19,41 @@ final class PeopleViewModel: ObservableObject {
     @Published var errorMessage: String?
     @Published var groups: [Group] = []
     @Published var shouldShowTabView: Bool = true
+    
+    func fetchGroupData(groupID: String) {
+        let db = Firestore.firestore()
         
-        func fetchGroupData(groupID: String) {
-               let db = Firestore.firestore()
-               
-               // Query the Group collection for the document with the given groupID
-               let groupRef = db.collection("Group").whereField("groupID", isEqualTo: groupID)
-               
-               // Fetch the document data
-               groupRef.getDocuments { snapshot, error in
-                   if let error = error {
-                       print("Error fetching group: \(error.localizedDescription)")
-                       self.errorMessage = error.localizedDescription
-                   } else if let documents = snapshot?.documents, !documents.isEmpty, let document = documents.last {
-                       let data = document.data()
-                       if let name = data["name"] as? String,
-                          let memberIDs = data["memberIDs"] as? [String] {
-                           // Successfully retrieved the data
-                           DispatchQueue.main.async {
-                               self.groupName = name
-                               self.peopleInfo = memberIDs.map { Micro.peopleInfo(id: $0, emoji: 1, name: "Placeholder") } // Update as per your peopleInfo struct
-                           }
-                       } else {
-                           // Data format is incorrect
-                           let dataError = NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid data format"])
-                           self.errorMessage = dataError.localizedDescription
-                       }
-                   } else {
-                       // Document does not exist
-                       let notFoundError = NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Group not found"])
-                       self.errorMessage = notFoundError.localizedDescription
-                   }
-               }
-           }
+        // Query the Group collection for the document with the given groupID
+        let groupRef = db.collection("Group").whereField("groupID", isEqualTo: groupID)
+        
+        // Fetch the document data
+        groupRef.getDocuments { snapshot, error in
+            if let error = error {
+                print("Error fetching group: \(error.localizedDescription)")
+                self.errorMessage = error.localizedDescription
+            } else if let documents = snapshot?.documents, !documents.isEmpty, let document = documents.last {
+                let data = document.data()
+                if let name = data["name"] as? String,
+                   let memberIDs = data["memberIDs"] as? [String] {
+                    // Successfully retrieved the data
+                    DispatchQueue.main.async {
+                        self.groupName = name
+                        self.peopleInfo = memberIDs.map { Micro.peopleInfo(id: $0, emoji: 1, name: "Placeholder") } // Update as per your peopleInfo struct
+                    }
+                } else {
+                    // Data format is incorrect
+                    let dataError = NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid data format"])
+                    self.errorMessage = dataError.localizedDescription
+                }
+            } else {
+                // Document does not exist
+                let notFoundError = NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Group not found"])
+                self.errorMessage = notFoundError.localizedDescription
+            }
+        }
     }
+}
+
 
 
 

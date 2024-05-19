@@ -4,7 +4,7 @@ import FirebaseFirestore
 
 struct calendar1View: View {
     
-    @EnvironmentObject var viewModel: ViewModel
+   @EnvironmentObject var viewModel: ViewModel
     let calendar = Calendar.current
     @State private var selectedDate: Date = Date()
     @State private var showData = false
@@ -17,7 +17,8 @@ struct calendar1View: View {
     @State private var busyMembers: [peopleInfo] = []
     @State private var busyDays: Set<Date> = []
     @StateObject private var viewmodel = GroupViewModel()
-    
+    @EnvironmentObject var vm: ViewModel
+
     let groupID: String
     
     var body: some View {
@@ -29,7 +30,7 @@ struct calendar1View: View {
                         .fontWeight(.bold)
                         .font(.system(size: 34))
                         .padding(.leading, 200)
-                } else if viewModel.groups.isEmpty {
+                } else if vm.groups.isEmpty {
                     Text(" ")
                         .foregroundColor(Color.black)
                         .fontWeight(.bold)

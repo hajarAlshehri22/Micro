@@ -18,7 +18,7 @@ struct MicroApp: App {
     var body: some Scene {
         WindowGroup {
             
-            SignIn()
+            TabBar()
                 .environment(\.layoutDirection, .rightToLeft)
                 .environmentObject(ViewModel())  
 
