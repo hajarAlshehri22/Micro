@@ -1,9 +1,3 @@
-//
-//  Account.swift
-//  Micro
-//
-//  Created by Shahad Alzowaid on 03/11/1445 AH.
-//
 import SwiftUI
 import UIKit
 import FirebaseAuth
@@ -14,6 +8,7 @@ struct ContentView: View {
     @State private var name: String = ""
     @State private var username: String = ""
     @State private var memoji: String = "memoji1" // Default image
+    @EnvironmentObject var vm: ViewModel
     
     var body: some View {
         NavigationView {
@@ -49,6 +44,10 @@ struct ContentView: View {
                     }
                 }
             }
+            .onAppear{
+                vm.shouldShowTabView = true
+    //            print( vm.shouldShowTabView)
+            }
             .navigationBarTitle(Text("الإعدادات"))
             .alert(isPresented: $showingEmailAlert) {
                 Alert(title: Text("تواصل معنا"),
@@ -61,6 +60,7 @@ struct ContentView: View {
         }
         .onAppear {
             fetchUserData()
+            
         }
     }
     

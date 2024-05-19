@@ -1,23 +1,11 @@
-//
+
 //  SignIn.swift
 //  Micro
 //
 //  Created by Shahad Alzowaid on 15/10/1445 AH.
 //
 
-//
-//  SignIn.swift
-//  Micro
-//
-//  Created by Shahad Alzowaid on 15/10/1445 AH.
-//
 
-//
-//  SignIn.swift
-//  Micro
-//
-//  Created by Shahad Alzowaid on 15/10/1445 AH.
-//
 
 import SwiftUI
 import AuthenticationServices
@@ -64,7 +52,7 @@ struct SignIn: View {
                     .cornerRadius(24)
                     .padding()
                     
-                    NavigationLink(destination: calendarView(), isActive: $navigateToCalendar) {
+                    NavigationLink(destination: GroupsView(), isActive: $navigateToCalendar) {
                         EmptyView()
                     }
                     .hidden()

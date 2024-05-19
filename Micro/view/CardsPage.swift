@@ -1,13 +1,10 @@
-//
-//  CardsPage.swift
-//  Micro
-//
-//  Created by Shahad Alzowaid on 15/10/1445 AH.
-//
 import SwiftUI
 
 struct CardsPage: View {
     @State private var currentIndex: Int = 0  // State to track the current index of the displayed text
+    
+    @EnvironmentObject var vm: ViewModel
+    
     let texts = ["سولف عن أحن ذكرى عائلية تتذكرها", "وش الموقف اللي خلاك تمر بلحظة ادراك عميقة", "لو قابلت أمك/أبوك بفترة شبابهم وش بتقولهم؟", "احكي لنا عن اول مره قابلت فيها أعز اصدقائك", "مصايب المراهقة كثيرة .. سولف لنا عن وحده منها","شاركنا الشي اللي مايعرفه احد من الموجودين عنك","وش الذكرى اللي تخليك مبتسم وانت تتذكرها؟","شلون تعرفت على كل شخص من الموجودين؟","وش الموقف اللي تتمنى انه ينعاد عشان تغير تصرفك فيه","وش الشخصيات الكرتونيه/السينمائية اللي تشبه كل شخص من الموجودين؟"]
     
     // Function to select a random text
@@ -50,6 +47,10 @@ struct CardsPage: View {
                         .frame(width: 250, height: 70)
                         .padding(.top, -60)
                 }
+            }
+            .onAppear{
+                vm.shouldShowTabView = false
+    //            print( vm.shouldShowTabView)
             }
             .navigationBarTitleDisplayMode(.inline)
         }

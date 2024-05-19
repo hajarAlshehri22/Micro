@@ -1,13 +1,8 @@
-//
-//  Entertainment.swift
-//  Micro
-//
-//  Created by Shahad Alzowaid on 15/10/1445 AH.
-//
-
 import SwiftUI
 
 struct Entertainment: View {
+    @EnvironmentObject var vm: ViewModel
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -43,7 +38,11 @@ struct Entertainment: View {
                 }
                 Spacer()
                 
-            } // VStack
+            }
+            .onAppear{
+                vm.shouldShowTabView = true
+    //            print( vm.shouldShowTabView)
+            }
             .navigationTitle("فعاليات")
         } // NavigationView
     } // Body

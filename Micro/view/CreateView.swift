@@ -3,7 +3,7 @@ import SwiftUI
 struct CreateView: View {
     
     @State var groupName: String = ""
-   
+    @EnvironmentObject var vm: ViewModel
     
     
     var body: some View {
@@ -50,6 +50,10 @@ struct CreateView: View {
                 .navigationBarTitle(LocalizedStringKey("جمّعهم"), displayMode: .large) .foregroundColor(Color("Text"))
                 
         }
+            .onAppear{
+                            vm.shouldShowTabView = false
+                //            print( vm.shouldShowTabView)
+                        }
         }
     }
 }

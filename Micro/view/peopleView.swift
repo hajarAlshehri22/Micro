@@ -8,6 +8,7 @@ struct peopleView: View {
     @State var peopleDic: [peopleInfo: Bool] = [:]
     @State private var isLoading = true
     let people: [peopleInfo] = []
+    @EnvironmentObject var vm: ViewModel
     
     @State private var searchText = ""
     @State private var showGroupsView = false // State to control navigation
@@ -21,6 +22,7 @@ struct peopleView: View {
     }
     
     var body: some View {
+        @EnvironmentObject var vm: ViewModel
         NavigationStack {
             VStack {
                 NavigationLink(destination: GroupsView(), isActive: $showGroupsView) {
@@ -88,11 +90,14 @@ struct peopleView: View {
                         .font(.headline)
                 }
             }
+            
             .padding(.horizontal, 20)
             .onAppear {
                 fetchPeople()
+                
             }
             .navigationBarTitle("جمّعهم", displayMode: .large)
+            
         }
     }
 

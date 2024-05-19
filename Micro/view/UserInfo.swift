@@ -38,7 +38,7 @@ struct UserInfo: View {
                  }
 
                  // Navigation Link for navigation
-                 NavigationLink(destination: GroupsView(), isActive: $NavigateToGroup) {
+             NavigationLink(destination: GroupsView(), isActive: $NavigateToGroup) {
                      EmptyView()
                  }
              }

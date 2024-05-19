@@ -1,4 +1,3 @@
-//
 //  GroupsView.swift
 //  Micro
 //
@@ -10,7 +9,9 @@ import FirebaseAuth
 import Firebase
 // View Model that handles fetching groups from Firestore
 class GroupViewModel: ObservableObject {
+    
     @Published var groups: [Group] = []
+    
     
     init() {
         fetchGroups()
@@ -52,12 +53,14 @@ class GroupViewModel: ObservableObject {
 // SwiftUI View that displays groups
 struct GroupsView: View {
     @StateObject private var viewModel = GroupViewModel() // Using StateObject for view model initialization
+    @EnvironmentObject var vm: ViewModel
+
 
     var body: some View {
         NavigationStack {
             VStack {
                 HStack {
-                    Text("Jammah Groups")
+                    Text("مجموعاتي")
                         .foregroundColor(Color.black)
                         .fontWeight(.regular)
                         .font(.system(size: 34))
@@ -66,7 +69,7 @@ struct GroupsView: View {
                     Spacer()
                 }
                 .padding()
-                .background(Color("backg"))
+//                .background(Color("backg"))
                 .navigationBarHidden(true)
                 
                 Rectangle()
@@ -97,10 +100,14 @@ struct GroupsView: View {
                     Spacer()
                 }
                 .padding(.top, 10.0)
-                .background(Color("backg").ignoresSafeArea())
+//                .background(Color("backg").ignoresSafeArea())
             }
+            .onAppear{
+                            vm.shouldShowTabView = false
+                //            print( vm.shouldShowTabView)
+                        }
             .accentColor(Color("LightPurble"))
-        }
+        }.navigationBarBackButtonHidden()
     }
 }
 

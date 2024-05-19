@@ -1,9 +1,3 @@
-//
-//  theTabBar.swift
-//  Onism
-//
-//  Created by sarah alothman on 25/08/1445 AH.
-//
 import Foundation
 import SwiftUI
 
@@ -86,5 +80,3 @@ struct TabBar_Previews: PreviewProvider {
             .environmentObject(ViewModel())
     }
 }
-
-

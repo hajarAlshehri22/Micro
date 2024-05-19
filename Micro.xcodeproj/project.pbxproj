@@ -21,6 +21,8 @@
 		2996E84C2BEFE3B300BB4C12 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2996E84B2BEFE3B300BB4C12 /* Account.swift */; };
 		F34C6ECD2BF4F4FB00CFC6F9 /* Jamaah.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34C6ECC2BF4F4FB00CFC6F9 /* Jamaah.swift */; };
 		F34C6ECF2BF4F53E00CFC6F9 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34C6ECE2BF4F53E00CFC6F9 /* ViewModel.swift */; };
+		F3696C942BFA28D300A2A77D /* eventDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3696C932BFA28D300A2A77D /* eventDetailView.swift */; };
+		F3696C962BFA291B00A2A77D /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3696C952BFA291B00A2A77D /* Event.swift */; };
 		F38B8FDE2BE791D20082A14C /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38B8FDD2BE791D20082A14C /* UserInfo.swift */; };
 		F38B8FE02BE8FBFD0082A14C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F38B8FDF2BE8FBFD0082A14C /* GoogleService-Info.plist */; };
 		F38B8FE42BE90C4F0082A14C /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = F38B8FE32BE90C4F0082A14C /* FirebaseFirestoreSwift */; };
@@ -57,6 +59,8 @@
 		F34C6ECC2BF4F4FB00CFC6F9 /* Jamaah.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Jamaah.swift; sourceTree = "<group>"; };
 		F34C6ECE2BF4F53E00CFC6F9 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		F360D7982BF10CB70069E665 /* Micro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Micro.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F3696C932BFA28D300A2A77D /* eventDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = eventDetailView.swift; sourceTree = "<group>"; };
+		F3696C952BFA291B00A2A77D /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		F38B8FDD2BE791D20082A14C /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		F38B8FDF2BE8FBFD0082A14C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F38B8FE72BEBA43E0082A14C /* calenderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = calenderView.swift; sourceTree = "<group>"; };
@@ -152,6 +156,7 @@
 			isa = PBXGroup;
 			children = (
 				F38B8FEA2BEBAF1D0082A14C /* Groups.swift */,
+				F3696C952BFA291B00A2A77D /* Event.swift */,
 				F34C6ECC2BF4F4FB00CFC6F9 /* Jamaah.swift */,
 				F38B8FEB2BEBAF1D0082A14C /* peopleInfo.swift */,
 			);
@@ -171,6 +176,7 @@
 				F38B8FDD2BE791D20082A14C /* UserInfo.swift */,
 				F38B90012BF0E4C50082A14C /* tabItems.swift */,
 				F38B90002BF0E4C50082A14C /* theBar.swift */,
+				F3696C932BFA28D300A2A77D /* eventDetailView.swift */,
 				F38B90022BF0E4C50082A14C /* theTabBar.swift */,
 				F38B8FEF2BEBAFF20082A14C /* CreateView.swift */,
 				F38B8FF02BEBAFF30082A14C /* peopleView.swift */,
@@ -288,6 +294,7 @@
 				F34C6ECD2BF4F4FB00CFC6F9 /* Jamaah.swift in Sources */,
 				2996E84C2BEFE3B300BB4C12 /* Account.swift in Sources */,
 				F3DAC4452BD143CB00E9EABF /* MicroApp.swift in Sources */,
+				F3696C962BFA291B00A2A77D /* Event.swift in Sources */,
 				F38B90052BF0E4C50082A14C /* theTabBar.swift in Sources */,
 				290671092BD9341A005AA839 /* CardsPage.swift in Sources */,
 				290671072BD933CA005AA839 /* SignIn.swift in Sources */,
@@ -300,6 +307,7 @@
 				F38B8FE82BEBA43E0082A14C /* calenderView.swift in Sources */,
 				F38B90032BF0E4C50082A14C /* theBar.swift in Sources */,
 				F38B8FED2BEBAF1D0082A14C /* peopleInfo.swift in Sources */,
+				F3696C942BFA28D300A2A77D /* eventDetailView.swift in Sources */,
 				F38B8FF32BEBAFF30082A14C /* peopleView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
