@@ -122,9 +122,7 @@ struct CalendarPage: View {
     @State private var isSheetPresented: Bool = false
     @State private var selectedDay: Date?
     @State private var busyMembers: [peopleInfo] = []
-  
-    
-    // Pass the 'people' array to CalendarPage
+
     let people: [peopleInfo] = [
         peopleInfo(id: "id", emoji: 1, name: "Renad")
     ]

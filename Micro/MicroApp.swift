@@ -20,6 +20,8 @@ struct MicroApp: App {
             
             GroupsView()
                 .environment(\.layoutDirection, .rightToLeft)
+                .environmentObject(ViewModel())  
+
         }
         
     }

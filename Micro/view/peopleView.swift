@@ -2,84 +2,83 @@ import SwiftUI
 
 struct peopleView: View {
     
-        let groupName: String
-        @State private var isAddingPeople = true
-        @State private var peoples: [peopleInfo] = []
-        @State var peopleDic: [peopleInfo: Bool] = [:]
-        @State private var isLoading = true
-        let people: [peopleInfo] = []
-
-        @State private var searchText = ""
+    let groupName: String
+    @State private var isAddingPeople = true
+    @State private var peoples: [peopleInfo] = []
+    @State var peopleDic: [peopleInfo: Bool] = [:]
+    @State private var isLoading = true
+    let people: [peopleInfo] = []
+    
+    @State private var searchText = ""
     @State private var showGroupsView = false // State to control navigation
-
+    
     var filteredPeople: [peopleInfo] {
-            if searchText.isEmpty {
-                return peoples
-            } else {
-                return peoples.filter { $0.name.localizedCaseInsensitiveContains(searchText) }
-            }
+        if searchText.isEmpty {
+            return peoples
+        } else {
+            return peoples.filter { $0.name.localizedCaseInsensitiveContains(searchText) }
         }
-
-        var body: some View {
+    }
+    
+    var body: some View {
+        NavigationStack {
             VStack {
-                if showGroupsView {
-                    GroupsView()
-                } else {
-                    HStack(spacing: 10) {
-                        RoundedRectangle(cornerRadius: 100)
-                            .fill(Color("AccentColor"))
-                            .frame(width: 165, height: 2)
-                        RoundedRectangle(cornerRadius: 25)
-                            .fill(Color("AccentColor"))
-                            .frame(width: 165, height: 2)
-                    }.padding(.bottom, 15)
-
-                    Spacer()
-                    SearchBar(text: $searchText)
-                    .padding(.bottom, 25)
-                    Spacer()
-
-                    List(filteredPeople, id: \.id) { peopleInfo in
-                        HStack {
-                            Image("memoji\(peopleInfo.emoji)")
-                                .resizable().frame(width: 40, height: 40)
-                            Text(peopleInfo.name)
-                            Spacer()
-
-                            Button(action: {
-                                peopleDic[peopleInfo, default: false].toggle()
-                            }) {
-                                if !(peopleDic[peopleInfo] ?? false) {
-                                    Image(systemName: "plus.circle.fill")
-                                        .resizable().frame(width: 20, height: 20)
-                                        .foregroundColor(Color("Plus"))
-                                        .font(.title)
-                                        .cornerRadius(15)
-                                } else {
-                                    Image(systemName: "checkmark.circle.fill")
-                                        .resizable().frame(width: 20, height: 20)
-                                        .foregroundColor(.yellow)
-                                        .opacity(0.8)
-                                        .font(.title)
-                                        .cornerRadius(15)
-                                }
-                            }
-                            .padding(.trailing, 10)
-                        }
-                    }
-                    .listStyle(PlainListStyle())
-                    .background(Color.white)
+                NavigationLink(destination: GroupsView(), isActive: $showGroupsView) {
+                    EmptyView()
                 }
+                
+                HStack(spacing: 10) {
+                    RoundedRectangle(cornerRadius: 100)
+                        .fill(Color("AccentColor"))
+                        .frame(width: 165, height: 2)
+                    RoundedRectangle(cornerRadius: 25)
+                        .fill(Color("AccentColor"))
+                        .frame(width: 165, height: 2)
+                }
+                .padding(.bottom, 15)
+
+                Spacer()
+                SearchBar(text: $searchText)
+                Spacer()
+
+                List(filteredPeople, id: \.id) { peopleInfo in
+                    HStack {
+                        Image("memoji\(peopleInfo.emoji)")
+                            .resizable()
+                            .frame(width: 40, height: 40)
+                        Text(peopleInfo.name)
+                        Spacer()
+                        
+                        Button(action: {
+                            peopleDic[peopleInfo, default: false].toggle()
+                        }) {
+                            Image(systemName: !(peopleDic[peopleInfo] ?? false) ? "plus.circle.fill" : "checkmark.circle.fill")
+                                .resizable()
+                                .frame(width: 20, height: 20)
+                                .foregroundColor(!(peopleDic[peopleInfo] ?? false) ? Color("Plus") : .yellow)
+                                .opacity(!(peopleDic[peopleInfo] ?? false) ? 1.0 : 0.8)
+                                .font(.title)
+                                .cornerRadius(15)
+                        }
+                        .padding(.trailing, 10)
+                    }
+                }
+                .listStyle(PlainListStyle())
+                .background(Color.white)
 
                 Button {
                     let selectedMembers = peopleDic.filter { $0.value }.map { $0.key }
                     FirestoreManager.shared.saveGroupData(name: groupName, members: selectedMembers) { error in
-                        if error == nil {
-                            showGroupsView = true
+                        DispatchQueue.main.async {
+                            if error == nil {
+                                self.showGroupsView = true
+                            } else {
+                                print("Error saving group data: \(error!.localizedDescription)")
+                            }
                         }
                     }
                 } label: {
-                    Text(LocalizedStringKey("تم!"))
+                    Text("تم!")
                         .padding()
                         .frame(width: 229, height: 53)
                         .background(Color("AccentColor"))
@@ -93,21 +92,21 @@ struct peopleView: View {
             .onAppear {
                 fetchPeople()
             }
-            .navigationBarTitle(Text(LocalizedStringKey("جمّعهم")), displayMode: .large)
+            .navigationBarTitle("جمّعهم", displayMode: .large)
         }
+    }
 
-        private func fetchPeople() {
-            FirestoreManager.shared.fetchUsernames { result in
-                switch result {
-                case .success(let people):
-                    self.peoples = people
-                    self.isLoading = false
-                case .failure(let error):
-                    print("Error fetching people: \(error.localizedDescription)")
-                }
+    private func fetchPeople() {
+        FirestoreManager.shared.fetchUsernames { result in
+            switch result {
+            case .success(let people):
+                self.peoples = people
+            case .failure(let error):
+                print("Error fetching people: \(error.localizedDescription)")
             }
         }
     }
+}
 
 struct SearchBar: View {
     @Binding var text: String

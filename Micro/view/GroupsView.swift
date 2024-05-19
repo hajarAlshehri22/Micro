@@ -79,10 +79,12 @@ struct GroupsView: View {
                     HStack { Spacer() }
                     
                     ForEach(viewModel.groups, id: \.id) { group in
-                        NavigationLink(destination: calendarView()) {
+                        NavigationLink(destination: CalendarPage().environmentObject(ViewModel())) {
                             GroupRow(group: group)
                         }
                     }
+
+
                     
                     ZStack {
                         RoundedRectangle(cornerRadius: 25.0).frame(width: 322, height: 101).foregroundColor(Color.gray.opacity(0.2))
