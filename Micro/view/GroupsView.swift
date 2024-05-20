@@ -5,24 +5,22 @@
 //
 
 import SwiftUI
-import FirebaseAuth
 import Firebase
-// View Model that handles fetching groups from Firestore
+import FirebaseFirestore
+
 class GroupViewModel: ObservableObject {
-    
     @Published var groups: [Group] = []
-    
-    
+
     init() {
         fetchGroups()
     }
-    
-    private func fetchGroups() {
+
+    func fetchGroups() {
         guard let userID = Auth.auth().currentUser?.uid else {
             print("No user ID found")
             return
         }
-        
+
         Firestore.firestore().collection("Group")
             .whereField("memberIDs", arrayContains: userID)
             .addSnapshotListener { querySnapshot, error in
@@ -30,12 +28,12 @@ class GroupViewModel: ObservableObject {
                     print("Error fetching groups: \(error.localizedDescription)")
                     return
                 }
-                
+
                 guard let documents = querySnapshot?.documents else {
                     print("No groups found")
                     return
                 }
-                
+
                 self.groups = documents.compactMap { document -> Group? in
                     let data = document.data()
                     let id = document.documentID
@@ -44,11 +42,37 @@ class GroupViewModel: ObservableObject {
                     let members = membersData.map { peopleInfo(id: $0["id"] as? String ?? "", emoji: $0["emoji"] as? Int ?? 0, name: name) }
                     return Group(id: id, name: name, members: members)
                 }
-                
+
                 print("Groups fetched: \(self.groups.count)")
             }
     }
+
+    func fetchGroupData(groupID: String) {
+        Firestore.firestore().collection("Group").document(groupID).getDocument { document, error in
+            if let error = error {
+                print("Error fetching group data: \(error.localizedDescription)")
+                return
+            }
+
+            guard let document = document, document.exists, let data = document.data() else {
+                print("Group not found")
+                return
+            }
+
+            let id = document.documentID
+            let name = data["name"] as? String ?? ""
+            let membersData = data["members"] as? [[String: Any]] ?? []
+            let members = membersData.map { peopleInfo(id: $0["id"] as? String ?? "", emoji: $0["emoji"] as? Int ?? 0, name: name) }
+
+            if let index = self.groups.firstIndex(where: { $0.id == id }) {
+                self.groups[index] = Group(id: id, name: name, members: members)
+            } else {
+                self.groups.append(Group(id: id, name: name, members: members))
+            }
+        }
+    }
 }
+
 
 // SwiftUI View that displays groups
 struct GroupsView: View {
@@ -83,8 +107,8 @@ struct GroupsView: View {
                     HStack { Spacer() }
                     
                     ForEach(viewModel.groups, id: \.id) { group in
-                        NavigationLink(destination: CalendarPage().environmentObject(ViewModel())) {
-                            GroupRow(group: group)
+                                            NavigationLink(destination: CalendarPage(group: group).environmentObject(vm)) {
+                                                GroupRow(group: group)
                         }
                     }
 

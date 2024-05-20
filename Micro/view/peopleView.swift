@@ -1,5 +1,6 @@
 import SwiftUI
 
+
 struct peopleView: View {
     
     let groupName: String

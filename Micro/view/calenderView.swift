@@ -3,8 +3,7 @@ import Firebase
 import FirebaseFirestore
 
 struct calendar1View: View {
-    
-   @EnvironmentObject var viewModel: ViewModel
+    @EnvironmentObject var viewModel: ViewModel
     let calendar = Calendar.current
     @State private var selectedDate: Date = Date()
     @State private var showData = false
@@ -16,57 +15,50 @@ struct calendar1View: View {
     var people: [peopleInfo] = []
     @State private var busyMembers: [peopleInfo] = []
     @State private var busyDays: Set<Date> = []
-    @StateObject private var viewmodel = GroupViewModel()
+    @StateObject private var groupViewModel = GroupViewModel()
     @EnvironmentObject var vm: ViewModel
-
     let groupID: String
-    
+
     var body: some View {
         VStack {
             HStack {
-                if let groupName = viewModel.groups.first?.name {
+                if let groupName = groupViewModel.groups.first(where: { $0.id == groupID })?.name {
                     Text(groupName)
                         .foregroundColor(Color.black)
                         .fontWeight(.bold)
                         .font(.system(size: 34))
-                        .padding(.leading, 200)
-                } else if vm.groups.isEmpty {
-                    Text(" ")
-                        .foregroundColor(Color.black)
-                        .fontWeight(.bold)
-                        .font(.system(size: 34))
-                        .padding(.top, -30)
-                        .padding(.leading, -100)
+                        .padding(.trailing, 250)
                 } else {
-                    // This is a placeholder while the data is being fetched
                     Text("Loading...")
                         .foregroundColor(Color.gray)
                         .fontWeight(.bold)
                         .font(.system(size: 34))
                         .padding(.top, -30)
                         .padding(.leading, -100)
+                    
+                    
                 }
             }
-            
+
             Divider()
-            
+
             ZStack {
                 Rectangle()
                     .foregroundColor(Color("TextField"))
                     .frame(width: 360, height: 60)
                     .cornerRadius(18)
                     .padding(.top, 30)
-                
+
                 HStack(spacing: -25) {
                     ForEach(people) { person in
                         Image("memoji\(person.emoji)")
                             .resizable()
                             .frame(width: 50, height: 50)
-                            .padding(.leading, -150)
+                            .padding(.leading, -100)
                             .padding(.bottom, -30)
                     }
                 }
-                
+
                 Button {
                     showSheet = true
                 } label: {
@@ -75,10 +67,10 @@ struct calendar1View: View {
                 .padding(.top, 25)
                 .padding(.leading, 250)
             }
-            
+
             Divider()
                 .padding(.top, 20)
-            
+
             Spacer()
         }
         .toolbar {
@@ -95,7 +87,7 @@ struct calendar1View: View {
             PickGatheringDay_Sheet(selectedDate: someDateDate)
         }
         .onAppear {
-            viewModel.fetchGroupData(groupID: groupID)
+            groupViewModel.fetchGroupData(groupID: groupID)
         }
     }
 }
@@ -113,21 +105,28 @@ struct CalendarPage: View {
     @State private var JamaahSheet: Bool = false
     @State private var someDateDate: Date = Date()
     @State private var selectedJamaahDay: Date?
-    let people: [peopleInfo] = [
-        peopleInfo(id: "id", emoji: 1, name: "Renad")
-    ]
+    let group: Group // Add this line to accept the group
     private var events: [Event] = [
         Event(id: "1", name: "Event 1", date: Date(), locationURL: "Location 1"),
         Event(id: "2", name: "Event 2", date: Calendar.current.date(byAdding: .day, value: 1, to: Date())!, locationURL: "Location 2")
     ]
     
-    
+    public init(group: Group) { // Make this initializer public
+        self.group = group
+    }
+
     var body: some View {
         NavigationView {
             VStack {
                 Spacer()
-                calendar1View(someDateDate: $someDateDate, selectedEvent: $viewModel.selectedEvent, JamaahSheet: $JamaahSheet, people: people, groupID: "name")
-                    .environmentObject(viewModel)
+                calendar1View(
+                    someDateDate: $someDateDate,
+                    selectedEvent: $viewModel.selectedEvent,
+                    JamaahSheet: $JamaahSheet,
+                    people: group.members, // Pass group members
+                    groupID: group.id ?? "" // Pass group ID
+                )
+                .environmentObject(viewModel)
                 HStack {
                     Button(">") {
                         viewModel.currentDate = Calendar.current.date(byAdding: .month, value: -1, to: viewModel.currentDate) ?? viewModel.currentDate
@@ -145,14 +144,14 @@ struct CalendarPage: View {
                     .padding(.trailing)
                 }
                 .padding(.top)
-                .padding(.bottom, 100)
-                
+                .padding(.bottom, 60) // Adjusted padding
+
                 Calendar00View(
                     busyDays: $viewModel.busyDays,
                     currentDate: $viewModel.currentDate,
                     someDateDate: $someDateDate,
                     JamaahSheet: $JamaahSheet,
-                    people: people,
+                    people: group.members, // Pass group members
                     onDayTapped: { day in
                         isSheetPresented = true
                         selectedDay = day
@@ -179,38 +178,37 @@ struct CalendarPage: View {
                     eventDetailView(event: event)
                 }
                 .presentationDetents([.medium])
-                
-                Spacer()
-                
+
+                // Ensure the HStack is placed inside the VStack
                 HStack {
                     ZStack {
                         Circle()
                             .foregroundColor(Color.gray)
                             .frame(width: 16, height: 16)
-                            .padding(.bottom, 30)
+                            .padding(.bottom, 100)
                             .padding(.leading, 110)
                         Text("يوم مشغول")
-                            .padding(.bottom, 40)
+                            .padding(.bottom, 100)
                     }
                     .padding(.trailing, 30)
                     
                     ZStack {
                         Circle()
-                            .foregroundColor(Color("AccentColor"))
+                            .foregroundColor(Color("LightPurble"))
                             .frame(width: 16, height: 16)
-                            .padding(.bottom, 30)
+                            .padding(.bottom, 100)
                             .padding(.leading, 110)
                         Text("يوم الجَمعة")
-                            .padding(.bottom, 40)
+                            .padding(.bottom, 100)
                     }
                 }
                 Spacer()
                 
+                
             }
             .onAppear{
-                            vm.shouldShowTabView = false
-                //            print( vm.shouldShowTabView)
-                        }
+                vm.shouldShowTabView = false
+            }
             .accentColor(Color("SecB"))
         }
     }
@@ -219,6 +217,7 @@ struct CalendarPage: View {
         return events.first { Calendar.current.isDate($0.date, inSameDayAs: date) }
     }
 }
+
 
 struct Calendar00View: View {
     let calendar = Calendar.current
@@ -300,11 +299,11 @@ struct DayView: View {
     var body: some View {
         VStack {
             Text("\(date.day)")
-                .foregroundColor(isBusy ? .gray : (isSelected ? .white : .primary))
+                .foregroundColor(isBusy ? .gray : (isSelected ? .black : .primary))
                 .padding(8)
                 .background {
                     if allDates.contains { $0 == date.startOfDay } {
-                                            Color("AccentColor")
+                                            Color("LightPurble")
                                         }
                 }
                 .clipShape(Circle())
@@ -340,7 +339,11 @@ extension DateFormatter {
 
 struct CalendarPage_Previews: PreviewProvider {
     static var previews: some View {
-        CalendarPage()
+        let sampleGroup = Group(id: "sampleID", name: "Sample Group", members: [
+            peopleInfo(id: "1", emoji: 1, name: "John Doe"),
+            peopleInfo(id: "2", emoji: 2, name: "Jane Smith")
+        ])
+        CalendarPage(group: sampleGroup)
             .environmentObject(ViewModel())
     }
 }
