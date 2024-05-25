@@ -1,6 +1,21 @@
 import SwiftUI
 import UIKit
 import FirebaseAuth
+import WebKit // Import WebKit for WebView
+
+// WebView to display a web page
+struct WebView: UIViewRepresentable {
+    var url: URL
+    
+    func makeUIView(context: Context) -> WKWebView {
+        return WKWebView()
+    }
+    
+    func updateUIView(_ uiView: WKWebView, context: Context) {
+        let request = URLRequest(url: url)
+        uiView.load(request)
+    }
+}
 
 struct ContentView: View {
     @State private var showingAlert = false
@@ -28,7 +43,7 @@ struct ContentView: View {
                 Section(header: Text("المزيد")) {
                     NavigationLink(destination:
                         ScrollView {
-                            Text("سياسة الخصوصية:").font(.title).padding(.trailing,170)
+                            Text("سياسة الخصوصية:").font(.title).padding(.trailing, 170)
                             Divider()
                             Text("عندما تستخدم جَمعة ، فأنت تثق بنا في بياناتك الشخصية. نحن ملتزمون بالحفاظ على هذه الثقة. توضح سياسة الخصوصية بموجبها قواعد جَمعة فيما يتعلق بجمع البيانات الشخصية واستخدامها والإفصاح عنها عند استخدام تطبيقنا.").padding()
                         }) {
@@ -39,28 +54,34 @@ struct ContentView: View {
                         }
                     }
                     
+                    NavigationLink(destination: WebView(url: URL(string: "https://www.linkedin.com/company/jammah2/")!)) {
+                        HStack {
+                            Image(systemName: "network")
+                                .foregroundColor(.gray)
+                            Text("حساباتنا")
+                        }
+                    }
+                    
                     Button("تواصل معنا") {
                         self.showingEmailAlert = true
                     }
                 }
             }
-            .onAppear{
+            .onAppear {
                 vm.shouldShowTabView = true
-    //            print( vm.shouldShowTabView)
             }
             .navigationBarTitle(Text("الإعدادات"))
             .alert(isPresented: $showingEmailAlert) {
                 Alert(title: Text("تواصل معنا"),
                       message: Text("JammahApp@gmail.com"),
                       primaryButton: .default(Text("نسخ")) {
-                    UIPasteboard.general.string = "JammahApp@gmail.com"
-                },
+                        UIPasteboard.general.string = "JammahApp@gmail.com"
+                    },
                       secondaryButton: .cancel(Text("إلغاء")))
             }
         }
         .onAppear {
             fetchUserData()
-            
         }
     }
     
@@ -100,10 +121,12 @@ struct AccountInfoView: View {
         .padding(.bottom, 450)
         .onAppear{
             vm.shouldShowTabView = false
-//            print( vm.shouldShowTabView)
         }
     }
 }
+
+// For
+
 
 #Preview {
     ContentView()
