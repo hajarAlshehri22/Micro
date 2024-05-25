@@ -93,14 +93,9 @@ struct AccountInfoView: View {
             Divider()
             
             Text("الاسم: \(name)").font(.title3).padding(.trailing, 274).padding(.top)
-            Rectangle()
-                .fill(Color.gray.opacity(0.2))
-                .frame(width: 330, height: 40).cornerRadius(14)
             
-            Text("اسم المستخدم: \(username)").font(.title3).padding(.trailing, 200)
-            Rectangle()
-                .fill(Color.gray.opacity(0.2))
-                .frame(width: 330, height: 40).cornerRadius(14)
+            Text("اسم المستخدم: \(username)").font(.title3).padding(.trailing, 225)
+           
         }
         .padding(.bottom, 450)
         .onAppear{
