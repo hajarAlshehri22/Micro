@@ -1,21 +1,6 @@
 import SwiftUI
 import UIKit
 import FirebaseAuth
-import WebKit // Import WebKit for WebView
-
-// WebView to display a web page
-struct WebView: UIViewRepresentable {
-    var url: URL
-    
-    func makeUIView(context: Context) -> WKWebView {
-        return WKWebView()
-    }
-    
-    func updateUIView(_ uiView: WKWebView, context: Context) {
-        let request = URLRequest(url: url)
-        uiView.load(request)
-    }
-}
 
 struct ContentView: View {
     @State private var showingAlert = false
@@ -54,17 +39,29 @@ struct ContentView: View {
                         }
                     }
                     
-                    NavigationLink(destination: WebView(url: URL(string: "https://www.linkedin.com/company/jammah2/")!)) {
+                    Button(action: {
+                        if let url = URL(string: "https://www.linkedin.com/company/jammah2/") {
+                            UIApplication.shared.open(url)
+                        }
+                    }) {
                         HStack {
                             Image(systemName: "network")
                                 .foregroundColor(.gray)
                             Text("حساباتنا")
                         }
                     }
+                    .foregroundColor(Color.purple) // Set text color to purple
                     
-                    Button("تواصل معنا") {
+                    Button(action: {
                         self.showingEmailAlert = true
+                    }) {
+                        HStack {
+                            Image(systemName: "phone.fill") // Phone icon
+                                .foregroundColor(.gray)
+                            Text("تواصل معنا")
+                        }
                     }
+                    .foregroundColor(Color.purple) // Set text color to purple
                 }
             }
             .onAppear {
@@ -116,17 +113,13 @@ struct AccountInfoView: View {
             Text("الاسم: \(name)").font(.title3).padding(.trailing, 274).padding(.top)
             
             Text("اسم المستخدم: \(username)").font(.title3).padding(.trailing, 225)
-           
         }
         .padding(.bottom, 450)
-        .onAppear{
+        .onAppear {
             vm.shouldShowTabView = false
         }
     }
 }
-
-// For
-
 
 #Preview {
     ContentView()
