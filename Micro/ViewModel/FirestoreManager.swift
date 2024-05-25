@@ -29,7 +29,7 @@ class FirestoreManager {
         }
     }
     
-    //this function check if it is new user go to people Info page if it not go to main page for now it is calender view
+    // This function checks if it is a new user; if not, it goes to the main page (Calendar view)
     func determineUserFlow(userId: String, completion: @escaping (Bool) -> Void) {
         let userDocRef = db.collection("User").document(userId)
         userDocRef.getDocument { (document, error) in
@@ -38,9 +38,9 @@ class FirestoreManager {
                 let data = document.data()
                 let username = data?["UserName"] as? String ?? ""
                 let name = data?["FullName"] as? String ?? ""
-                let memoji = data?["Memoji"] as? String ?? ""
+                let memoji = data?["Memoji"] as? Int ?? 0
                 
-                if !username.isEmpty && !name.isEmpty && !memoji.isEmpty {
+                if !username.isEmpty && !name.isEmpty && memoji > 0 {
                     completion(false) // All fields are filled, navigate to Calendar
                 } else {
                     completion(true) // Some fields are missing, navigate to UserInfo
