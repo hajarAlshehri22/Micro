@@ -15,6 +15,13 @@ import FirebaseAuth
 struct SignIn: View {
     @State private var navigateToUserInfo = false  // State to control navigation to UserInfo
     @State private var navigateToCalendar = false  // State to control navigation to CalendarView
+
+    // Check if user has already signed in
+    init() {
+        if UserDefaults.standard.bool(forKey: "isSignedIn") {
+            _navigateToCalendar = State(initialValue: true)
+        }
+    }
     
     var body: some View {
         NavigationView {
@@ -44,6 +51,7 @@ struct SignIn: View {
                     .hidden()
                     
                     Button("تصفح كزائر") {
+                        UserDefaults.standard.set(true, forKey: "isGuest")
                         navigateToCalendar = true  // Set to true to navigate to CalendarView
                     }
                     .frame(width: 280, height: 50)
@@ -96,10 +104,11 @@ struct SignIn: View {
                 } else {
                     self.navigateToCalendar = true  // Profile is complete, navigate to Calendar
                 }
+                UserDefaults.standard.set(true, forKey: "isSignedIn")
+                UserDefaults.standard.set(false, forKey: "isGuest")
             }
         }
     }
-    
 }
 
 struct SignIn_Previews: PreviewProvider {

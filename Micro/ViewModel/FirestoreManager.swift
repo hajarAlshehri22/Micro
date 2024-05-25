@@ -56,8 +56,6 @@ class FirestoreManager {
     
     //this function save user data , name memoji username and check if it is unique
     func saveUserData(userId: String, name: String, username: String, selectedImage: Int, completion: @escaping (Error?) -> Void) {
-        let db = Firestore.firestore()
-        let memojiName = "memoji\(selectedImage)"
         let userRef = db.collection("User").document(userId)
         
         // First, check if the username is unique
@@ -78,7 +76,7 @@ class FirestoreManager {
                     "UserID": userId,
                     "groupID": [String](),
                     "FullName": name,
-                    "Memoji": memojiName,
+                    "Memoji": selectedImage,
                     "BusyDay": [Timestamp](),
                     "UserName": username
                 ]
@@ -131,19 +129,19 @@ class FirestoreManager {
                 completion(.failure(error))
                 return
             }
-            
+
             guard let documents = snapshot?.documents else {
                 completion(.success([]))  // Return empty if no documents
                 return
             }
-            
+
             let peoples = documents.map { doc -> peopleInfo in
                 let data = doc.data()
                 let name = data["UserName"] as? String ?? "No Name"
-                let emoji = data["Memoji"] as? Int ?? 1  // Default emoji if not found
+                let emoji = data["Memoji"] as? Int ?? 1  // Default to 1 if not found
                 return peopleInfo(id: doc.documentID, emoji: emoji, name: name)
             }
-            
+
             completion(.success(peoples))
         }
     }

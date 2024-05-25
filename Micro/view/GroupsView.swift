@@ -12,7 +12,9 @@ class GroupViewModel: ObservableObject {
     @Published var groups: [Group] = []
 
     init() {
-        fetchGroups()
+        if !UserDefaults.standard.bool(forKey: "isGuest") {
+            fetchGroups()
+        }
     }
 
     func fetchGroups() {
@@ -78,61 +80,70 @@ class GroupViewModel: ObservableObject {
 struct GroupsView: View {
     @StateObject private var viewModel = GroupViewModel() // Using StateObject for view model initialization
     @EnvironmentObject var vm: ViewModel
-
+    @State private var navigateToSignIn = false // State to control navigation to SignIn view
 
     var body: some View {
         NavigationStack {
             VStack {
-                HStack {
-                    Text("مجموعاتي")
-                        .foregroundColor(Color.black)
-                        .bold()
-                        .fontWeight(.regular)
-                        .font(.system(size: 34))
-                        .offset(y: 6)
-                        .offset(x: 20)
-                    Spacer()
-                }
-                .padding()
-//                .background(Color("backg"))
-                .navigationBarHidden(true)
-                
-                Rectangle()
-                    .frame(height: 1)
-                    .foregroundColor(Color.gray)
-                    .padding(.horizontal, 40)
-                    .opacity(0.5)
-                
-                ScrollView {
-                    HStack { Spacer() }
-                    
-                    ForEach(viewModel.groups, id: \.id) { group in
-                                            NavigationLink(destination: CalendarPage(group: group).environmentObject(vm)) {
-                                                GroupRow(group: group)
-                        }
-                    }
+                Divider()
+                    .padding(.top)
 
-
-                    
-                    ZStack {
-                        RoundedRectangle(cornerRadius: 25.0).frame(width: 322, height: 101).foregroundColor(Color.gray.opacity(0.2))
-                        NavigationLink(destination: CreateView()) {
-                            Image(systemName: "plus.circle").font(.system(size: 40)).foregroundColor(Color("LightPurble")).opacity(0.40)
+                if UserDefaults.standard.bool(forKey: "isGuest") {
+                    VStack {
+                        Text("لا توجد مجموعات متاحة في وضع الزائر")
+                            .foregroundColor(Color.gray)
+                            .padding(.top, 20)
+                        
+                        Button(action: {
+                            navigateToSignIn = true // Navigate to SignIn view
+                        }) {
+                            Text("تسجيل الدخول")
+                                .frame(width: 280, height: 50)
+                                .background(Color("SecB"))
+                                .foregroundColor(.white)
+                                .cornerRadius(24)
+                                .padding(.top, 20)
                         }
-                    }
-                    .padding(.top, 20)
-                    
-                    Spacer()
-                }
-                .padding(.top, 10.0)
-//                .background(Color("backg").ignoresSafeArea())
-            }
-            .onAppear{
-                            vm.shouldShowTabView = true
+
+                        NavigationLink(destination: SignIn().navigationBarBackButtonHidden(true), isActive: $navigateToSignIn) {
+                            EmptyView()
+                        }
+                        .onAppear{
+                            vm.shouldShowTabView = false
                 //            print( vm.shouldShowTabView)
                         }
+                        .hidden()
+                    }
+                } else {
+                    ScrollView {
+                        HStack { Spacer() }
+                        
+                        ForEach(viewModel.groups, id: \.id) { group in
+                            NavigationLink(destination: CalendarPage(group: group).environmentObject(vm)) {
+                                GroupRow(group: group)
+                            }
+                        }
+                        
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 25.0).frame(width: 322, height: 101).foregroundColor(Color.gray.opacity(0.2))
+                            NavigationLink(destination: CreateView()) {
+                                Image(systemName: "plus.circle").font(.system(size: 40)).foregroundColor(Color("LightPurble")).opacity(0.40)
+                            }
+                        }
+                        .padding(.top, 20)
+                        
+                        Spacer()
+                    }
+                    .padding(.top, 10.0)
+                }
+            }
+            .onAppear{
+                vm.shouldShowTabView = true
+            }
             .accentColor(Color("LightPurble"))
-        }.navigationBarBackButtonHidden()
+            .navigationTitle("مجموعاتي")
+        }
+        .navigationBarBackButtonHidden()
     }
 }
 
@@ -170,7 +181,6 @@ struct GroupRow: View {
         }
     }
 }
-
 
 
 #Preview {

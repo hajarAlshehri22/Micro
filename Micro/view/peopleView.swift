@@ -2,7 +2,6 @@ import SwiftUI
 
 
 struct peopleView: View {
-    
     let groupName: String
     @State private var isAddingPeople = true
     @State private var peoples: [peopleInfo] = []
@@ -23,7 +22,6 @@ struct peopleView: View {
     }
     
     var body: some View {
-        @EnvironmentObject var vm: ViewModel
         NavigationStack {
             VStack {
                 NavigationLink(destination: GroupsView(), isActive: $showGroupsView) {
@@ -46,7 +44,7 @@ struct peopleView: View {
 
                 List(filteredPeople, id: \.id) { peopleInfo in
                     HStack {
-                        Image("memoji\(peopleInfo.emoji)")
+                        Image("memoji\(peopleInfo.emoji)") // Convert Int to String
                             .resizable()
                             .frame(width: 40, height: 40)
                         Text(peopleInfo.name)
@@ -95,10 +93,8 @@ struct peopleView: View {
             .padding(.horizontal, 20)
             .onAppear {
                 fetchPeople()
-                
             }
             .navigationBarTitle("جمّعهم", displayMode: .large)
-            
         }
     }
 
@@ -136,8 +132,6 @@ struct SearchBar: View {
         .padding(.horizontal, 15)
     }
 }
-
-
 
 struct peopleView_Previews: PreviewProvider {
     static var previews: some View {
