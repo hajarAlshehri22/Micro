@@ -5,8 +5,6 @@
 //  Created by Shahad Alzowaid on 15/10/1445 AH.
 //
 
-
-
 import SwiftUI
 import AuthenticationServices
 import Firebase
