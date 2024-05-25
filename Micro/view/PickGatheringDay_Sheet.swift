@@ -7,11 +7,12 @@
 
 import SwiftUI
 import MapKit
+import Firebase
 
 struct PickGatheringDay_Sheet: View {
     @EnvironmentObject var vm: ViewModel
     @State private var gatheringName: String = ""
-    @State private var selectedDate: Date = Date() 
+    @State private var selectedDate: Date = Date()
     @State private var region = MKCoordinateRegion(
         center: CLLocationCoordinate2D(latitude: 34.0522, longitude: -118.2437),
         span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
@@ -21,9 +22,9 @@ struct PickGatheringDay_Sheet: View {
     
     @Environment(\.dismiss) var dismiss
 
-    init(selectedDate: Date = Date() ) {
-           self._selectedDate = State(initialValue: selectedDate)
-       }
+    init(selectedDate: Date = Date()) {
+        self._selectedDate = State(initialValue: selectedDate)
+    }
 
     var body: some View {
         NavigationView {
@@ -36,44 +37,31 @@ struct PickGatheringDay_Sheet: View {
                 }
                 Section(header: Text("مكان الجَمعة :")) {
                     TextField("ابحث عن مكان لجمعتكم ..", text: $searchText, onCommit: performSearch)
-                
-             
                     ZStack(alignment: .center) {
                         Map(coordinateRegion: $region, interactionModes: .all)
                             .frame(height: 300)
                         Image(systemName: "mappin.and.ellipse")
                             .foregroundColor(.red)
-                            .offset(y: -6) // You may need to adjust this value to better align the pin
-                            }
-                    
-                    
-                    
-                        Button("تأكيد المكان") {
-                            generateLocationURL()
-                            saveDate()
-                        }
-                        .frame(width: 189, height: 48)
-                        .background(Color("AccentColor")) // Using custom accent color
-                        .foregroundColor(.white)
-                        .cornerRadius(24)
-                        .padding(.horizontal) // Centers the button horizontally within the section
-                        .padding(.leading,50)
-                        
-
-
-                    
+                            .offset(y: -6)
+                    }
+                    Button("تأكيد المكان") {
+                        generateLocationURL()
+                        saveDate()
+                    }
+                    .frame(width: 189, height: 48)
+                    .background(Color("AccentColor"))
+                    .foregroundColor(.white)
+                    .cornerRadius(24)
+                    .padding(.horizontal)
+                    .padding(.leading, 50)
                 }
-                
                 if let url = locationURL {
                     Section {
                         Text("الموقع : ")
                         Link(url, destination: URL(string: url)!)
-                       
                     }
-                    
                 }
             }
-            
             .navigationBarTitle("إضافة جمعة", displayMode: .inline)
         }
     }
@@ -84,9 +72,7 @@ struct PickGatheringDay_Sheet: View {
         let search = MKLocalSearch(request: searchRequest)
         search.start { response, _ in
             guard let coordinate = response?.mapItems.first?.placemark.coordinate else { return }
-            
             region.center = coordinate
-            
         }
     }
 
@@ -98,7 +84,16 @@ struct PickGatheringDay_Sheet: View {
     private func saveDate() {
         let jamaah = Jamaah(gatheringName: gatheringName, selectedDate: selectedDate)
         vm.jamaah.append(jamaah)
-       
+        if let url = locationURL {
+            FirestoreManager.shared.saveEvent(name: gatheringName, date: selectedDate, locationURL: url) { error in
+                if let error = error {
+                    print("Error saving event: \(error.localizedDescription)")
+                } else {
+                    print("Event saved successfully")
+                    dismiss() // Dismiss the sheet after saving
+                }
+            }
+        }
     }
 }
 
