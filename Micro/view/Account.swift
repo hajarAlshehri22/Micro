@@ -50,7 +50,7 @@ struct ContentView: View {
                             Text("حساباتنا")
                         }
                     }
-                    .foregroundColor(Color.purple) // Set text color to purple
+                    .foregroundColor(.black) // Set text color to black
                     
                     Button(action: {
                         self.showingEmailAlert = true
@@ -61,7 +61,7 @@ struct ContentView: View {
                             Text("تواصل معنا")
                         }
                     }
-                    .foregroundColor(Color.purple) // Set text color to purple
+                    .foregroundColor(.black) // Set text color to black
                 }
             }
             .onAppear {
@@ -120,6 +120,7 @@ struct AccountInfoView: View {
         }
     }
 }
+
 
 #Preview {
     ContentView()
