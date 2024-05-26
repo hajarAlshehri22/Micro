@@ -35,8 +35,6 @@ struct calendar1View: View {
                         .font(.system(size: 34))
                         .padding(.top, -30)
                         .padding(.leading, -100)
-                    
-                    
                 }
             }
 
@@ -59,9 +57,7 @@ struct calendar1View: View {
                     }
                 }
 
-                Button {
-                    showSheet = true
-                } label: {
+                NavigationLink(destination: peopleView(groupName: "")) {
                     Image(systemName: "ellipsis").foregroundColor(Color.gray)
                 }
                 .padding(.top, 25)
@@ -105,13 +101,13 @@ struct CalendarPage: View {
     @State private var JamaahSheet: Bool = false
     @State private var someDateDate: Date = Date()
     @State private var selectedJamaahDay: Date?
-    let group: Group // Add this line to accept the group
+    let group: Group
     private var events: [Event] = [
         Event(id: "1", name: "Event 1", date: Date(), locationURL: "Location 1"),
         Event(id: "2", name: "Event 2", date: Calendar.current.date(byAdding: .day, value: 1, to: Date())!, locationURL: "Location 2")
     ]
     
-    public init(group: Group) { // Make this initializer public
+    public init(group: Group) {
         self.group = group
     }
 
@@ -123,8 +119,8 @@ struct CalendarPage: View {
                     someDateDate: $someDateDate,
                     selectedEvent: $viewModel.selectedEvent,
                     JamaahSheet: $JamaahSheet,
-                    people: group.members, // Pass group members
-                    groupID: group.id ?? "" // Pass group ID
+                    people: group.members,
+                    groupID: group.id ?? ""
                 )
                 .environmentObject(viewModel)
                 HStack {
@@ -144,19 +140,18 @@ struct CalendarPage: View {
                     .padding(.trailing)
                 }
                 .padding(.top)
-                .padding(.bottom, 60) // Adjusted padding
+                .padding(.bottom, 60)
 
                 Calendar00View(
                     busyDays: $viewModel.busyDays,
                     currentDate: $viewModel.currentDate,
                     someDateDate: $someDateDate,
                     JamaahSheet: $JamaahSheet,
-                    people: group.members, // Pass group members
+                    people: group.members,
                     onDayTapped: { day in
                         isSheetPresented = true
                         selectedDay = day
                         
-                        // Find event on the selected day
                         if let event = findEvent(on: day) {
                             selectedEvent = event
                         } else {
@@ -179,7 +174,6 @@ struct CalendarPage: View {
                 }
                 .presentationDetents([.medium])
 
-                // Ensure the HStack is placed inside the VStack
                 HStack {
                     ZStack {
                         Circle()
@@ -203,8 +197,6 @@ struct CalendarPage: View {
                     }
                 }
                 Spacer()
-                
-                
             }
             .onAppear{
                 vm.shouldShowTabView = false
@@ -217,7 +209,6 @@ struct CalendarPage: View {
         return events.first { Calendar.current.isDate($0.date, inSameDayAs: date) }
     }
 }
-
 
 struct Calendar00View: View {
     let calendar = Calendar.current
