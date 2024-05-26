@@ -29,6 +29,32 @@ class FirestoreManager {
         }
     }
     
+    // fetch busy User and add them from the firebase //
+
+    class FirebaseManager: ObservableObject {
+        @Published var busyMembers: [peopleInfo] = []
+
+        private var db = Firestore.firestore()
+
+        func fetchBusyMembers() {
+            db.collection("busyMembers").getDocuments { snapshot, error in
+                guard let documents = snapshot?.documents else {
+                    print("No documents")
+                    return
+                }
+
+                self.busyMembers = documents.map { docSnapshot -> peopleInfo in
+                    let data = docSnapshot.data()
+                    let id = docSnapshot.documentID
+                    let emoji = data["emoji"] as? Int ?? 1
+                    let name = data["name"] as? String ?? "Unknown"
+                    return peopleInfo(id: id, emoji: emoji, name: name)
+                }
+            }
+        }
+    }
+
+    
     // This function checks if it is a new user; if not, it goes to the main page (Calendar view)
     func determineUserFlow(userId: String, completion: @escaping (Bool) -> Void) {
         let userDocRef = db.collection("User").document(userId)

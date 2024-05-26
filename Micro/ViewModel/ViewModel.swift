@@ -19,6 +19,7 @@ final class ViewModel: ObservableObject{
     @Published var errorMessage: String?
     @Published var groups: [Group] = []
     @Published var shouldShowTabView: Bool = true
+    @ObservedObject var firebaseManager = FirebaseManager()
     
     func fetchGroupData(groupID: String) {
         let db = Firestore.firestore()

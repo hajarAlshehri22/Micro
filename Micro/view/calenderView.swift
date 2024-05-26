@@ -296,7 +296,7 @@ struct DayView: View {
                 .foregroundColor(isBusy ? .gray : (isSelected ? .black : .primary))
                 .padding(8)
                 .background {
-                    if allDates.contains { $0 == date.startOfDay } {
+                    if allDates.contains(where: { $0 == date.startOfDay }) {
                                             Color("LightPurble")
                                         }
                 }
