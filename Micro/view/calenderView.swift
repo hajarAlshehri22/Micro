@@ -47,11 +47,11 @@ struct calendar1View: View {
                     .cornerRadius(18)
                     .padding(.top, 30)
 
-                HStack(spacing: -25) {
+                HStack(spacing: -35) {
                     ForEach(people) { person in
                         Image("memoji\(person.emoji)")
                             .resizable()
-                            .frame(width: 50, height: 50)
+                            .frame(width: 45, height: 45)
                             .padding(.leading, -100)
                             .padding(.bottom, -30)
                     }
@@ -76,7 +76,7 @@ struct calendar1View: View {
                 Image(systemName: "plus.circle")
                     .font(.largeTitle)
                     .foregroundColor(Color("AccentColor"))
-                    .padding(.bottom, 80)
+        
             }
         }
         .sheet(isPresented: $JamaahSheet) {
@@ -174,6 +174,9 @@ struct CalendarPage: View {
                 }
                 .presentationDetents([.medium])
 
+                Divider()
+                
+                
                 HStack {
                     ZStack {
                         Circle()
@@ -332,7 +335,8 @@ struct CalendarPage_Previews: PreviewProvider {
     static var previews: some View {
         let sampleGroup = Group(id: "sampleID", name: "Sample Group", members: [
             peopleInfo(id: "1", emoji: 1, name: "John Doe"),
-            peopleInfo(id: "2", emoji: 2, name: "Jane Smith")
+            peopleInfo(id: "2", emoji: 2, name: "Jane Smith"),
+           
         ])
         CalendarPage(group: sampleGroup)
             .environmentObject(ViewModel())

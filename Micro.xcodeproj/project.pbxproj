@@ -56,9 +56,9 @@
 		2906710C2BD9348E005AA839 /* SplashScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreen.swift; sourceTree = "<group>"; };
 		2930726E2BF40602000B1E3B /* Jsound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Jsound.mp3; sourceTree = "<group>"; };
 		2996E84B2BEFE3B300BB4C12 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
+		63453EC62C03595B0089E05E /* Micro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Micro.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F34C6ECC2BF4F4FB00CFC6F9 /* Jamaah.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Jamaah.swift; sourceTree = "<group>"; };
 		F34C6ECE2BF4F53E00CFC6F9 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
-		F360D7982BF10CB70069E665 /* Micro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Micro.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3696C932BFA28D300A2A77D /* eventDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = eventDetailView.swift; sourceTree = "<group>"; };
 		F3696C952BFA291B00A2A77D /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		F38B8FDD2BE791D20082A14C /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
@@ -125,7 +125,7 @@
 			children = (
 				F3DAC4432BD143CB00E9EABF /* Micro */,
 				2906711B2BD9398D005AA839 /* Frameworks */,
-				F360D7982BF10CB70069E665 /* Micro.app */,
+				63453EC62C03595B0089E05E /* Micro.app */,
 			);
 			sourceTree = "<group>";
 		};
@@ -228,7 +228,7 @@
 				F38B8FFE2BF0E4900082A14C /* FirebaseAppCheck */,
 			);
 			productName = Micro;
-			productReference = F360D7982BF10CB70069E665 /* Micro.app */;
+			productReference = 63453EC62C03595B0089E05E /* Micro.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -443,7 +443,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Micro/Preview Content\"";
-				DEVELOPMENT_TEAM = 557855FSBN;
+				DEVELOPMENT_TEAM = 32XJSCZF87;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -477,7 +477,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Micro/Preview Content\"";
-				DEVELOPMENT_TEAM = 557855FSBN;
+				DEVELOPMENT_TEAM = 32XJSCZF87;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
