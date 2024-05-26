@@ -20,6 +20,7 @@ struct calendar1View: View {
     let groupID: String
 
     var body: some View {
+        
         VStack {
             HStack {
                 if let groupName = groupViewModel.groups.first(where: { $0.id == groupID })?.name {
@@ -76,6 +77,7 @@ struct calendar1View: View {
                 Image(systemName: "plus.circle")
                     .font(.largeTitle)
                     .foregroundColor(Color("AccentColor"))
+                    .padding(.bottom,120)
         
             }
         }
@@ -114,7 +116,7 @@ struct CalendarPage: View {
     var body: some View {
         NavigationView {
             VStack {
-                Spacer()
+           
                 calendar1View(
                     someDateDate: $someDateDate,
                     selectedEvent: $viewModel.selectedEvent,

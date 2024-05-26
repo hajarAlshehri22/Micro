@@ -50,7 +50,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0B4729B32C036B3F0066A570 /* Micro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Micro.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		290671062BD933CA005AA839 /* SignIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignIn.swift; sourceTree = "<group>"; };
 		290671082BD9341A005AA839 /* CardsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsPage.swift; sourceTree = "<group>"; };
 		2906710A2BD93448005AA839 /* Entertainment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entertainment.swift; sourceTree = "<group>"; };
@@ -444,7 +443,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Micro/Preview Content\"";
-				DEVELOPMENT_TEAM = 32XJSCZF87;
+				DEVELOPMENT_TEAM = 557855FSBN;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -478,7 +477,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Micro/Preview Content\"";
-				DEVELOPMENT_TEAM = SQ6F9W6U42;
+				DEVELOPMENT_TEAM = 557855FSBN;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
