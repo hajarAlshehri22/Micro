@@ -9,8 +9,9 @@ import SwiftUI
 import CoreLocation
 import Firebase
 
-final class ViewModel: ObservableObject{
-    @Published var jamaah : [Jamaah] = []
+
+final class ViewModel: ObservableObject {
+    @Published var jamaah: [Jamaah] = []
     @Published var peopleInfo: [peopleInfo] = []
     @Published var busyDays: [Date] = []
     @Published var currentDate: Date = Date()
@@ -20,7 +21,7 @@ final class ViewModel: ObservableObject{
     @Published var groups: [Group] = []
     @Published var shouldShowTabView: Bool = true
     @ObservedObject var firebaseManager = FirebaseManager()
-    
+
     func fetchGroupData(groupID: String) {
         let db = Firestore.firestore()
         
@@ -53,8 +54,11 @@ final class ViewModel: ObservableObject{
             }
         }
     }
-}
-
-
-
-
+    
+    func loadEvents(groupID: String) {
+           FirestoreManager.shared.fetchEvents(groupID: groupID) { events in
+               self.busyDays = events.map { $0.date }
+               self.jamaah = events.map { Jamaah(gatheringName: $0.name, selectedDate: $0.date, locationURL: $0.locationURL) }
+           }
+       }
+    }

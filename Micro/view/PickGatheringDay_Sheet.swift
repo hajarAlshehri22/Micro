@@ -17,13 +17,15 @@ struct PickGatheringDay_Sheet: View {
         center: CLLocationCoordinate2D(latitude: 34.0522, longitude: -118.2437),
         span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
     )
-    @State private var locationURL: String?
+    @State private var locationCoordinates: CLLocationCoordinate2D?
     @State private var searchText: String = ""
-    
+    let groupID: String
+
     @Environment(\.dismiss) var dismiss
 
-    init(selectedDate: Date = Date()) {
+    init(selectedDate: Date = Date(), groupID: String) {
         self._selectedDate = State(initialValue: selectedDate)
+        self.groupID = groupID
     }
 
     var body: some View {
@@ -45,7 +47,7 @@ struct PickGatheringDay_Sheet: View {
                             .offset(y: -6)
                     }
                     Button("تأكيد المكان") {
-                        generateLocationURL()
+                        locationCoordinates = region.center
                         saveDate()
                     }
                     .frame(width: 189, height: 48)
@@ -55,10 +57,9 @@ struct PickGatheringDay_Sheet: View {
                     .padding(.horizontal)
                     .padding(.leading, 50)
                 }
-                if let url = locationURL {
+                if let coordinates = locationCoordinates {
                     Section {
-                        Text("الموقع : ")
-                        Link(url, destination: URL(string: url)!)
+                        Text("الموقع: \(coordinates.latitude), \(coordinates.longitude)")
                     }
                 }
             }
@@ -75,17 +76,13 @@ struct PickGatheringDay_Sheet: View {
             region.center = coordinate
         }
     }
-
-    func generateLocationURL() {
-        let coordinate = region.center
-        locationURL = "https://www.google.com/maps/search/?api=1&query=\(coordinate.latitude),\(coordinate.longitude)"
-    }
     
     private func saveDate() {
-        let jamaah = Jamaah(gatheringName: gatheringName, selectedDate: selectedDate)
+        let jamaah = Jamaah(gatheringName: gatheringName, selectedDate: selectedDate, locationURL: "hhh")
         vm.jamaah.append(jamaah)
-        if let url = locationURL {
-            FirestoreManager.shared.saveEvent(name: gatheringName, date: selectedDate, locationURL: url) { error in
+        if let coordinates = locationCoordinates {
+            let locationURL = "https://www.google.com/maps/search/?api=1&query=\(coordinates.latitude),\(coordinates.longitude)"
+            FirestoreManager.shared.saveEvent(name: gatheringName, date: selectedDate, locationURL: locationURL, groupID: groupID) { error in
                 if let error = error {
                     print("Error saving event: \(error.localizedDescription)")
                 } else {
@@ -99,7 +96,7 @@ struct PickGatheringDay_Sheet: View {
 
 struct PickGatheringDay_Sheet_Previews: PreviewProvider {
     static var previews: some View {
-        PickGatheringDay_Sheet()
+        PickGatheringDay_Sheet(groupID: "sampleGroupID")
+            .environmentObject(ViewModel())
     }
 }
-

@@ -11,4 +11,6 @@ struct Jamaah: Identifiable{
     let id: UUID = UUID()
     let gatheringName: String
     let selectedDate: Date
+    let locationURL: String // Add this line
+
 }

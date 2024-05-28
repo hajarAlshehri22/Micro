@@ -15,45 +15,37 @@ class FirestoreManager {
     private let db = Firestore.firestore()
     
     //this function save Event sheet for gathering
-    func saveEvent(name: String, date: Date, locationURL: String, completion: @escaping (Error?) -> Void) {
-        let eventData: [String: Any] = [
-            "name": name,
-            "EvenDate": Timestamp(date: date),
-            "location": locationURL,
-            "groupID": String(),
-            
-        ]
-        
-        db.collection("Event").addDocument(data: eventData) { error in
-            completion(error)
+    func saveEvent(name: String, date: Date, locationURL: String, groupID: String, completion: @escaping (Error?) -> Void) {
+            let eventData: [String: Any] = [
+                "name": name,
+                "EvenDate": Timestamp(date: date),
+                "location": locationURL,
+                "groupID": groupID
+            ]
+
+            db.collection("Event").addDocument(data: eventData) { error in
+                completion(error)
+            }
         }
-    }
-    
-    // fetch busy User and add them from the firebase //
 
-    class FirebaseManager: ObservableObject {
-        @Published var busyMembers: [peopleInfo] = []
-
-        private var db = Firestore.firestore()
-
-        func fetchBusyMembers() {
-            db.collection("busyMembers").getDocuments { snapshot, error in
-                guard let documents = snapshot?.documents else {
-                    print("No documents")
-                    return
-                }
-
-                self.busyMembers = documents.map { docSnapshot -> peopleInfo in
-                    let data = docSnapshot.data()
-                    let id = docSnapshot.documentID
-                    let emoji = data["emoji"] as? Int ?? 1
-                    let name = data["name"] as? String ?? "Unknown"
-                    return peopleInfo(id: id, emoji: emoji, name: name)
+        func fetchEvents(groupID: String, completion: @escaping ([Event]) -> Void) {
+            db.collection("Event").whereField("groupID", isEqualTo: groupID).getDocuments { snapshot, error in
+                if let error = error {
+                    print("Error fetching events: \(error.localizedDescription)")
+                    completion([])
+                } else {
+                    let events = snapshot?.documents.compactMap { doc -> Event? in
+                        let data = doc.data()
+                        let name = data["name"] as? String ?? ""
+                        let date = (data["EvenDate"] as? Timestamp)?.dateValue() ?? Date()
+                        let locationURL = data["location"] as? String ?? ""
+                        return Event(id: doc.documentID, name: name, date: date, locationURL: locationURL)
+                    } ?? []
+                    completion(events)
                 }
             }
         }
-    }
-
+    
     
     // This function checks if it is a new user; if not, it goes to the main page (Calendar view)
     func determineUserFlow(userId: String, completion: @escaping (Bool) -> Void) {
@@ -148,26 +140,26 @@ class FirestoreManager {
     
     
     
-    //this function fetch username 
+    //this function fetch username
     func fetchUsernames(completion: @escaping (Result<[peopleInfo], Error>) -> Void) {
         db.collection("User").getDocuments { snapshot, error in
             if let error = error {
                 completion(.failure(error))
                 return
             }
-
+            
             guard let documents = snapshot?.documents else {
                 completion(.success([]))  // Return empty if no documents
                 return
             }
-
+            
             let peoples = documents.map { doc -> peopleInfo in
                 let data = doc.data()
                 let name = data["UserName"] as? String ?? "No Name"
                 let emoji = data["Memoji"] as? Int ?? 1  // Default to 1 if not found
                 return peopleInfo(id: doc.documentID, emoji: emoji, name: name)
             }
-
+            
             completion(.success(peoples))
         }
     }
@@ -197,32 +189,32 @@ class FirestoreManager {
             }
         }
     }
-
     
-        @Published var name: String = ""
-        @Published var username: String = ""
-        @Published var memojiName: String = ""
-
-        func fetchUserData(userId: String) {
-            FirestoreManager.shared.determineUserFlow(userId: userId) { isNewUser in
-                if !isNewUser {
-                    let userDocRef = Firestore.firestore().collection("User").document(userId)
-                    userDocRef.getDocument { (document, error) in
-                        if let document = document, document.exists {
-                            let data = document.data()
-                            self.name = data?["FullName"] as? String ?? ""
-                            self.username = data?["UserName"] as? String ?? ""
-                            self.memojiName = data?["Memoji"] as? String ?? ""
-                        } else {
-                            print("User document does not exist")
-                        }
+    
+    @Published var name: String = ""
+    @Published var username: String = ""
+    @Published var memojiName: String = ""
+    
+    func fetchUserData(userId: String) {
+        FirestoreManager.shared.determineUserFlow(userId: userId) { isNewUser in
+            if !isNewUser {
+                let userDocRef = Firestore.firestore().collection("User").document(userId)
+                userDocRef.getDocument { (document, error) in
+                    if let document = document, document.exists {
+                        let data = document.data()
+                        self.name = data?["FullName"] as? String ?? ""
+                        self.username = data?["UserName"] as? String ?? ""
+                        self.memojiName = data?["Memoji"] as? String ?? ""
+                    } else {
+                        print("User document does not exist")
                     }
                 }
             }
         }
-
-    
     }
+    
+    
+}
 
 
 
