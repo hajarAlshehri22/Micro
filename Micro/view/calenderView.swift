@@ -2,8 +2,6 @@ import SwiftUI
 import Firebase
 import FirebaseFirestore
 
-import SwiftUI
-
 struct calendar1View: View {
     @EnvironmentObject var viewModel: ViewModel
     let calendar = Calendar.current
@@ -84,7 +82,6 @@ struct calendar1View: View {
     }
 }
 
-
 struct CalendarPage: View {
     @EnvironmentObject var viewModel: ViewModel
     @State private var selectedDate: Date?
@@ -132,7 +129,7 @@ struct CalendarPage: View {
                         .padding(.trailing)
                     }
                     .padding(.top)
-                    .padding(.bottom, 20)
+                    .padding(.bottom, 50)
 
                     Calendar00View(
                         busyDays: $viewModel.busyDays,
@@ -150,12 +147,30 @@ struct CalendarPage: View {
                         selectedJamaahDay: $selectedJamaahDay
                     )
                     .padding()
-                    .sheet(isPresented: $isSheetPresented, onDismiss: {
-                        fetchBusyMembers(for: selectedDay)
-                    }) {
-                        BusyMembers(selectedDate: $selectedDay, groupID: group.id ?? "")
-                            .environmentObject(viewModel)
+
+                    // Color palette legend
+                    HStack {
+                        HStack {
+                            Circle()
+                                .fill(Color.gray.opacity(0.5))
+                                .frame(width: 20, height: 20)
+                            Text("يوم مشغول")
+                                .font(.subheadline)
+                                .foregroundColor(.black)
+                        }
+                        .padding(.leading)
+                        Spacer()
+                        HStack {
+                            Circle()
+                                .fill(Color("LightPurble"))
+                                .frame(width: 20, height: 20)
+                            Text("يوم الجمعة")
+                                .font(.subheadline)
+                                .foregroundColor(.black)
+                        }
+                        .padding(.trailing)
                     }
+                    .padding(.vertical, 5) // Vertical padding to separate from other elements
 
                     Divider()
                         .padding(.top)
@@ -185,7 +200,6 @@ struct CalendarPage: View {
         viewModel.fetchBusyMembers(date: date, groupID: group.id ?? "")
     }
 }
-
 
 struct Calendar00View: View {
     let calendar = Calendar.current
@@ -247,9 +261,6 @@ struct Calendar00View: View {
     }
 }
 
-
-
-
 struct DayView: View {
     let date: Date
     let isSelected: Bool
@@ -265,23 +276,14 @@ struct DayView: View {
                     if isGathering {
                         Color("LightPurble")
                     } else if isBusy {
-                        Color.gray
+                        Color.gray.opacity(0.5)
                     }
                 }
                 .clipShape(Circle())
                 .offset(y: -45)
-
-            if isBusy || isGathering {
-                Circle()
-                    .foregroundColor(isBusy ? Color.gray : Color("LightPurble"))
-                    .frame(width: 6, height: 6)
-                    .padding(.top, -4)
-            }
         }
     }
 }
-
-
 
 extension Date {
     var startOfDay: Date {
@@ -293,7 +295,6 @@ extension Date {
         return calendar.component(.day, from: self)
     }
 }
-
 
 extension DateFormatter {
     static var monthYear: DateFormatter {
