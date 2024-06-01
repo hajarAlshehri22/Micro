@@ -46,29 +46,29 @@ struct calendar1View: View {
 
             Divider()
 
-            ZStack {
-                Rectangle()
-                    .foregroundColor(Color("TextField"))
-                    .frame(width: 360, height: 60)
-                    .cornerRadius(18)
-                    .padding(.top, 16)  // Adjust top padding
-
-                HStack(spacing: -20) {  // Adjust spacing
-                    ForEach(people) { person in
-                        Image("memoji\(person.emoji)")
-                            .resizable()
-                            .frame(width: 45, height: 45)
-                    }
-                }
-
-                NavigationLink(destination: peopleView(groupName: "")) {
-                    Image(systemName: "ellipsis").foregroundColor(Color.gray)
-                }
-                .padding(.top, 25)
-                .padding(.leading, 250)
-            }
-
-            Divider()
+//            ZStack {
+//                Rectangle()
+//                    .foregroundColor(Color("TextField"))
+//                    .frame(width: 360, height: 60)
+//                    .cornerRadius(18)
+//                    .padding(.top, 16)  // Adjust top padding
+//
+//                HStack(spacing: -20) {  // Adjust spacing
+//                    ForEach(people) { person in
+//                        Image("memoji\(person.emoji)")
+//                            .resizable()
+//                            .frame(width: 45, height: 45)
+//                    }
+//                }
+//
+//                NavigationLink(destination: peopleView(groupName: "")) {
+//                    Image(systemName: "ellipsis").foregroundColor(Color.gray)
+//                }
+//                .padding(.top, 25)
+//                .padding(.leading, 250)
+//            }
+//
+//            Divider()
                 .padding(.top, 10)  // Reduce top padding
 
             Spacer()

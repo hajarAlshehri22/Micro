@@ -8,6 +8,7 @@
 import SwiftUI
 import MapKit
 import Firebase
+import CoreLocation
 
 struct PickGatheringDay_Sheet: View {
     @EnvironmentObject var vm: ViewModel
@@ -19,6 +20,7 @@ struct PickGatheringDay_Sheet: View {
     )
     @State private var locationCoordinates: CLLocationCoordinate2D?
     @State private var searchText: String = ""
+    @StateObject private var locationManager = LocationManager()
     let groupID: String
 
     @Environment(\.dismiss) var dismiss
@@ -65,7 +67,16 @@ struct PickGatheringDay_Sheet: View {
             }
             .navigationBarTitle("إضافة جمعة", displayMode: .inline)
             .environment(\.layoutDirection, .rightToLeft)
-
+            .onAppear {
+                if let userLocation = locationManager.userLocation {
+                    region.center = userLocation
+                }
+            }
+            .onChange(of: locationManager.userLocation) { newLocation in
+                if let newLocation = newLocation {
+                    region.center = newLocation
+                }
+            }
         }
     }
 
@@ -100,5 +111,41 @@ struct PickGatheringDay_Sheet_Previews: PreviewProvider {
     static var previews: some View {
         PickGatheringDay_Sheet(groupID: "sampleGroupID")
             .environmentObject(ViewModel())
+    }
+}
+
+
+
+extension CLLocationCoordinate2D: Equatable {
+    public static func == (lhs: CLLocationCoordinate2D, rhs: CLLocationCoordinate2D) -> Bool {
+        return lhs.latitude == rhs.latitude && lhs.longitude == rhs.longitude
+    }
+}
+
+import CoreLocation
+
+class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
+    private let locationManager = CLLocationManager()
+    
+    @Published var userLocation: CLLocationCoordinate2D?
+    
+    override init() {
+        super.init()
+        self.locationManager.delegate = self
+        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        self.locationManager.requestWhenInUseAuthorization()
+        self.locationManager.startUpdatingLocation()
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.first {
+            DispatchQueue.main.async {
+                self.userLocation = location.coordinate
+            }
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("Failed to find user's location: \(error.localizedDescription)")
     }
 }
