@@ -2,6 +2,8 @@ import SwiftUI
 import Firebase
 import FirebaseFirestore
 
+import SwiftUI
+
 struct calendar1View: View {
     @EnvironmentObject var viewModel: ViewModel
     let calendar = Calendar.current
@@ -20,24 +22,29 @@ struct calendar1View: View {
     let groupID: String
 
     var body: some View {
-        
         VStack {
             HStack {
                 if let groupName = groupViewModel.groups.first(where: { $0.id == groupID })?.name {
                     Text(groupName)
                         .foregroundColor(Color.black)
                         .fontWeight(.bold)
-                        .font(.system(size: 34))
-                        .padding(.trailing, 250)
+                        .font(.system(size: 24))  // Adjust font size to match your style
                 } else {
                     Text("Loading...")
                         .foregroundColor(Color.gray)
                         .fontWeight(.bold)
-                        .font(.system(size: 34))
-                        .padding(.top, -30)
-                        .padding(.leading, -100)
+                        .font(.system(size: 24))
+                }
+                Spacer()
+                Button(action: {
+                    JamaahSheet.toggle()
+                }) {
+                    Image(systemName: "plus.circle")
+                        .font(.largeTitle)
+                        .foregroundColor(Color("AccentColor"))
                 }
             }
+            .padding([.leading, .trailing, .top])
 
             Divider()
 
@@ -46,15 +53,13 @@ struct calendar1View: View {
                     .foregroundColor(Color("TextField"))
                     .frame(width: 360, height: 60)
                     .cornerRadius(18)
-                    .padding(.top, 30)
+                    .padding(.top, 16)  // Adjust top padding
 
-                HStack(spacing: -35) {
+                HStack(spacing: -20) {  // Adjust spacing
                     ForEach(people) { person in
                         Image("memoji\(person.emoji)")
                             .resizable()
                             .frame(width: 45, height: 45)
-                            .padding(.leading, -100)
-                            .padding(.bottom, -30)
                     }
                 }
 
@@ -66,27 +71,16 @@ struct calendar1View: View {
             }
 
             Divider()
-                .padding(.top, 20)
+                .padding(.top, 10)  // Reduce top padding
 
             Spacer()
         }
-        .toolbar {
-            Button(action: {
-                JamaahSheet.toggle()
-            }) {
-                Image(systemName: "plus.circle")
-                    .font(.largeTitle)
-                    .foregroundColor(Color("AccentColor"))
-                    .padding(.bottom,120)
-        
-            }
-        }
         .sheet(isPresented: $JamaahSheet) {
-                    PickGatheringDay_Sheet(selectedDate: someDateDate, groupID: groupID)
-                }
-                .onAppear {
-                    groupViewModel.fetchGroupData(groupID: groupID)
-                }
+            PickGatheringDay_Sheet(selectedDate: someDateDate, groupID: groupID)
+        }
+        .onAppear {
+            groupViewModel.fetchGroupData(groupID: groupID)
+        }
     }
 }
 
@@ -122,7 +116,7 @@ struct CalendarPage: View {
                     )
                     .environmentObject(viewModel)
                     HStack {
-                        Button("<") {
+                        Button(">") {
                             viewModel.currentDate = Calendar.current.date(byAdding: .month, value: -1, to: viewModel.currentDate) ?? viewModel.currentDate
                         }
                         .font(.title)
@@ -131,7 +125,7 @@ struct CalendarPage: View {
                         Text("\(viewModel.currentDate, formatter: DateFormatter.monthYear)")
                             .font(.title2)
                         Spacer()
-                        Button(">") {
+                        Button("<") {
                             viewModel.currentDate = Calendar.current.date(byAdding: .month, value: 1, to: viewModel.currentDate) ?? viewModel.currentDate
                         }
                         .font(.title)

@@ -18,6 +18,19 @@ struct BusyMembers: View {
 
     var body: some View {
         VStack {
+            HStack {
+                Spacer()
+                Button(action: {
+                    addBusyDay()
+                }) {
+                    Image(systemName: "plus")
+                        .font(.title)
+                        .foregroundColor(Color("AccentColor"))
+                }
+                .padding()
+            }
+            .padding(.trailing)
+
             Text("المشغولين في هذا اليوم:")
                 .font(.headline)
                 .padding()
@@ -38,20 +51,6 @@ struct BusyMembers: View {
             }
 
             Spacer()
-
-            Button(action: {
-                addBusyDay()
-            }) {
-                HStack {
-                    Image(systemName: "plus.circle")
-                    Text("مشغول؟ .. اضغط علامة + لاضافة انشغالك")
-                }
-                .padding()
-                .background(Color.blue)
-                .foregroundColor(.white)
-                .cornerRadius(10)
-            }
-            .padding()
         }
         .onAppear {
             fetchBusyMembers()

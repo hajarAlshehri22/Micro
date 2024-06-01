@@ -64,6 +64,8 @@ struct PickGatheringDay_Sheet: View {
                 }
             }
             .navigationBarTitle("إضافة جمعة", displayMode: .inline)
+            .environment(\.layoutDirection, .rightToLeft)
+
         }
     }
 
