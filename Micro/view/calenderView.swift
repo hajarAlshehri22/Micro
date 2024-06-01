@@ -160,7 +160,7 @@ struct CalendarPage: View {
                     HStack {
                         HStack {
                             Circle()
-                                .fill(Color.gray)
+                                .fill(Color.gray.opacity(0.5))
                                 .frame(width: 20, height: 20)
                             Text("يوم مشغول")
                                 .font(.subheadline)
@@ -172,13 +172,13 @@ struct CalendarPage: View {
                             Circle()
                                 .fill(Color("LightPurble"))
                                 .frame(width: 20, height: 20)
-                            Text("يوم الجمعة")
+                            Text("يوم الجَمعة")
                                 .font(.subheadline)
                                 .foregroundColor(.black)
                         }
-                        .padding(.trailing)
+                        .padding(.trailing,20)
                     }
-                    .padding(.vertical, 5) // Vertical padding to separate from other elements
+                    .padding(.vertical, 3) // Vertical padding to separate from other elements
                     
                     Divider()
                         .padding(.top)
@@ -283,7 +283,7 @@ struct DayView: View {
                     if isGathering {
                         Color("LightPurble")
                     } else if isBusy {
-                        Color.gray
+                        Color.gray.opacity(0.5)
                     }
                 }
                 .clipShape(Circle())
