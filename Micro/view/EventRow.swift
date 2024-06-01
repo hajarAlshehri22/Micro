@@ -57,7 +57,7 @@ struct EventsListView: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            Text("Events")
+            Text("الجَمعات")
                 .font(.title)
                 .fontWeight(.bold)
                 .padding(.leading)

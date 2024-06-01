@@ -1,3 +1,4 @@
+
 import SwiftUI
 import Firebase
 import FirebaseFirestore
@@ -18,7 +19,7 @@ struct calendar1View: View {
     @StateObject private var groupViewModel = GroupViewModel()
     @EnvironmentObject var vm: ViewModel
     let groupID: String
-
+    
     var body: some View {
         VStack {
             HStack {
@@ -43,16 +44,16 @@ struct calendar1View: View {
                 }
             }
             .padding([.leading, .trailing, .top])
-
+            
             Divider()
-
+            
 //            ZStack {
 //                Rectangle()
 //                    .foregroundColor(Color("TextField"))
 //                    .frame(width: 360, height: 60)
 //                    .cornerRadius(18)
 //                    .padding(.top, 16)  // Adjust top padding
-//
+//                
 //                HStack(spacing: -20) {  // Adjust spacing
 //                    ForEach(people) { person in
 //                        Image("memoji\(person.emoji)")
@@ -60,17 +61,17 @@ struct calendar1View: View {
 //                            .frame(width: 45, height: 45)
 //                    }
 //                }
-//
+//                
 //                NavigationLink(destination: peopleView(groupName: "")) {
 //                    Image(systemName: "ellipsis").foregroundColor(Color.gray)
 //                }
 //                .padding(.top, 25)
 //                .padding(.leading, 250)
 //            }
-//
+            
 //            Divider()
-                .padding(.top, 10)  // Reduce top padding
-
+//                .padding(.top, 10)  // Reduce top padding
+            
             Spacer()
         }
         .sheet(isPresented: $JamaahSheet) {
@@ -95,11 +96,11 @@ struct CalendarPage: View {
     @State private var someDateDate: Date = Date()
     @State private var selectedJamaahDay: Date?
     let group: Group
-
+    
     public init(group: Group) {
         self.group = group
     }
-
+    
     var body: some View {
         NavigationView {
             ScrollView {
@@ -129,8 +130,8 @@ struct CalendarPage: View {
                         .padding(.trailing)
                     }
                     .padding(.top)
-                    .padding(.bottom, 50)
-
+                    .padding(.bottom, 70)
+                    
                     Calendar00View(
                         busyDays: $viewModel.busyDays,
                         gatheringDays: $viewModel.gatheringDays, // Add this binding
@@ -147,12 +148,19 @@ struct CalendarPage: View {
                         selectedJamaahDay: $selectedJamaahDay
                     )
                     .padding()
-
+                    .sheet(isPresented: $isSheetPresented, onDismiss: {
+                        fetchBusyMembers(for: selectedDay)
+                    }) {
+                        BusyMembers(selectedDate: $selectedDay, groupID: group.id ?? "")
+                            .environmentObject(viewModel)
+                    }
+                    
+                        .padding(.top)
                     // Color palette legend
                     HStack {
                         HStack {
                             Circle()
-                                .fill(Color.gray.opacity(0.5))
+                                .fill(Color.gray)
                                 .frame(width: 20, height: 20)
                             Text("يوم مشغول")
                                 .font(.subheadline)
@@ -171,10 +179,9 @@ struct CalendarPage: View {
                         .padding(.trailing)
                     }
                     .padding(.vertical, 5) // Vertical padding to separate from other elements
-
+                    
                     Divider()
                         .padding(.top)
-
                     EventsListView(events: viewModel.jamaah.map { Event(id: UUID().uuidString, name: $0.gatheringName, date: $0.selectedDate, locationURL: $0.locationURL) })
                 }
                 .padding(.bottom, 50) // To give some space at the bottom
@@ -195,7 +202,7 @@ struct CalendarPage: View {
                 .environmentObject(viewModel)
         }
     }
-
+    
     private func fetchBusyMembers(for date: Date) {
         viewModel.fetchBusyMembers(date: date, groupID: group.id ?? "")
     }
@@ -216,7 +223,7 @@ struct Calendar00View: View {
     @State private var selectedDate: Date = Date()
     @State private var busyMembers: [peopleInfo] = []
     @State private var showBusyMembersSheet = false
-
+    
     var body: some View {
         VStack {
             // Days of the week
@@ -228,7 +235,7 @@ struct Calendar00View: View {
                         .padding(.top, -50)
                 }
             }
-
+            
             // Calendar days
             LazyVGrid(columns: Array(repeating: GridItem(), count: 7)) {
                 ForEach(monthDays(), id: \.self) { day in
@@ -252,7 +259,7 @@ struct Calendar00View: View {
                 .environmentObject(ViewModel()) // Replace with actual groupID and ViewModel
         }
     }
-
+    
     // Helper function to get the days of the month
     private func monthDays() -> [Date] {
         guard let range = calendar.range(of: .day, in: .month, for: currentDate) else { return [] }
@@ -266,7 +273,7 @@ struct DayView: View {
     let isSelected: Bool
     let isBusy: Bool
     let isGathering: Bool
-
+    
     var body: some View {
         VStack {
             Text("\(date.day)")
@@ -276,7 +283,7 @@ struct DayView: View {
                     if isGathering {
                         Color("LightPurble")
                     } else if isBusy {
-                        Color.gray.opacity(0.5)
+                        Color.gray
                     }
                 }
                 .clipShape(Circle())
@@ -289,7 +296,7 @@ extension Date {
     var startOfDay: Date {
         Calendar.current.startOfDay(for: self)
     }
-
+    
     var day: Int {
         let calendar = Calendar.current
         return calendar.component(.day, from: self)
