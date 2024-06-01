@@ -218,42 +218,44 @@ class FirestoreManager {
         }()
 
     func fetchBusyMembers(date: Date, groupID: String, completion: @escaping ([peopleInfo]) -> Void) {
-            let busyDayRef = db.collection("Group").document(groupID).collection("BusyDays")
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd"
-            let dateString = dateFormatter.string(from: date)
-            
-            busyDayRef.whereField("date", isEqualTo: dateString).getDocuments { snapshot, error in
-                guard let documents = snapshot?.documents, error == nil else {
-                    completion([])
-                    return
-                }
-                
-                var members: [peopleInfo] = []
-                let group = DispatchGroup()
-                
-                for document in documents {
-                    let data = document.data()
-                    if let userId = data["userID"] as? String {
-                        group.enter()
-                        self.fetchUserData(userId: userId) { result in
-                            switch result {
-                            case .success(let userData):
-                                let member = peopleInfo(id: userId, emoji: userData.memoji, name: userData.name)
-                                members.append(member)
-                            case .failure(let error):
-                                print("Error fetching user data: \(error.localizedDescription)")
-                            }
-                            group.leave()
+        let busyDayRef = db.collection("Group").document(groupID).collection("BusyDays")
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let dateString = dateFormatter.string(from: date)
+
+        busyDayRef.whereField("date", isEqualTo: dateString).getDocuments { snapshot, error in
+            guard let documents = snapshot?.documents, error == nil else {
+                completion([])
+                return
+            }
+
+            var members: [peopleInfo] = []
+            let group = DispatchGroup()
+
+            for document in documents {
+                let data = document.data()
+                if let userId = data["userID"] as? String {
+                    group.enter()
+                    self.fetchUserData(userId: userId) { result in
+                        switch result {
+                        case .success(let userData):
+                            let member = peopleInfo(id: userId, emoji: userData.memoji, name: userData.name)
+                            members.append(member)
+                        case .failure(let error):
+                            print("Error fetching user data: \(error.localizedDescription)")
                         }
+                        group.leave()
                     }
                 }
-                
-                group.notify(queue: .main) {
-                    completion(members)
-                }
+            }
+
+            group.notify(queue: .main) {
+                completion(members)
             }
         }
+    }
+
+
 
         func addBusyDay(userId: String, date: Date, groupID: String, completion: @escaping (Error?) -> Void) {
             let busyDayRef = db.collection("Group").document(groupID).collection("BusyDays").document("\(userId)_\(dateFormatter.string(from: date))")

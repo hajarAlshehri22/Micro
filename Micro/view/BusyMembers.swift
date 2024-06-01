@@ -10,8 +10,6 @@ import SwiftUI
 import Firebase
 import FirebaseFirestore
 
-// fetch busy User and add them from the firebase //
-
 struct BusyMembers: View {
     @EnvironmentObject var viewModel: ViewModel
     @Binding var selectedDate: Date
@@ -63,14 +61,17 @@ struct BusyMembers: View {
     private func addBusyDay() {
         guard let userId = Auth.auth().currentUser?.uid else { return }
         guard let currentUser = viewModel.currentUser else { return }
-        
+
         FirestoreManager.shared.addBusyDay(userId: userId, date: selectedDate, groupID: groupID) { error in
             if let error = error {
                 print("Error adding busy day: \(error.localizedDescription)")
             } else {
-                fetchBusyMembers()
+                // Directly update the state without re-fetching if you trust local state
                 viewModel.busyDays.append(selectedDate)
                 viewModel.busyMembers.append(currentUser)
+                
+                // Fetch the latest busy members from Firestore to ensure consistency
+                fetchBusyMembers()
             }
         }
     }

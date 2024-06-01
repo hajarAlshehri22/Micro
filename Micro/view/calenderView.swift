@@ -148,20 +148,17 @@ struct CalendarPage: View {
                         JamaahSheet: $JamaahSheet,
                         people: group.members,
                         onDayTapped: { day in
-                            isSheetPresented = true
                             selectedDay = day
-
-                            if let event = findEvent(on: day) {
-                                selectedEvent = event
-                            } else {
-                                selectedEvent = nil
-                            }
+                            isSheetPresented = true
+                            fetchBusyMembers(for: day)
                         },
                         selectedEvent: $selectedEvent,
                         selectedJamaahDay: $selectedJamaahDay
                     )
                     .padding()
-                    .sheet(isPresented: $isSheetPresented) {
+                    .sheet(isPresented: $isSheetPresented, onDismiss: {
+                        fetchBusyMembers(for: selectedDay)
+                    }) {
                         BusyMembers(selectedDate: $selectedDay, groupID: group.id ?? "")
                             .environmentObject(viewModel)
                     }
@@ -190,19 +187,10 @@ struct CalendarPage: View {
         }
     }
 
-    private func findEvent(on date: Date) -> Event? {
-        if let jamaah = viewModel.jamaah.first(where: { Calendar.current.isDate($0.selectedDate, inSameDayAs: date) }) {
-            return Event(id: UUID().uuidString, name: jamaah.gatheringName, date: jamaah.selectedDate, locationURL: jamaah.locationURL)
-        }
-        return nil
+    private func fetchBusyMembers(for date: Date) {
+        viewModel.fetchBusyMembers(date: date, groupID: group.id ?? "")
     }
 }
-
-
-
-
-
-
 
 
 struct Calendar00View: View {
@@ -246,12 +234,7 @@ struct Calendar00View: View {
                     )
                     .onTapGesture {
                         selectedDate = day
-                        if isBusy {
-                            showBusyMembersSheet = true
-                        } else {
-                            onDayTapped(day)
-                            selectedEvent = Event(id: UUID().uuidString, name: "Sample Event", date: day, locationURL: "Sample Location")
-                        }
+                        onDayTapped(day)
                     }
                 }
             }
@@ -269,8 +252,6 @@ struct Calendar00View: View {
         return range.compactMap { calendar.date(byAdding: .day, value: $0 - 1, to: firstDay) }
     }
 }
-
-
 
 
 

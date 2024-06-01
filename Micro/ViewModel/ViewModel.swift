@@ -9,7 +9,6 @@ import SwiftUI
 import CoreLocation
 import Firebase
 
-
 class ViewModel: ObservableObject {
     @Published var jamaah: [Jamaah] = []
     @Published var peopleInfo: [peopleInfo] = []
@@ -59,7 +58,9 @@ class ViewModel: ObservableObject {
 
     func fetchBusyMembers(date: Date, groupID: String) {
         FirestoreManager.shared.fetchBusyMembers(date: date, groupID: groupID) { members in
-            self.busyMembers = members
+            DispatchQueue.main.async {
+                self.busyMembers = members
+            }
         }
     }
     
