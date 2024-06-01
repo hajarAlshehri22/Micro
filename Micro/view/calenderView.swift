@@ -97,7 +97,7 @@ struct CalendarPage: View {
     @State private var busyDays: [Date] = []
     @State private var currentDate: Date = Date()
     @State private var isSheetPresented: Bool = false
-    @State private var selectedDay: Date?
+    @State private var selectedDay: Date = Date()
     @State private var busyMembers: [peopleInfo] = []
     @State private var selectedEvent: Event?
     @State private var JamaahSheet: Bool = false
@@ -142,6 +142,7 @@ struct CalendarPage: View {
 
                     Calendar00View(
                         busyDays: $viewModel.busyDays,
+                        gatheringDays: $viewModel.gatheringDays, // Add this binding
                         currentDate: $viewModel.currentDate,
                         someDateDate: $someDateDate,
                         JamaahSheet: $JamaahSheet,
@@ -156,20 +157,14 @@ struct CalendarPage: View {
                                 selectedEvent = nil
                             }
                         },
-                        selectedJamaahDay: $selectedJamaahDay,
-                        selectedEvent: $selectedEvent
+                        selectedEvent: $selectedEvent,
+                        selectedJamaahDay: $selectedJamaahDay
                     )
                     .padding()
                     .sheet(isPresented: $isSheetPresented) {
-                        BusyMembers(
-                            busyMembers: $busyMembers
-                        )
+                        BusyMembers(selectedDate: $selectedDay, groupID: group.id ?? "")
+                            .environmentObject(viewModel)
                     }
-                    .presentationDetents([.medium])
-                    .sheet(item: $viewModel.selectedEvent) { event in
-                        eventDetailView(event: event)
-                    }
-                    .presentationDetents([.medium])
 
                     Divider()
                         .padding(.top)
@@ -179,12 +174,16 @@ struct CalendarPage: View {
                 .padding(.bottom, 50) // To give some space at the bottom
             }
             .onAppear {
+                guard let userId = Auth.auth().currentUser?.uid else { return }
+                viewModel.fetchCurrentUser(userID: userId)
                 viewModel.loadEvents(groupID: group.id ?? "")
+                viewModel.fetchBusyDays(groupID: group.id ?? "")
             }
             .accentColor(Color("SecB"))
         }
         .sheet(isPresented: $JamaahSheet, onDismiss: {
             viewModel.loadEvents(groupID: group.id ?? "")
+            viewModel.fetchBusyDays(groupID: group.id ?? "")
         }) {
             PickGatheringDay_Sheet(selectedDate: someDateDate, groupID: group.id ?? "")
                 .environmentObject(viewModel)
@@ -199,21 +198,28 @@ struct CalendarPage: View {
     }
 }
 
+
+
+
+
+
+
+
 struct Calendar00View: View {
     let calendar = Calendar.current
     @Binding var busyDays: [Date]
+    @Binding var gatheringDays: [Date]
     @Binding var currentDate: Date
     @Binding var someDateDate: Date
     @Binding var JamaahSheet: Bool
     var people: [peopleInfo]
     var onDayTapped: (Date) -> Void
-    @State private var isSheetPresented = false
-    @State private var isJamaahAdded: Bool = false
-    @State private var highlightedDay: Date?
-    @Binding var selectedJamaahDay: Date?
     @Binding var selectedEvent: Event?
-    @State private var busyMembers: [peopleInfo] = []
+    @Binding var selectedJamaahDay: Date?
+    @State private var isSheetPresented = false
     @State private var selectedDate: Date = Date()
+    @State private var busyMembers: [peopleInfo] = []
+    @State private var showBusyMembersSheet = false
 
     var body: some View {
         VStack {
@@ -230,22 +236,29 @@ struct Calendar00View: View {
             // Calendar days
             LazyVGrid(columns: Array(repeating: GridItem(), count: 7)) {
                 ForEach(monthDays(), id: \.self) { day in
+                    let isGathering = gatheringDays.contains(where: { Calendar.current.isDate($0, inSameDayAs: day) })
+                    let isBusy = busyDays.contains(where: { Calendar.current.isDate($0, inSameDayAs: day) })
                     DayView(
                         date: day,
                         isSelected: selectedDate == day,
-                        isBusy: busyDays.contains(day),
-                        isJamaahAdded: isJamaahAdded,
-                        highlightedDay: day,
-                        jamaahDay: selectedJamaahDay ?? Date(),
-                        allDates: busyDays
+                        isBusy: isBusy,
+                        isGathering: isGathering
                     )
                     .onTapGesture {
                         selectedDate = day
-                        onDayTapped(day)
-                        selectedEvent = Event(id: UUID().uuidString, name: "Sample Event", date: day, locationURL: "Sample Location")
+                        if isBusy {
+                            showBusyMembersSheet = true
+                        } else {
+                            onDayTapped(day)
+                            selectedEvent = Event(id: UUID().uuidString, name: "Sample Event", date: day, locationURL: "Sample Location")
+                        }
                     }
                 }
             }
+        }
+        .sheet(isPresented: $showBusyMembersSheet) {
+            BusyMembers(selectedDate: $selectedDate, groupID: "sampleGroupID")
+                .environmentObject(ViewModel()) // Replace with actual groupID and ViewModel
         }
     }
 
@@ -257,36 +270,43 @@ struct Calendar00View: View {
     }
 }
 
+
+
+
+
+
 struct DayView: View {
     let date: Date
     let isSelected: Bool
     let isBusy: Bool
-    let isJamaahAdded: Bool
-    var highlightedDay: Date?
-    var jamaahDay: Date
-    var allDates: [Date]
+    let isGathering: Bool
 
     var body: some View {
         VStack {
             Text("\(date.day)")
-                .foregroundColor(isBusy ? .gray : (isSelected ? .black : .primary))
+                .foregroundColor(isSelected ? .black : .primary)
                 .padding(8)
                 .background {
-                    if allDates.contains(where: { Calendar.current.isDate($0, inSameDayAs: date) }) {
+                    if isGathering {
                         Color("LightPurble")
+                    } else if isBusy {
+                        Color.gray
                     }
                 }
                 .clipShape(Circle())
                 .offset(y: -45)
 
-            Circle()
-                .foregroundColor(isBusy ? Color.gray : Color.purple)
-                .frame(width: 6, height: 6)
-                .padding(.top, -4)
-                .opacity(isBusy ? 1.0 : 0.0)
+            if isBusy || isGathering {
+                Circle()
+                    .foregroundColor(isBusy ? Color.gray : Color("LightPurble"))
+                    .frame(width: 6, height: 6)
+                    .padding(.top, -4)
+            }
         }
     }
 }
+
+
 
 extension Date {
     var startOfDay: Date {

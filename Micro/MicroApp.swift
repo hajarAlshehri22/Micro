@@ -21,6 +21,7 @@ struct MicroApp: App {
             SplashScreen()
                 .environment(\.layoutDirection, .rightToLeft)
                 .environmentObject(ViewModel())  
+                .preferredColorScheme(.light)
 
         }
         

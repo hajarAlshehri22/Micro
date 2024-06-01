@@ -195,34 +195,94 @@ class FirestoreManager {
     @Published var username: String = ""
     @Published var memojiName: String = ""
     
-    func fetchUserData(userId: String) {
-        FirestoreManager.shared.determineUserFlow(userId: userId) { isNewUser in
-            if !isNewUser {
-                let userDocRef = Firestore.firestore().collection("User").document(userId)
-                userDocRef.getDocument { (document, error) in
-                    if let document = document, document.exists {
-                        let data = document.data()
-                        self.name = data?["FullName"] as? String ?? ""
-                        self.username = data?["UserName"] as? String ?? ""
-                        self.memojiName = data?["Memoji"] as? String ?? ""
-                    } else {
-                        print("User document does not exist")
-                    }
-                }
+    func fetchUserData(userId: String, completion: @escaping (Result<(name: String, username: String, memoji: Int), Error>) -> Void) {
+        let userRef = db.collection("User").document(userId)
+        
+        userRef.getDocument { document, error in
+            if let document = document, document.exists {
+                let data = document.data()
+                let name = data?["FullName"] as? String ?? ""
+                let username = data?["UserName"] as? String ?? ""
+                let memoji = data?["Memoji"] as? Int ?? 1 // Ensure this is an Int
+                completion(.success((name, username, memoji)))
+            } else {
+                completion(.failure(error ?? NSError(domain: "", code: 404, userInfo: [NSLocalizedDescriptionKey: "User not found"])))
             }
         }
     }
-    
+
+    private let dateFormatter: DateFormatter = {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd"
+            return formatter
+        }()
+
+    func fetchBusyMembers(date: Date, groupID: String, completion: @escaping ([peopleInfo]) -> Void) {
+            let busyDayRef = db.collection("Group").document(groupID).collection("BusyDays")
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            let dateString = dateFormatter.string(from: date)
+            
+            busyDayRef.whereField("date", isEqualTo: dateString).getDocuments { snapshot, error in
+                guard let documents = snapshot?.documents, error == nil else {
+                    completion([])
+                    return
+                }
+                
+                var members: [peopleInfo] = []
+                let group = DispatchGroup()
+                
+                for document in documents {
+                    let data = document.data()
+                    if let userId = data["userID"] as? String {
+                        group.enter()
+                        self.fetchUserData(userId: userId) { result in
+                            switch result {
+                            case .success(let userData):
+                                let member = peopleInfo(id: userId, emoji: userData.memoji, name: userData.name)
+                                members.append(member)
+                            case .failure(let error):
+                                print("Error fetching user data: \(error.localizedDescription)")
+                            }
+                            group.leave()
+                        }
+                    }
+                }
+                
+                group.notify(queue: .main) {
+                    completion(members)
+                }
+            }
+        }
+
+        func addBusyDay(userId: String, date: Date, groupID: String, completion: @escaping (Error?) -> Void) {
+            let busyDayRef = db.collection("Group").document(groupID).collection("BusyDays").document("\(userId)_\(dateFormatter.string(from: date))")
+            let data: [String: Any] = [
+                "userID": userId,
+                "date": dateFormatter.string(from: date)
+            ]
+            busyDayRef.setData(data, completion: completion)
+        }
+
+        func fetchAllBusyDays(groupID: String, completion: @escaping ([Date]) -> Void) {
+            let busyDayRef = db.collection("Group").document(groupID).collection("BusyDays")
+            busyDayRef.getDocuments { snapshot, error in
+                guard let documents = snapshot?.documents, error == nil else {
+                    completion([])
+                    return
+                }
+                
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "yyyy-MM-dd"
+                let dates: [Date] = documents.compactMap {
+                    if let dateString = $0.data()["date"] as? String {
+                        return dateFormatter.date(from: dateString)
+                    }
+                    return nil
+                }
+                completion(dates)
+            }
+        }
     
 }
 
-
-
-
-//db.collection("your_collection").addDocument(data: yourData) { error in
-//    if let error = error {
-//        print("Error adding document: \(error)")
-//    } else {
-//        print("Document added with ID: \(ref.documentID)")
-//    }
-//}
